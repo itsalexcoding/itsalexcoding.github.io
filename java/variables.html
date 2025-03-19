@@ -3,12 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/prism.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AP CSA: Java</title>
 </head>
 <body>
   <!-- Common header loaded dynamically -->
   <div id="header-placeholder"></div>
+
+  <script src="../js/prism.js"></script>
 
   <!-- AP CSA Sub-Navigation for Java Topics -->
   <section class="ap-csa-sub-nav">
@@ -27,12 +30,61 @@
   <!-- Main Content Area -->
   <main>
     <h1>Variables and Data Types</h1>
+    <h2>Variables</h2>
     <p>
-      Welcome to the AP Computer Science A Java page. Here you'll find an overview of key Java topics covered in the AP CSA course. Use the menu above to navigate to detailed subpages that explore each subject in depth.
+      A <strong>variable</strong> is a named reference to a specific memory location,
+      storing data and subject to manipulated during execution.<br>
+      To properly utilize a variable, it must <em>declared</em>, then <em>initialized</em>.
     </p>
-    <!-- Additional content can go here -->
+    <h3>Declaration and Initialization</h3>
+    <p>
+      <strong>Declaration</strong> specifies the <em>data type</em> and <em>name</em> of a variable;
+      <strong>initialization</strong> either occurs during declaration or some time thereafter, 
+      and is the assignment of a value to the name of the variable.
+    </p>
+    <pre class="line-numbers" data-start="1">
+      <code class="language-java">int num; // The variable 'num' can store integer values.
+      num = 5; // 'num' is storing an integer value of '5' as a field.
+      char letter = 'a' // Declaration and initialization may occur on the same line.</code></pre>
   </main>
-
+  <h2>Data Type</h2>
+    <p>
+      The <strong>data type</strong> refers to the size and characteristics of the data
+      stored by a variable.
+    </p>
+  <h3>Primitive Data Type</h3>
+    <p>
+      A <strong>primitive</strong> data type represents fundamental values,
+      which are pre-defined by Java and are not further divisible (into a more elemental form).
+      Each keyword specifies the size and structural attributes of storable values, indicating the type of the variable.<br>
+      Due to their simple nature, primitive data types are <em>immutable</em>, have <em>no methods</em>that call upon them
+      and are quickly, temporarily stored and accessed in <em>stack memory</em>.<br>
+      There are eight primitive data types in Java:</p>
+      <ul>
+        <li><em>byte</em>, <em>short</em>, <em>int</em> and <em>long</em> represent integer values</li>
+        <li><em>float</em> and <em>double</em> represent floating points</li>
+        <li><em>boolean</em> represents true and false values</li>
+        <li><em>char</em> represents Unicode characters, escape sequences and Unicode sequences</li>
+      </ul>
+    <pre class="line-numbers" data-start="1">
+      <code class="language-java">/* All integers are signed two's complement. 
+      Yet, since JE 8, int and long may be unsigned:
+      - A new minimum of 0
+      - An increased maximum by a factor of 10
+      Each variable below are assigned their maximum signed value.*/
+      byte byteNum = 128; // 8 bits large; -128 to 127
+      short shortNum = 32767; // 16 bits; -32768 to 32767
+      int intNum = 2147483647; // 32 bits; -2^31 to 2^31-1 or 0 to 2^32-1
+      long longNum = 9223372036854775807; // 64 bits; -2^63 to 2^63-1 or 0 to 2^64-1
+      
+      /* Floating point values abide by the IEEE 754 standard, which includes:
+      - Signed and unsigned values
+      - Signed zeros
+      - Signed infinities
+      - Not-a-Number (Nan)*/
+      float floatNum = 3.4028235E38f; // 32 bits; 6-7 decimal digits
+      double doubleNum = 1.7976931348623157E308; // 64 bits; 15 decimal digits
+    </code></pre>
   <!-- Script to load the common header -->
   <script src="../js/loadHeader.js"></script>
 </body>
