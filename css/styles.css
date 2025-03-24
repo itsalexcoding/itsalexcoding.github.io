@@ -26,3 +26,7 @@ header {
     color: #333;
     font-weight: bold;
   }  
+
+  body {
+    padding: 50px;
+  }

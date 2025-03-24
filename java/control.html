@@ -1,33 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../css/styles.css" />
   <link rel="stylesheet" href="../css/prism.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="../js/prism.js"></script>
   <title>AP CSA: Java</title>
 </head>
+
 <body>
+  <!-- Load Headers -->
+  <div id="header-placeholder">
+    <script src="../js/loadHeader.js"></script>
+  </div>
+  <div id="subheader-placeholder">
+    <script src="../js/loadSubHeaderJava.js"></script>
+  </div>
 
-  <script src="../js/prism.js"></script>
-
-  <!-- Common header loaded dynamically -->
-  <div id="header-placeholder"></div>
-
-  <!-- AP CSA Sub-Navigation for Java Topics -->
-  <div id="subheader-placeholder"></div>
-
-  <!-- Main Content Area -->
+  <!-- Main -->
   <main>
-    <h1>Conditionals and Loops</h1>
-    <p>
-      Welcome to the AP Computer Science A Java page. Here you'll find an overview of key Java topics covered in the AP CSA course. Use the menu above to navigate to detailed subpages that explore each subject in depth.
-    </p>
-    <!-- Additional content can go here -->
-  </main>
 
-  <!-- Script to load the common header -->
-  <script src="../js/loadHeader.js"></script>
-  <script src="../js/loadSubHeaderJava.js"></script>
+    <!-- h1 -->
+    <h1>Control Flow</h1>
+
+    <!-- h2: Conditionals -->
+    <h2>Conditionals</h2>
+    <p>
+      A <strong>conditional</strong> evalutes some expression (the <em>condition</em>) and executes a particular block of code depending on the result of the evaluation.
+      Conditionals are the foundation of control flow; they allow a program to make decisions based on the current state of the program.<br>
+      Conditional statements (<code>if</code>, <code>if else</code>, <code>else</code>), switch statements (<code>switch</code>) and iteration statements (<code>for</code>, <code>while</code>, <code>do while</code>) all rely on conditionals.
+    </p>
+
+    <!-- if (true) -->
+    <pre>
+      <code class="language-java">if (true) {
+        System.out.println("This code block will always execute.");
+      }
+      /* This is the most elementary example of a conditional. */
+      /* The conditional statement (if) evalutes the literal expression (true). */
+      /* As the condition is true (perpetually), the code block always executes. */</code></pre>
+
+    <!-- h2: Conditional Statements -->
+    <h2>Conditional Statements</h2>
+    <p>
+      A <strong>conditional statement</strong> is a statement that evaluates a boolean expression and executes a block of code if the expression is true.
+    </p>
+
+    <!-- if-then -->
+    <p>
+      The most basic conditional statement is the <em><code>if</code> statement</em>.
+    </p>
+    <pre>
+        <code class="language-java">int num = 5;
+        if (num > 0){
+          System.out.println("The number is positive.");
+        }
+        /* As num is an integer values greater than 0, the code block executes. */
+        /* If num was lesser than 0, then the code block would not execute, effectively skipping the statement altogether. */</code></pre>
+
+    <!-- if-else -->
+    <p>
+      The <code>else</code> statement provides a default code block to execute if the boolean expression is false.
+      It only executes if all prior conditional statements are false, terminating all further evalutations.
+    </p>
+    <pre>
+        <code class="language-java">int num = -5;
+        if (num > 0){
+          System.out.println("The number is positive.");
+        } else {
+          System.out.println("The number is negative.");
+        }
+        /* As num is an integer value lesser than 0, the second code block executes. */
+        /* If num was greater than 0, then the first code block would execute, and the second would not. */</code></pre>
+
+    <!-- if-else-if -->
+    <p>
+      The <code>else if</code> statement provides an alternative (not default) code block to execute if prior conditional statements are false.
+      Yet, it allows for further evaluation past itself (if its boolean expression is false) until the else statement.
+      It functions identically to another conditional statement placed within an else statement (of the initial conditional statement), acting as a systanic construct that chains multiple conditions under a single conditional statement.
+    </p>
+    <pre>
+        <code class="language-java">int num = -5;
+        if (num > 0){
+          System.out.println("The number is positive.");
+        } else if (num < 0) {
+          System.out.println("The number is negative.");
+        } else {
+          System.out.println("The number is zero.");
+        } 
+        /* As num was less than 0, the second code block executes. */
+        /* If num was greater than 0, the first code block would execute */
+        /* Likewise, if num was 0, the third code block would executes */
+
+        if (num > 0){
+          System.out.println("The number is positive.");
+        } else {
+          if (num < 0) {
+            System.out.println("The number is negative.");
+          } else {
+            System.out.println("The number is zero.");
+          }
+        }
+        /* This code block is functionally identical to the previous code block. */</code></pre>
+    <p>
+      The <code>else if</code> statement is not required to have an <code>else</code> statement, though it is reccommended, as it provides a default code block to execute if all prior conditional statements are false.
+    </p>
+
+    <!-- h2: Switch Statements/Expressions -->
+    <h2>Switch Statements (case n:) and Expressions (case n ->)</h2>
+
+    <!-- case n: -->
+    <p>
+      A <strong>switch statement</strong> is a statement that equates cases to a single conditional.
+      The <code>switch</code> keyword evaluates only one conditional before attempting to equate the evaluation to a matching <code>case</code>.
+      If a matching case exists, then there exist three methods in executing the code block:
+    </p>
+    <ul>
+      <li><code>break</code>: This jump statement terminates the case, preventing fall-through.</li>
+      <li><code>return</code>: Another jump statement, this also terminates the case (eliminating the need for a break
+        statement).</li>
+    </ul>
+    <p>
+      If no matching case exists, then <code>default</code> is executed as a terminating case.
+    </p>
+    <pre><code class="language-java">String week = "WEEKEND";
+      switch (week) {
+        case "WEEKEND":
+          return "Yay! It's the weekend!";
+          break;
+        case "WEEKDAY":
+          return "Ugh... it's a weekday.";
+          break;
+        default:
+          return "Uh oh. We've broken the space-time continuum.";
+          break;
+      }
+    /* The condition week (assigned a String value of "WEEKEND") is equated to the case "WEEKEND" and the first code block executes. */
+    /* If week was assigned a value of "WEEKDAY", the second code block would execute. */
+    /* If week was assigned any other String value, then the third code block would execute. */</code></pre>
+
+    <!-- case n -> -->
+    <p>
+      A <strong>switch expression</strong> (made available since Java 14) may appear syntactically comparable to a
+      switch statement.
+      Only, instead of serving an explicit function, a switch expression computes and returns a value (as it is an
+      expression, not a statement).
+      It must be assigned to a type and variable (e.g. <code>String label = switch (x) {...}</code>) or immediately used
+      (<code>return switch (x) {...}</code>).
+      Additionally, a switch expression uses <code>-></code>, called <em>switch rule arrow</em> (uses the arrow token;
+      unrelated to the lambda: <code>-></code>).
+      A <em>switch rule</em> (<code>case n -></code>) directly associates a case with the corresponding value, including
+      <code>case null -></code> since Java 21 (assuming that the condition is is a type that accepts <code>null</code>).
+    </p>
+    <pre><code class="language-java">String week = "WEEKEND";
+        return switch (week) {
+        case "WEEKEND" -> "Yay! It's the weekend!";
+        case "WEEKDAY" -> "Ugh... it's a weekday.";
+        case null -> "Not very talkative, eh?"
+        default -> "Uh oh. We've broken the space-time continuum.";
+      }
+    /* The condition week is immediately matched with the first case, which returns the String value "Yay! It's the weekend!" */
+    /* This is different than a switch statement, which would print the value instead as part of its function. */</code></pre>
+
+    <!-- Iteration Statements -->
+    <h2>Iteration Statements</h2>
+    <p>
+      An <strong>iteration statement</strong> (commonly referred to as a <strong>loop</strong>.) is a statement that repeatedly evaluates an expression and executes code depending on the evaluation.
+      If the condition is <code>true</code> (or <code>false</code>), then code is sequentially executed until the condition evalutes to <code>false</code> or encounters a jump statement (<code>break</code>, <code>continue</code> and <code>return</code>).
+      Having an invariant is critical, as it formally verifies that the statement is properly behaved and inevitably terminates.
+    </p>
+
+    <!-- while -->
+  </main>
 </body>
+
 </html>
