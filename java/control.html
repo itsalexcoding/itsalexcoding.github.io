@@ -181,7 +181,7 @@
     <pre><code class="language-java">int num = 0;
       while (num <= 10) {
         num++;
-        System.out.println("This is the " + num + "th iteration.");
+        return num;
       }
     /* The while statement iterates so long as num is lesser than or equal to 10. */
     /* The inveriable num increases by increments of 1 per iteration until num is increases to 11, terminating the statement. */
@@ -195,20 +195,42 @@
     } // This while statement iterates indefinitely, as the condition is never dissatisfied. Currently, without a jump statement, this statement should never be utilized.</code></pre>
 
     <!-- do-while -->
-     <h3>Do-while Statement</h3>
-     <p>
+    <h3>Do-while Statement</h3>
+    <p>
       A <strong>do-while statement</strong> is a variation of the while statement.
       The statement iterates once (initially) without evaluating the condition; then, the statement behaves identically to a while statement.
-     </p>
-     <pre><code class="language-java">int num = 0;
-      do {
-        System.out.println("This code block always executes, regardless of the condition of the do-while statement.");
-      } while (num < 0) {
-        System.out.println("The number remains negative.");
-        num++;
-      }
-      /* The do keyword ensures that the first code block always executes, regardless of the value of num. */
-      /* As num is greater than 0, the while loop does not iterate. */</code></pre>
+    </p>
+    <pre><code class="language-java">int num = 0;
+    do {
+      System.out.println("This code block always executes, regardless of the condition of the do-while statement.");
+    } while (num < 0) {
+      System.out.println("The number remains negative.");
+      num++;
+    }
+    /* The do keyword ensures that the first code block always executes, regardless of the value of num. */
+    /* As num is greater than 0, the while loop does not iterate. */</code></pre>
+
+    <!-- for -->
+    <h3>For Statements</h3>
+    <p>
+      A <strong>for statement</strong> iterates a specified number of times.
+    </p>
+    <ol>
+      <li>Statement (initialization): <strong>int i = n1;</strong> determines a value or index that the for statement starts iterating from.</li>
+      <li>Condition: <strong>i ∘ n2;</strong> is some condition (comparison) that evalutes to some boolean value, either satisfying or disatisfying the for statement.</li>
+      <li>Increment: <strong>i∘∘</strong> is some increment that alters the invariable (i) to eventually disatisfy the for statement.</li>
+    </ol>
+    <pre><code class="language-java">for (int i = 0; i <= 10; i++) {
+      return i;
+    }
+    /* The for statement starts at 0 and increases i by 1 per iteration while i lesser than or equal to 10. */
+  
+    int i = 0;
+    while (i <= 10) {
+      return i;
+      i++;
+    }
+    /* This while statement is functionally identical to the for statement. */</code></pre>
   </main>
 </body>
 
