@@ -231,6 +231,23 @@
       i++;
     }
     /* This while statement is functionally identical to the for statement. */</code></pre>
+
+    <!-- for-each -->
+    <h3>For-each Statement</h3>
+    <p>
+      A <strong>for-each statement</strong> is a variation of the for statement exclusively used for arrays and lists (any object dependent on the <code>Iterable</code> interface).
+    </p>
+    <pre><code class="language-java">for (int i : arr) {
+      return i;
+    } 
+    /* Do note that no condition is explictly written, as the equivilent code: */
+  
+    Iterator<String> it = someList.iterator();
+      while (it.hasNext()) {
+        String item = it.next();
+        // ...
+    }
+    /* has the condition it.hasNext(); summarized, the for-each statement checks if there is another element to retrieve. */</code></pre>
   </main>
 </body>
 
