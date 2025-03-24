@@ -169,14 +169,14 @@
     <p>
       An <strong>iteration statement</strong> (commonly referred to as a <strong>loop</strong>.) is a statement that repeatedly evaluates an expression and executes code depending on the evaluation.
       If the condition is <code>true</code> (or <code>false</code>), then code is sequentially executed until the condition evalutes to a different logic value or encounters a jump statement (<code>break</code>, <code>continue</code> and <code>return</code>).
-      Having an invariant is critical, as it formally verifies that the statement is properly behaved and inevitably terminates.
+      Having a loop control variable is critical, as it formally verifies that the statement is properly behaved and inevitably terminates.
     </p>
 
     <!-- while -->
     <h3>While statement</h3>
     <p>
       A <strong>while statement</strong> or loop iterates until the condition evalutes to a dissatisfactory value, terminating and exiting the statement.
-      Especially within a while loop, there must exist a jump statement or an invariant must be altered in some way (often per iteration) such that the loop is inevitably terminates.
+      Especially within a while loop, there must exist a jump statement or the loop control variable eventually dissatisfies the condition, terminating the statement.
     </p>
     <pre><code class="language-java">int num = 0;
       while (num <= 10) {
@@ -184,7 +184,7 @@
         return num;
       }
     /* The while statement iterates so long as num is lesser than or equal to 10. */
-    /* The inveriable num increases by increments of 1 per iteration until num is increases to 11, terminating the statement. */
+    /* The loop control variable num increases by increments of 1 per iteration until num is increases to 11, terminating the statement. */
   
     while (num >= 10) {
       num--;
@@ -218,7 +218,7 @@
     <ol>
       <li>Statement (initialization): <strong>int i = n1;</strong> determines a value or index that the for statement starts iterating from.</li>
       <li>Condition: <strong>i ∘ n2;</strong> is some condition (comparison) that evalutes to some boolean value, either satisfying or disatisfying the for statement.</li>
-      <li>Increment: <strong>i∘∘</strong> is some increment that alters the invariable (i) to eventually disatisfy the for statement.</li>
+      <li>Increment: <strong>i∘∘</strong> is some increment that alters the loop control variable (i) to eventually disatisfy the for statement.</li>
     </ol>
     <pre><code class="language-java">for (int i = 0; i <= 10; i++) {
       return i;
@@ -248,6 +248,23 @@
         // ...
     }
     /* has the condition it.hasNext(); summarized, the for-each statement checks if there is another element to retrieve. */</code></pre>
+
+    <!-- Nested Statements-->
+    <h3>Nested Statements</h3>
+    <p>
+      <strong>Nested statements</strong> are iteration statements where the iteration and execution of a statement (outer statement) explicitly encompasses another (inner statement).
+      Each statement must utilize a unique statement control variable; errors concerning scope are thrown when a common loop control variable is shared between nested statements.
+      Loop control variables are communicable by encompassment; the variable of the outer statement is accessible by inner statements, yet the inverse cannot occur.
+      Efficient array traversal is completely dependent on properly nested statements (as unnecessary nesting impacts readibility and computational efficacy).
+    </p>
+    <pre><code class="language-java">int[][] matrix {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+      for (int i = 0; i < matrix.length; i++) {
+        for (int j = 0; j < matrix[i].length; j++) {
+          System.out.print(matrix[i][j] + " ");
+        }
+      }
+    /* In row-major traversal, the innner statement iterates until j dissatisfies the condition, causing the outer statement to iterate once. */
+    /* The inner statement may access both loop control variables; the outer statement (if it had) may only utilize i, as j is outside the scope of the inner statement. </code></pre>
   </main>
 </body>
 
