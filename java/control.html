@@ -168,11 +168,31 @@
     <h2>Iteration Statements</h2>
     <p>
       An <strong>iteration statement</strong> (commonly referred to as a <strong>loop</strong>.) is a statement that repeatedly evaluates an expression and executes code depending on the evaluation.
-      If the condition is <code>true</code> (or <code>false</code>), then code is sequentially executed until the condition evalutes to <code>false</code> or encounters a jump statement (<code>break</code>, <code>continue</code> and <code>return</code>).
+      If the condition is <code>true</code> (or <code>false</code>), then code is sequentially executed until the condition evalutes to a different logic value or encounters a jump statement (<code>break</code>, <code>continue</code> and <code>return</code>).
       Having an invariant is critical, as it formally verifies that the statement is properly behaved and inevitably terminates.
     </p>
 
     <!-- while -->
+    <h3>While statement</h3>
+    <p>
+      A <strong>while statement</strong> or loop iterates until the condition evalutes to a dissatisfactory value, terminating and exiting the statement.
+      Especially within a while loop, there must exist a jump statement or an invariant must be altered in some way (often per iteration) such that the loop is inevitably terminates.
+    </p>
+    <pre><code class="language-java">int num = 0;
+      while (num <= 10) {
+        num++;
+        System.out.println("This is the " + num + "th iteration.");
+      }
+    /* The while statement iterates so long as num is lesser than or equal to 10. */
+    /* The inveriable num increases by increments of 1 per iteration until num is increases to 11, terminating the statement. */
+  
+    while (num >= 10) {
+      num--;
+    } // This while statement never executes, as num (equal to 0) immediately dissatisfies the condition.
+  
+    while (num <= 10) {
+      num--;
+    } // This while statement iterates indefinitely, as the condition is never dissatisfied. Currently, without a jump statement, this statement should never be utilized.</code></pre>
   </main>
 </body>
 
