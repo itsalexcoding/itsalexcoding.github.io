@@ -193,6 +193,22 @@
     while (num <= 10) {
       num--;
     } // This while statement iterates indefinitely, as the condition is never dissatisfied. Currently, without a jump statement, this statement should never be utilized.</code></pre>
+
+    <!-- do-while -->
+     <h3>Do-while Statement</h3>
+     <p>
+      A <strong>do-while statement</strong> is a variation of the while statement.
+      The statement iterates once (initially) without evaluating the condition; then, the statement behaves identically to a while statement.
+     </p>
+     <pre><code class="language-java">int num = 0;
+      do {
+        System.out.println("This code block always executes, regardless of the condition of the do-while statement.");
+      } while (num < 0) {
+        System.out.println("The number remains negative.");
+        num++;
+      }
+      /* The do keyword ensures that the first code block always executes, regardless of the value of num. */
+      /* As num is greater than 0, the while loop does not iterate. */</code></pre>
   </main>
 </body>
 
