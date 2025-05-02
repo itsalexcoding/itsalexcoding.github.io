@@ -3,24 +3,500 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="../css/styles.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AP CSA: Java</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <title>Arrays</title>
 </head>
 
 <body>
-  <div id="header-placeholder">
-    <script src="../js/loadHeader.js"></script>
-  </div>
-  <div id="subheader-placeholder">
-    <script src="../js/loadSubHeaderJava.js"></script>
-  </div>
+  <section>
+    <div id="header">
+      <script src="../js/loadHeader.js" defer></script>
+    </div>
+    <div id="subheader">
+      <script src="../js/loadSubHeaderJava.js" defer></script>
+    </div>
+  </section>
+
   <main>
-    <h1>Arrays and ArrayLists</h1>
-    <p>
-      Welcome to the AP Computer Science A Java page. Here you'll find an overview of key Java topics covered in the AP
-      CSA course. Use the menu above to navigate to detailed subpages that explore each subject in depth.
-    </p>
+    <h1>Arrays and Lists</h1>
+
+    <section>
+      <h2>Arrays</h2>
+      <p>
+        <b>Arrays</b> are <i>container objects</i>, which hold a fixed number of elements (which is called
+        'length') that are of the same data type (includes <code>String</code>, <code>Object</code> and all primitive
+        types).
+        Providing more rapid access compared to <i>lists</i>, the elements of an array are stored contiguously in heap
+        memory.
+      </p>
+      <p>
+        An array must be declared with a data type before being instantiated, which is predominately accomplished in two
+        ways:
+      </p>
+      <ol>
+        <li>An array may be instantiated by using the 'new' keyword, which specifies a length and type.</li>
+        <li>Or an <i>initializer</i>; which is a comma-separated list of elements enclosed by braces.</li>
+      </ol>
+      <pre class="language-java"><code>
+        /* Via the 'new' keyword */
+        int[] arrNew = new int[5] 
+        /* 
+        The new array object, 'arrNew', may store 5 integers. 
+        At instantiation, all array elements are their default value.
+        Thus, all integers currently stored in 'arrNew' have a value of 0. 
+        */
+        
+
+        /* Via an initializer */
+        int[] arrInit = {0, 1, 2, 3, 4}
+        /* 
+        Here, the array object 'arrInit' is created with all elements immediately provided a value.
+        Java infers the type and length of initialized arrays from the type and number of elements provided.
+        
+        This is effectively identical to:
+
+        int[] arrInit = new int[]{0, 1, 2, 3, 4}
+        */
+      </code></pre>
+    </section>
+    <section>
+      <p>
+        The amount of memory consumed by an array is largely dependent on the specific example, and is a critical factor
+        in optimizing performance, as arrays can rapidly explode in size without caution.
+      </p>
+      <p>
+        At a minimum, an array is <b>16 bytes</b> in size:
+      </p>
+      <table>
+        <tr>
+          <th>Component</th>
+          <th>Size</th>
+          <th>Notes</th>
+        </tr>
+        <tr>
+          <td>Mark Word</td>
+          <td>8 bytes</td>
+          <td>Standard object header</td>
+        </tr>
+        <tr>
+          <td>Class pointer</td>
+          <td>4 bytes</td>
+          <td>Compressed oops (8 bytes if uncompressed)</td>
+        </tr>
+        <tr>
+          <td>Array length field</td>
+          <td>4 bytes</td>
+          <td>Stores the minimum length of 0 elements</td>
+        </tr>
+      </table>
+      <p>
+        This subtotal is then increased to account for the length and type of the array; each data type stored in the
+        array (except reference types, which store a reference to an address) multiplied by the length of the array.
+      </p>
+      <table>
+        <tr>
+          <th>Array type</th>
+          <th>Size per element</th>
+          <th>Size of a 5 element array</th>
+        </tr>
+        <tr>
+          <td><code>boolean[]</code>/<code>byte[]</code</td>
+          <td>1 byte (boolean may be dependent on context)</td>
+          <td>1 * 5 = 5 bytes</td>
+        </tr>
+        <tr>
+          <td><code>short[]</code>/<code>char[]</code></td>
+          <td>2 bytes</td>
+          <td>2 * 5 = 10 bytes</td>
+        </tr>
+        <tr>
+          <td><code>int[]</code>/<code>float[]</code></td>
+          <td>4 bytes</td>
+          <td>4 * 5 = 20 bytes</td>
+        </tr>
+        <tr>
+          <td><code>long[]</code>/<code>double[]</code></td>
+          <td>8 bytes</td>
+          <td>8 * 5 = 40 bytes</td>
+        </tr>
+        <tr>
+          <td><code>Object[]</code>/<code>String[]</code></td>
+          <td>4 bytes (or 8 bytes if uncompressed)</td>
+          <td>4 * 5 = 20 bytes or 8 * 5 = 40 bytes</td>
+        </tr>
+      </table>
+      <p>
+        Additionally, as the JVM aligns objects on 8-byte or 16-byte boundaries, so any length not a multiple of 8 is
+        <b>padded</b> (including primitive data types).
+      </p>
+      <pre class="language-java"><code>
+        String[] arrStr = new String[3];
+        /*
+        Header: 16 bytes
+        Data: 3 elements * 4 bytes = 12 bytes
+        Padding: 28 bytes is padded to make 32 bytes
+        */
+
+        byte[] arrInt = {0, 1, 2, 3, 4};
+        /*
+        Header: 16 bytes
+        Data: 5 elements * 1 byte = 5 bytes
+        Padding: 5 bytes is padded to make 8 bytes
+        */
+      </code></pre>
+    </section>
+    <section>
+      <h3></h3>
+      <p>
+        <b>Population</b> refers to the insertion, replacement or augmentation of array or list elements; often
+        accomplished via iteration statements for efficiency and consistency.
+      </p>
+    </section>
+    <section>
+      <h3>Traversing and Populating Arrays</h3>
+      <p>
+        <b>Traversal</b> refers to the accessing of array or list elements via iteration statements and is essential for
+        efficiently utilizing arrays as container objects.
+      </p>
+      <pre class="language-java"><code>
+        /* Arrays */
+        int[] arrTraversal = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        char[] arrNestedLoop = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
+
+        /* While statement */
+        public int whileTraverse (int[] arr) {
+          int i = 0;
+          while (i < arr.length) {
+            System.out.println(arr[i]);
+          }
+        }
+        
+        /* For statement */
+        public void forTraverse (int[] arr) {
+          for (int i = 0; i < arr.length; i++) {
+            System.out.println(arr[i]);
+          }
+        }
+        
+        /* For-each statement */
+        public void forEachTraverse (int[] arr) {
+          for (int i : arr) {
+            System.out.println(arr[i]);
+          }
+        }
+        
+        /* The three methods return each index of 'int[] arr'. */
+
+        /* Nested for statements */
+        public void nestedForEacgStatements (char[] arrChar, int[] arrInt) {
+          for (int i = 0; i < arrChar.length; i++) {
+            System.out.println(arrChar[i])
+            for (int j = 0; j <= arrChar[i]; j++) {
+              System.out.println(j + " ");
+            }
+          }
+        }
+
+        /* The method above traverses and prints the entirety of 'charInt' for every element of 'arrChar'. */
+      </code></pre>
+      <p>
+        <b>Population</b> refers to the replacement of default (often after instantiation) or existing elements
+        (as part of a program), typically by iteration statements for efficiency and consistency. Summarily,
+        population is a practical implementation of traversal.
+      </p>
+      <pre class="language-java"><code>
+        String[] perfectPangram = new String[8]; // *A pangram with each letter used only once.
+        int[] arrEvenOrOdd = new int[10];
+
+        /* Without iteration */
+        perfectPangram[0] = "Mr."
+        perfectPangram[1] = "Jock,"
+        perfectPangram[2] = "TV"
+        perfectPangram[3] = "quiz"
+        perfectPangram[4] = "Ph.D.,"
+        perfectPangram[5] = "bags"
+        perfectPangram[6] = "few"
+        perfectPangram[7] = "lynx."
+
+        /* With a for statement */
+        public void evenPopulation (int[] arr) {
+          int evenNum = 0;
+          for (int i = 0; i < arr.length; i++) {
+            evenNum = (i + 1) * 2;
+            System.out.println(evenNum);
+          }
+        }
+
+        /* 
+        Population may also refer to augmentations of an existing array. 
+        For example, 'evenToOddPopulation' converts even numbers to odd numbers.
+        */
+        public void evenToOddPopulation (int[] arr) {
+          int oddNum = 0;
+          for (int i = 0; i < arr.length; i++) {
+            oddNum = i + 1;
+            System.out.println(oddNum);
+          }
+        }
+      </code></pre>
+    </section>
+    <section>
+      <h2>ArrayLists</h2>
+      <p>
+        <b>ArrayLists</b> are implementations of the interface <code>List&lt;E&gt;</code> and behave as a <i>resizable
+          list</i>, which is distinct from an array.
+        Summarily, lists are a class of the <i>collection</i> interface, whereby elements are stored and manipulated by
+        an extensive selection of methods: <code>ArrayList</code> in particular is a popular example of
+        collection, and is particularly versatile, straightforward and flexible.
+        In fact, ArrayLists were purposefully developed for swift insertion, deletion and iteration compared to other
+        collections.
+      </p>
+      <p>
+        <code>ArrayList</code>, as a collection, belongs to the <b>Java Collections Framework</b>, a library that
+        contains common collections.
+        As such, collections (including <code>ArrayList</code>) are not native to Java and must be imported:
+        <code>import java.util.ArrayList</code> for access and usage.
+        Once imported, ArrayLists may be declared and instantiated.
+      </p>
+      <code>
+        /* Declaration */
+        List&lt;String&gt; AL1;       // Often preferred, as this is programming to an interface.
+        ArrayList&lt;String&gt; AL2;  // Useful: If using methods specific to ArrayList.
+
+        /* Instantiation */
+        AL1 = new ArrayList&lt;&gt;()     // Without initial capacity.
+        AL2 = new ArrayList&lt;&gt;(100)  // With initial capacity, which improves performance.
+
+        /* Instantiation with an explicit type */
+        ArrayList&lt;String&gt; AL3 = new ArrayList&lt;String&gt;() // Legacy format, though may help in niche applications.
+
+        /* Instantiation with List.of(...) */
+        List&lt;String&gt; listOf = List.of("List.of()", "is", "typically", "immutable.");
+        ArrayList&lt;String&gt; AL4 = new ArrayList&lt;&gt;(List.of("Yet", "wrapping", "List.of()", "makes", "it", "mutable."));
+        // Since Java 7, List.of() can be wrapped by a new ArrayList to produce a mutable copy.
+        // Wrapping List.of() allows for immediate initialization of elements.
+      </code>
+    </section>
+    <section>
+      <p>
+        Like all other collections, ArrayLists are primarily intended to store objects, and may store wrapper classes
+        of primitive types, though cannot directly store primitive tyres.
+      </p>
+      <pre class="language-java"><code>
+        List&lt;int&gt; error = new ArrayList&lt;&gt;();        // This throws an error.
+        List&lt;Integer&gt; correct = new ArrayList&lt;&gt;();  // This is correct, and now can store int values as Integer objects.
+      </code></pre>
+    </section>
+    <section>
+      <h3>ArrayList Methods</h3>
+      <p>
+        <code>ArrayList</code>> methods are critical to the practical, efficient utilization of ArrayLists.
+        Common methods are:
+      </p>
+      <table>
+        <tr>
+          <th>Method</th>
+          <th>Functionality</th>
+          <th>Parameters</th>
+          <th>Notes</th>
+        </tr>
+        <tr>
+          <td><code>AL.add(E element)</code></td>
+          <td>Appends an element to the end of the ArrayList</td>
+          <td>
+            <ol>
+              <li>E element: The element to be appended.</li>
+            </ol>
+          </td>
+        </tr>
+        <tr>
+          <td><code>AL.add(int index, E element)</code></td>
+          <td>Inserts an element into the ArrayList at a specified index.</td>
+          <td>
+            <ol>
+              <li>int index: The index that the inserted element will occupy.</li>
+              <li>E element: The element to be inserted.</li>
+            </ol>
+          </td>
+          <td>Pushes all elements (to the right of the index) one to the right.</td>
+        </tr>
+        <tr>
+          <td><code>AL.set(int index, E element)</code></td>
+          <td>Replaces an element with a new element at a specified index.</td>
+          <td>
+            <ol>
+              <li>int index: The index that the new element will occupy.</li>
+              <li>E element: The new element to replace the existing element.</li>
+            </ol>
+          </td>
+        </tr>
+        <tr>
+          <td><code>AL.get(int index, E element)</code></td>
+          <td>Accesses an element.</td>
+          <td>
+            <ol>
+              <li>int index: The index of the accessed element.</li>
+              <li>E element: The element to be accessed.</li>
+            </ol>
+          </td>
+        </tr>
+        <tr>
+          <td><code>AL.remove(int index)</code></td>
+          <td>Removes the element at the specified index.</td>
+          <td>
+            <ol>
+              <li>int index: The index of the element to be removed.</li>
+            </ol>
+          </td>
+          <td>Pushes all elements (to the right of the index) one to the left.</td>
+        </tr>
+        <tr>
+          <td><code>AL.clear()</code></td>
+          <td>Removes all elements in an ArrayList.</td>
+          <td>None</td>
+          <td>0 elements remain thereafter; indicies reset.</td>
+        </tr>
+        <tr>
+          <td><code>AL.size()</code></td>
+          <td>Counts the number of elements in an ArrayList</td>
+          <td>None</td>
+        </tr>
+        <td><code>Collection.sort(List&lt;E&gt; list)</code></td>
+        <td>Sorts collection elements alphabetically, numerically or logically.</td>
+        <td>None</td>
+        <td>
+          <ol>
+            <li>Numbers: Least to geatest.</li>
+            <li>Characters: Least to greatest (decimalized code point).</li>
+            <li>Boolean logic: <code>false</code>, then <code>true</code>.</li>
+          </ol>
+        </td>
+      </table>
+    </section>
+    <section>
+      <h3>Traversing and Populating ArrayLists</h3>
+      <p>
+        Conceptually, the traversal and population of ArrayLists is comparable to arrays or other collections.
+        Yet, the dynamic behaviour of ArrayLists is exceptionally prone to out-of-bound errors with improper traversal.
+        If elements are inserted, removed and modified during execution, then loop control variables become unreliable
+        without correction.
+      </p>
+      <pre class="language-java"><code>
+import java.util.ArrayList;
+import java.util.Random;
+
+public class RandomArrayList {
+
+    /**
+     * Performs random insertions and removals on the list.
+     * At each iteration, one of the following occurs:
+     *   0: Insert a random integer at a random index (if not at capacity)
+     *   1: Remove an element at a random index (if the list is non-empty)
+     *   2: Do nothing.
+     * Then, prints the element at the current index.
+     * The loop continues until the list is empty.
+     */
+    public void RandomInsertAndRemoval(ArrayList<Integer> list) {
+        // Check that the list is not initially empty.
+        if (list == null || list.isEmpty()) {
+            System.out.println("List is empty; nothing to process.");
+            return;
+        }/
+        
+        Random rand = new Random();
+        int i = 0;  // Pointer that indicates a “current” index
+        
+        while (!list.isEmpty()) {
+            // Pick one of three operations: 0 = insertion, 1 = removal, 2 = do nothing.
+            int op = rand.nextInt(3);
+            
+            switch(op) {
+                case 0: // Insertion
+                    // Check that inserting is allowed (list size is less than max capacity)
+                    if (list.size() < Integer.MAX_VALUE) {
+                        // Generate a random integer (for demonstration, we choose within 0–99)
+                        int randomValue = rand.nextInt(100);
+                        // Pick a random index for insertion (0 to list.size() inclusive)
+                        int randomIndex = rand.nextInt(list.size() + 1);
+                        list.add(randomIndex, randomValue);
+                        System.out.println("Inserted " + randomValue + " at index " + randomIndex);
+                        
+                        // If the insertion occurs at or before the current index,
+                        // adjust the pointer so that we don’t accidentally skip the element.
+                        if (randomIndex <= i) {
+                            i++;
+                        }
+                    } else {
+                        System.out.println("Maximum capacity reached; insertion skipped.");
+                    }
+                    break;
+                    
+                case 1: // Removal
+                    if (!list.isEmpty()) {
+                        // Pick a random index in the current list.
+                        int randomIndex = rand.nextInt(list.size());
+                        int removedValue = list.remove(randomIndex);
+                        System.out.println("Removed " + removedValue + " from index " + randomIndex);
+                        
+                        // If an element is removed before our current pointer,
+                        // decrement the pointer so the intended element isn’t skipped.
+                        if (randomIndex < i) {
+                            i--;
+                        }
+                    } else {
+                        System.out.println("List is empty; removal skipped.");
+                    }
+                    break;
+                    
+                case 2: // No operation
+                    System.out.println("No operation performed.");
+                    break;
+            }
+            
+            // Check that the list is still non-empty before printing.
+            if (list.isEmpty()) {
+                break;
+            }
+            
+            // To ensure our index pointer is valid, wrap it around if necessary.
+            if (i >= list.size()) {
+                i = 0;
+            }
+            
+            // Print the current element at index i.
+            System.out.println("Current element at index " + i + ": " + list.get(i));
+            
+            // Move the pointer forward; wrap to the beginning if we exceed the current size.
+            i++;
+            if (i >= list.size()) {
+                i = 0;
+            }
+        }
+        System.out.println("List is now empty. Operations completed.");
+    }
+    
+    /**
+     * The main method creates and populates an ArrayList<Integer>,
+     * then passes it to RandomInsertAndRemoval.
+     */
+    public static void main(String[] args) {
+        // Instantiate an ArrayList without a pre-determined size.
+        ArrayList<Integer> list = new ArrayList<>();
+        // Populate the list with some initial integers to ensure it is non-empty.
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(40);
+        list.add(50);
+        
+        // Create an instance of RandomArrayList and call the method.
+        RandomArrayList ra = new RandomArrayList();
+        ra.RandomInsertAndRemoval(list);
+    }
+}
+      </code></pre>
+    </section>
   </main>
 </body>
 

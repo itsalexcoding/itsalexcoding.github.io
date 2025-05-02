@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then(data => {
             console.log("Header successfully loaded"); // Debugging
-            document.getElementById("header-placeholder").innerHTML = data;
+            document.getElementById("header").innerHTML = data;
         })
         .catch(error => {
             console.error("Error loading header:", error);

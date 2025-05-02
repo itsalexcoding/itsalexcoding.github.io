@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AP CSA: Java - Inheritance and Polymorphism</title>
+    <link rel="stylesheet" href="../highlight/styles/default.css">
+    <script src="../highlight/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+    <div id="header">
+        <script src="../js/loadHeader.js"></script>
+    </div>
+    <div id="subheader">
+        <script src="../js/loadSubHeader.js"></script>
+    </div>
+
+    <section id="inheritance">
+        <!-- === Inheritance Start === -->
+
+        <h1>Inheritance</h1>
+        <p>
+            Inheritance is a critical facet of <i>object-oriented programming</i>, permitting various classes to
+            <i>inherit</i> (access and override) the members of an overarching class.
+
+            The relationship between the overarching class (<b>superclass</b>; <b>parent class</b>) and classes that
+            inherit from it (<b>subclass</b>; <b>child class</b>) is an example of <i>is-a</i> relationship, where the
+            subclass is a specialized version of the superclass.
+
+            A subclass may only inherit from <i>one</i> superclass, yet a superclass may have <i>infinite</i> children
+            classes (memory, storage and practicality permitting, of course).
+
+            Using the <code>super</code> keyword, the subclass may access all <code>public</code> and
+            <code>protected</code> members of the superclass (if the subclass and superclass are within the same
+            package), but not the <code>private</code> members of the superclass (yet, private members may be indirectly
+            accessed via a <code>public</code> or <code>protected</code> accessor or mutator).
+
+            A superclass cannot access the members of a subclass as it does not know of its existence.
+            Conversely, a subclass may have members that are not present in the superclass.
+
+            The subclass may also override the superclass's methods, which is a vital aspect of <i>polymorphism</i>
+            (polymorphism section further below).
+        </p>
+
+        <!-- === Bicycle Example Start === -->
+        <pre class="language-java"><code>
+            package inheritance;
+
+            /* Superclass */
+            class Bicycle {
+                /* While private members are not inherited, they may be accessed via public or protected methods */
+                private int gear;
+                private int speed;
+
+                /* Constructor */
+                public Bicycle(int gear, int speed) {
+                    this.gear = gear;
+                    this.speed = speed;
+                }
+
+                /* Superclass methods */
+                public void applyBrakes(int decrement) {
+                    speed -= decrement;
+                }
+
+                public void speedUp(int increment) {
+                    speed += increment;
+                }
+
+                /* Accessor and mutator methods */
+                public int getGear() {
+                    return gear;
+                }
+
+                public int getSpeed() {
+                    return speed;
+                }
+
+                public void setGear(int gear) {
+                    this.gear = gear;
+                }
+
+                public void setSpeed(int speed) {
+                    this.speed = speed;
+                }
+
+                /* toString method */
+                public String toString() {
+                    return "Gear: " + gear + "\nSpeed: " + speed;
+                }
+            }
+
+            /* Subclass: E-Bicycle */
+            class EBicycle extends Bicycle {
+                private int batteryCapacity;
+
+                /* Constructor */
+                /* EBicycle constructor invokes the superclass constructor to initialize gear and speed
+                before initializing battery capacity. */
+                public EBicycle(int gear, int speed, int batteryCapacity) {
+                    super(gear, speed);
+                    this.batteryCapacity = batteryCapacity;
+                }
+
+                /* The @Override annotation notifies the compiler that this method is overriding a superclass method. */
+                /* Whilst not mandatory, @Override is essential for clarity of code and debugging.                    */
+                /* It forces the compiler to ensure the method is indeed overriding a superclass method.              */
+                /* If the method is not overriding a superclass method, the compiler will throw an error.             */
+                /* Without @Override, it is probable the program will encounter a runtime error.                      */
+                @Override 
+                public void applyBrakes(int decrement) {
+                    super.applyBrakes(decrement); // Call the superclass method
+                    System.out.println("Brakes applied to E-Bicycle.");
+                }
+
+                @Override
+                public void speedUp(int increment) {
+                    super.speedUp(increment);
+                    System.out.println("Speeding up E-Bicycle.");
+                }
+
+                /* Accessor method for battery capacity             */
+                /* This method is not inherited from the superclass */
+                /* It is specific to the EBicycle subclass          */
+                public int getBatteryCapacity() {
+                    return batteryCapacity;
+                }
+
+                /* Overrides the superclass toString() method to include battery capacity */
+                @Override
+                public String toString() {
+                    return super.toString() + "\nBattery Capacity: " + batteryCapacity;
+                }
+            }
+
+            /* Subclass: Performance E-Bicycle */
+            class PerformanceEBicycle extends EBicycle {
+                private String travelModes;
+
+                /* Constructor                                                                                                     */
+                /* PerformanceEBicycle constructor invokes the EBicycle constructor to initialize gear, speed and batteryCapacity
+                before initializing travel modes.                                                                                  */
+                /* (In turn, the EBicycle constructor invokes the superclass constructor to initialize gear and speed)             */
+                /* Therefore, the call chain is: PerformanceEBicycle -> EBicycle -> Bicycle                                        */
+                public PerformanceEBicycle(int gear, int speed, int batteryCapacity, String travelModes) {
+                    super(gear, speed, batteryCapacity); // Call the superclass constructor
+                    this.travelModes = travelModes;
+                }
+
+                @Override
+                public void applyBrakes(int decrement) {
+                    super.applyBrakes(decrement); 
+                    System.out.println("Brakes applied to Performance E-Bicycle.");
+                }
+
+                @Override
+                public void speedUp(int increment) {
+                    super.speedUp(increment); 
+                    System.out.println("Speeding up Performance E-Bicycle.");
+                }
+
+                @Override
+                public String getTravelModes() {
+                    return travelModes;
+                }
+
+                /* Overrides the EBicycle toString() method to include travel modes */
+                @Override
+                public String toString() {
+                    return super.toString() + "\nTravel Modes: " + travelModes;
+                }
+            }
+
+            public class Main {
+                public static void main(String[] args) {
+                    Bicycle bike = new Bicycle(5, 20);
+                    EBicycle eBike = new EBicycle(7, 25, 100);
+                    PerformanceEBicycle perfEBike = new PerformanceEBicycle(10, 30, 150, "Eco, Sport, Turbo");
+
+                    System.out.println("Bicycle Details:");
+                    System.out.println(bike.toString());
+
+                    System.out.println("\nE-Bicycle Details:");
+                    System.out.println(eBike.toString());
+
+                    System.out.println("\nPerformance E-Bicycle Details:");
+                    System.out.println(perfEBike.toString());
+                }
+            }
+
+            /* Output */
+            /*
+            Bicycle Details:
+            Gear: 5
+            Speed: 20
+
+            E-Bicycle Details:
+            Gear: 7
+            Speed: 25
+            Battery Capacity: 100
+
+            Performance E-Bicycle Details:
+            Gear: 10
+            Speed: 30
+            Battery Capacity: 150
+            Travel Modes: Eco, Sport, Turbo
+            */
+        </code></pre>
+        <!-- === Bicycle Example End === -->
+
+        <p>
+            Instance members of a superclass may be overriden by subclasses, yet static members cannot be overridden.
+            Instead, static members are <i>hidden</i> by subclasses. As static members pertain to the class itself, and
+            not to instances of the class, they are not inherited by subclasses and are not polymorphic. To avoid
+            confusion, static methods and fields are accessed using the class name, not the name of the instance.
+        </p>
+
+        <!-- === Static Members Start === -->
+        <pre class="language-java"><code>
+            /* Superclass */
+            class Superclass {
+                static int staticField = 10; // Static field
+
+                static void staticMethod() { // Static method
+                    System.out.println("Static method in Superclass");
+                }
+
+                void instanceMethod() { // Instance method
+                    System.out.println("Instance method in Superclass");
+                }
+            }
+
+            /* Subclass */
+            class Subclass extends Superclass {
+                static int staticField = 20; // Static field (hides the superclass static field)
+
+                /* As static methods do not override superclass methods, 
+                using @Override will throw a compile-time error. */
+                static void staticMethod() { // Static method (hides the superclass static method)
+                    System.out.println("Static method in Subclass");
+                }
+
+                @Override
+                void instanceMethod() {
+                    System.out.println("Instance method in Subclass");
+                }
+            }
+
+            /* Main */
+            public class Main {
+                public static void main(String[] args) {
+                    Superclass obj = new Subclass();
+                    Subclass obj2 = new Subclass();
+
+                    System.out.println("Static field in Superclass: " + Superclass.staticField); // 10
+                    System.out.println("Static field in Subclass: " + Subclass.staticField);     // 20
+
+                    Superclass.staticMethod(); // Static method in Superclass
+                    Subclass.staticMethod();   // Static method in Subclass
+
+                    /* While accessing or invoking a static member using an instance's name does not throw a compile-time error,
+                    static methods should be invoked using the class name to avoid confusion. */
+                    System.out.println("Static method in Superclass: " + obj.staticField);  // 10
+                    System.out.println("Static method in Subclass: " + obj2.staticField);   // 20
+                    
+                    obj.staticMethod();    // Static method in Superclass (not overridden)
+                    obj2.staticMethod();   // Static method in Subclass (not overridden)
+
+                    obj.instanceMethod();  // Instance method in Subclass
+                    obj2.instanceMethod(); // Instance method in Subclass
+                }
+            }
+
+            /* Output */
+            /*
+            Static field in Superclass: 10
+            Static field in Subclass: 20
+            Static method in Superclass
+            Static method in Subclass
+            Static method in Superclass
+            Static method in Subclass
+            Instance method in Subclass
+            Instance method in Subclass
+            */
+        </code></pre>
+        <!-- === Static Members End === -->
+
+        <p>
+            <code>instanceof</code> is a keyword that checks if an object is an instance of a specific class. Within
+            inheritance, it is used to determine if an object is an instance of a superclass or subclass and prevents
+            runtime exceptions and errors when invoking methods or accessing members of a class, such as
+            <code>ClassCastException</code>. 
+            The capability to check the type of an object at runtime is a useful
+            feature within polymorphism. Additionally, whilst static members are not polymorphic and are bound to
+            compile-time, <code>instanceof</code> regardless checks the runtime type of an object before invoking a
+            static method.
+            <code>instanceof</code> returns <code>true</code> if the object is an
+            instance of the specified class. It returns <code>false</code> otherwise.
+        </p>
+
+        <!-- === instanceof Example Start === -->
+        <pre class="language-java"><code>
+            /* Superclass */
+            class Superclass {
+                static void display() {
+                    System.out.println("Superclass method");
+                }
+            }
+
+            /* Subclass */
+            class Subclass extends Superclass {
+                static void display() {
+                    System.out.println("Subclass method");
+                }
+            }
+
+            /* Main */
+            public class Main {
+                Superclass obj = new Subclass(); 
+                Superclass obj2 = new Superclass();
+
+                if (obj instanceof Subclass check) { // true
+                    Subclass.display(); // Subclass method
+                } else {
+                    Superclass.display(); // Superclass method
+                }
+
+                if (obj2 instanceof Subclass check) { // false
+                    Subclass.display(); // Subclass method
+                } else {
+                    Superclass.display(); // Superclass method
+                }
+            }
+
+            /* Output */
+            /*
+            Subclass method
+            Superclass method
+            */
+        </code></pre>
+        <!-- === Inhertiance End === -->
+    </section>
+</body>
+
+</html>

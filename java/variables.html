@@ -3,34 +3,244 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="../css/styles.css" />
-  <link rel="stylesheet" href="../css/prism.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AP CSA: Java</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <title>Variables</title>
 </head>
 
 <body>
-  <!-- Common header loaded dynamically -->
-  <div id="header-placeholder"></div>
+  <!-- Load Navigation -->
+  <div id="header">
+    <script src="../js/loadHeader.js"></script>
+  </div>
+  <div id="subheader">
+    <script src="../js/loadSubHeaderJava.js"></script>
+  </div>
 
-  <!-- AP CSA Sub-Navigation for Java Topics -->
-  <div id="subheader-placeholder"></div>
-
-  <script src="/js/prism.js"></script>
-
-  <!-- Main Content Area -->
+  <!-- Main -->
   <main>
+
+    <!-- h1 -->
     <h1>Variables and Data Types</h1>
+
+    <!-- h2: Variables -->
     <h2>Variables</h2>
     <p>
-      A <strong>variable</strong> is a named reference to a specific memory location,
+      A <b>variable</b> is an identifier (name) binded to a location in memory that stores a typed value,
+      governed by scope, lifetime and contextually exhibits mutability or immutability. <i>Declaration</i> specifies
+      the type of data a variable may store, at which point, the variable may be <i>assigned</i> data (that complies
+      with the type of the variable).
+    </p>
+    <pre class="line-numbers" data-start="1">
+      <code class="language-java">int integer;
+      integer = 1;
+      char character = 'a';
+      /* The variable 'integer' was at first declared with an identifier and the data type 'int', meaning it stores integer values */
+      /* On the following line, 'interger' is assigned the numberic value of '1'                                                   */
+      /* The variable 'character' is declared and assigned a char value of 'a' on the same line                                    */</code></pre>
+
+
+    <!-- h2: Data Type -->
+    <h2>Data Type</h2>
+    <p>
+      <b>Data type</b> specifies the nature of the data that a variable may store, directly determining which
+      operations may be logically performed on variables and permits safe, reliable handling.
+    </p>
+
+    <!-- h3: Primitive Data Types -->
+    <h3>Primitive Data Types</h3>
+    <p>
+      A <b>primitive data type</b> is a representation of the most fundamental forms of data typically supported by
+      Java, including: Integers; rational and irrational numbers; Unicode characters and boolean logic.
+      Primitive data types are immutable, variables assigned primitive data store required bits rather than an address,
+      pertains to no method and are typically stored in stack memory (if not a field of an object or a class).
+
+      <br>
+
+      Java utilizes <i>two's complement</i>, <i>IEEE 754</i> and <i>UTF-16</i> to standardize the handling of various
+      types of primitive data (except for boolean logic, which is reliant on context of its implementation).
+    </p>
+
+    <ul>
+      <li>Two's complement: Responsible for the signage, range and arithmetic of integers and handles pertinant
+        exceptions and errors.</li>
+      <li>IEEE 754: Responsible for the signage, range and arithmetic of <i>floating-point values</i> (or <i>decimal
+          values</i>); including positive and negative zeros and infinities, and denormalized and subnormal numbers.
+      </li>
+      <li>UTF-16: Supports all valid code points in Unicode, including the BMP and supports low and high surrogacy.</li>
+    </ul>
+
+    <br>
+
+
+    Integers have a simple construction: a <i>sign bit</i> that controls signage (1 for negative integers; 0 for
+    positive integers) followed by the rest of the bits (perhaps best referred to as the <i>integer body</i>, as there
+    is no standardized terminology).
+
+    To represent rational and irrational numbers, Java utilizes <i>IEEE Std. 754</i>, which defines formats for
+    <i>single-precision</i> and <i>double-precision</i> numbers, floating-point arithmetic, denormalized and subnormal
+    numbers and handles exceptional cases (Nan; positive and negative zeros; and positive and negative infinities).
+
+
+
+    Floating-point values are more complicated: A <i>sign bit</i>, <i>exponent</i> bits that determine the magnitude
+    of a floating-point value and <i>signficiand</i> (or <i>mantissa</i>) bits that are the signficiant digits of the
+    floating-point value.
+
+    <h4>Integers: Byte, Short, Int and Long</h4>
+    <p>
+      Two's complement efficiently makes possible: Addition, subtraction (technically, addition of a negative value) and
+      negation.
+    </p>
+    <pre>
+      <code class="language-non">Addition [a + b] and subtraction [a + (-b)]:
+        00000101  =  5
+      + 11111100  = -4
+      -----------
+        00000001  =  1
+
+      Negation (~a + 1):
+       ~00000101 = 11111010
+      +        1
+      -----------
+        11111011  = -5</code></pre>
+
+    <p>
+      <i>Signage</i> is a critical facet of two's complement, as it permits bit-fixed arithmetic.
+    </p>
+    <pre>
+      <code class="language-non">Addition [a + b] and subtraction [a + (-b)]:
+        00000101  =  5
+      + 11111100  = -4
+      -----------
+        00000001  =  1
+
+      Negation (~a + 1):
+       ~00000101 =   11111010
+                   +        1
+                   ----------
+                     11111011  = -5</code></pre>
+    <p>
+      All two's complement integers exhibit a <i>range</i>: The inclusive span between a minimum and maximum value.
+      The range is grossly dependant on signage as the <i>sign bit</i> (a bit that determines whether an integer is
+      positive or negative by being 0 or 1) is also the <i>most significant bit</i> (the leftmost bit), as approximately
+      half of all positive values are negated in a signed integer. Likewise, an unsigned integer will always have a
+      minimum value of 0, as the most-significant bit then behaves identically to any other bit.
+
+      In fact, the formulas for calculating the range of a signed and unsigned n-bit integer are:
+
+      Signed integers: -2<sup>n-1</sup> to 2<sup>n-1</sup>-1
+      Unsigned integers: 0 to 2<sup>n</sup>-1
+
+      For example, if n = 8:   
+    </p>
+
+
+    <p>
+      A <b>byte</b> is an 8-bit, two's complement signed integer, with an inclusive range of -2<sup>7</sup>
+      (-128) to 2<sup>8</sup>-1 (+127).<br><br>
+
+      Bitmasking (with caveats and precautions per integer type) can reinterpret signed integer types as unsigned
+      values.
+      Since Java 8, there has been support for unsigned arithmetic for <code>int</code> and <code>long</code> values (in
+      the <code>Integer</code> and <code>Long</code> wrapper classes).
+
+      A properly bitmasked byte simulates an inclusive range of 0 to 2<sup>8</sup>-1 (+255).
+    </p>
+    <pre>
+      <code class="language-none">Bit numbering: [b7 (MSb)][b6][b5][b4][b3][b2][b1][b0 (LSb)]
+
+      Signed byte: 
+      1 0 0 0 0 0 0 0                              = -128
+      -1 * 2^7 + 0 * 2^6 + ... + 0 * 2^1 + 0 * 2^0 = -128
+      0 1 1 1 1 1 1 1                              = +127
+      0 * 2^7 + 1 * 2^6 + ... + 1 * 2^1 + 1 ^ 2^0  = +127
+
+      Unsigned byte: 
+      0 0 0 0 0 0 0 0                             = 0
+      0 * 2^7 + 0 * 2^6 + ... + 0 ^ 2^1 + 0 * 2^0 = 0
+      1 1 1 1 1 1 1 1                             = +255
+      1 * 2^7 + 1 * 2^6 + ... + 1 * 2^1 + 1 ^ 2^0 = +255</code></pre>
+    <p>
+      A <b>short</b> is a 16-bit, two's complement signed integer, with an inclusive range of -2<sup>15</sup>
+      (-32768) to 2<sup>15</sup>-1 (32767); and a bitmasked short has an inclusive range of 0 to 2<sup>16</sup>-1
+      (65535).
+    </p>
+    <pre>
+      <code class="language-none">Bit numbering: [b15 (MSb)][b14][b13][b12][b11][b10][b9][b8][b7][b6][b5][b4][b3][b2][b1][b0 (LSb)]
+
+      Signed short: 
+      1 0 0 0 0 0 0 0 0 0 0 0 0 0 0                  = -32768
+      -1 * 2^15 + 0 * 2^14 + ... + 0 * 2^1 + 0 * 2^0 = -32768
+      0 1 1 1 1 1 1 1                                = +32767
+      0 * 2^15 + 1 * 2^14 + ... + 1 * 2^1 + 1 ^ 2^0  = +32767
+
+      Unsigned byte: 
+      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0                 = 0
+      0 * 2^15 + 0 * 2^14 + ... + 0 ^ 2^1 + 0 * 2^0 = 0
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                 = +255
+      1 * 2^15 + 1 * 2^14 + ... + 1 * 2^1 + 1 ^ 2^0 = +255</code></pre>
+    <p>
+      An <b>int</b> is a 32-bit, two's complement signed integer, with an inclusive range of -2<sup>31</sup>
+      (-214783648) to 2<sup>31</sup>-1 (214783647).
+      An unsigned (via bitmasking or helper methods) has an inclusive range of 0 to 2<sup>16</sup>-1 (4294967295).
+    </p>
+    <pre>
+      <code class="language-none">Bit numbering: [b31 (MSb)] ... [b0 (LSb)]
+
+      Signed short: 
+      1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 = -214783648
+      -1 * 2^31 + 0 * 2^30 + ... + 0 * 2^1 + 0 * 2^0              = -214783648
+      0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 = +214783647
+      0 * 2^31 + 1 * 2^30 + ... + 1 * 2^1 + 1 ^ 2^0               = +214783647
+
+      Unsigned byte: 
+      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 = 0
+      0 * 2^31 + 0 * 2^30 + ... + 0 ^ 2^1 + 0 * 2^0               = 0
+      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 = +4294967295
+      1 * 2^31 + 1 * 2^30 + ... + 1 * 2^1 + 1 ^ 2^0               = +4294967295</code></pre>
+    <p>
+      A <b>long</b> is a 64-bit, two's complement signed integer, with an inclusive range of -2<sup>31</sup>
+      (-9223372036854775808) to 2<sup>31</sup>-1 (9223372036854775807).
+      An unsigned long (achieved via <code>BigInteger</code> as <code>long</code> is already 64 bits large) has a range
+      of 0 to 2<sup>64</sup>-1 (18446744073709551615).
+    </p>
+    <pre>
+      <code class="language-none">Bit numbering: [b63 (MSb) ... [b0 (LSb)]
+
+      Signed short: 
+      1 0 ... 0                                      = -9223372036854775808
+      -1 * 2^63 + 0 * 2^62 + ... + 0 * 2^1 + 0 * 2^0 = -9223372036854775808
+      0 1 ... 1                                      = 9223372036854775807
+      0 * 2^63 + 1 * 2^62 + ... + 1 * 2^1 + 1 ^ 2^0  = 9223372036854775807
+
+      Unsigned byte: 
+      0 0 ... 0                                     = 0
+      0 * 2^31 + 0 * 2^30 + ... + 0 ^ 2^1 + 0 * 2^0 = 0
+      1 1 ... 1                                     = +18446744073709551615
+      1 * 2^31 + 1 * 2^30 + ... + 1 * 2^1 + 1 ^ 2^0 = +18446744073709551615</code></pre>
+    <h4>float and double</h4>
+    <p>
+      Both <b>float</b> and <b>double </b> represent <i>floating-point numbers</i> (or decimal numbers).
+      To represent rational and irrational numbers, Java utilizes <i>IEEE Std. 754</i>, which defines formats for
+      <i>single-precision</i> and <i>double-precision</i> numbers, floating-point arithmetic and handles exceptional
+      cases (Nan; positive and negative zeros; positive and negative infinities; and subnormal numbers).
+    </p>
+    <p>
+      A <b>float</b> is a 32-bit, two's complement single-precision value, with an inclusive range of 1.0 *
+      2<sup>-126</sup> to (2 - 2<sup>-23</sup>) * 2<sup>127</sup>.
+    </p>
+    <!--
+    <h2>Variables</h2>
+    <p>
+      A <b>variable</b> is a named reference to a specific memory location,
       storing data and subject to manipulated during execution.<br>
-      To properly utilize a variable, it must <em>declared</em>, then <em>initialized</em>.
+      To properly utilize a variable, it must <i>declared</i>, then <i>initialized</i>.
     </p>
     <h3>Declaration and Initialization</h3>
     <p>
-      <strong>Declaration</strong> specifies the <em>data type</em> and <em>name</em> of a variable;
-      <strong>initialization</strong> either occurs during declaration or some time thereafter,
+      <b>Declaration</b> specifies the <i>data type</i> and <i>name</i> of a variable;
+      <b>initialization</b> either occurs during declaration or some time thereafter,
       and is the assignment of a value to the name of the variable.
     </p>
     <pre>
@@ -40,24 +250,24 @@
   </main>
   <h2>Data Type</h2>
   <p>
-    The <strong>data type</strong> refers to the size and characteristics of the data
+    The <b>data type</b> refers to the size and characteristics of the data
     stored by a variable.
   </p>
   <h3>Primitive Data Type</h3>
   <p>
-    A <strong>primitive</strong> data type represents fundamental values,
+    A <b>primitive</b> data type represents fundamental values,
     which are pre-defined by Java and are not further divisible (into a more elemental form).
     Each keyword specifies the size and structural attributes of storable values, indicating the type of the
     variable.<br>
-    Due to their simple nature, primitive data types are <em>immutable</em>,
-    are not called by method <em>no methods</em>,
-    and are temporarily stored in <em>stack memory</em>.<br>
+    Due to their simple nature, primitive data types are <i>immutable</i>,
+    are not called by method <i>no methods</i>,
+    and are temporarily stored in <i>stack memory</i>.<br>
     There are eight primitive data types in Java:</p>
   <ul>
-    <li><em>byte</em>, <em>short</em>, <em>int</em> and <em>long</em> represent integer values</li>
-    <li><em>float</em> and <em>double</em> represent floating points</li>
-    <li><em>boolean</em> represents true and false values</li>
-    <li><em>char</em> represents Unicode characters</li>
+    <li><i>byte</i>, <i>short</i>, <i>int</i> and <i>long</i> represent integer values</li>
+    <li><i>float</i> and <i>double</i> represent floating points</li>
+    <li><i>boolean</i> represents true and false values</li>
+    <li><i>char</i> represents Unicode characters</li>
   </ul>
   <pre>
       <code class="language-java">/* All integers are signed two's complement. 
@@ -92,12 +302,7 @@
       char unicodeLetter = '\u0041'; // Unicode character 'A'
       char unicodeSymbol = '¥'; // Unicode character '¥'
       char escapeSequence = '\n'; // Carriage return</code></pre>
-  <h3>Reference data type</h3>
-
-  <!-- add reference types; reformat page soon-->
-  <!-- Script to load the common header -->
-  <script src="../js/loadHeader.js"></script>
-  <script src="../js/loadSubHeaderJava.js"></script>
+  <h3>Reference data type</h3>-->
 </body>
 
 </html>

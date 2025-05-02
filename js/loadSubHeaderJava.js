@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Ensure that we are inside a Java subpage before loading the subheader
-    if (!document.getElementById("subheader-placeholder")) {
+    if (!document.getElementById("subheader")) {
         console.warn("Subheader placeholder not found. Skipping subheader load.");
         return;
     }
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then(data => {
             console.log("Subheader successfully loaded"); // Debugging
-            document.getElementById("subheader-placeholder").innerHTML = data;
+            document.getElementById("subheader").innerHTML = data;
         })
         .catch(error => {
             console.error("Error loading subheader:", error);
