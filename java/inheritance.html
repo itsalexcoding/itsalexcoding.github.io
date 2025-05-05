@@ -19,9 +19,12 @@
         <script src="../js/loadSubHeaderJava.js"></script>
     </div>
 
-    <section id="inheritance">
-        <!-- === Inheritance Start === -->
+    <section id="inheritance-classes">
+        <!-- =================================== -->
+        <!-- === Inheritance (Classes) Start === -->
+        <!-- =================================== -->
 
+        <!-- === inheritance.bicycle preamble === -->
         <h1>Inheritance</h1>
         <p>
             Inheritance is a critical facet of <i>object-oriented programming</i>, permitting various classes to
@@ -45,10 +48,72 @@
             The subclass may also override the superclass's methods, which is a vital aspect of <i>polymorphism</i>
             (polymorphism section further below).
         </p>
+        <!-- === inheritance.bicycle preamble === -->
 
-        <!-- === Bicycle Example Start === -->
+        <!-- === inheritance.bicycle overview === -->
+        <p>
+            In package <code>inheritance.bicycle</code>, there exists:
+        <ul>
+            <li><code>Bicycle</code> (superclass)</li>
+            <li><code>EBicycle</code> (subclass of <code>Bicycle</code>)</li>
+            <li><code>PerformanceEBicycle</code> (subclass of <code>EBicycle</code>)</li>
+        </ul>
+        <p>
+            <code>Bicycle</code> has two <em>private</em> instance members: <code>gear</code> and <code>speed</code>,
+            which are initialized via the constructor.
+            The class also has two <em>public</em> methods: <code>applyBrakes()</code> and <code>speedUp()</code>
+            which modifies the <code>speed</code> member and permits subclasses to access private members, which are
+            not inheritable. This permission extends to the accessor and mutator methods, which (by definition) permit
+            subclasses to access and modify the private members. Of course, Bicycle also has a <code>toString()</code>
+            method, which returns the <code>gear</code> and <code>speed</code> members in a formatted string.
+            <br><br>
+            <code>EBicycle</code>, a subclass of <code>Bicycle</code>, has an <em>uninherited </em>private instance
+            member called <code>batteryCapacity</code>.
+            This variable is initialized via the constructor, which also invokes the superclass constructor to
+            initialize the <code>gear</code> and <code>speed</code> members via the <code>super()</code> keyword.
+            The subclass also has a unique accessor and mutator method for the <code>batteryCapacity</code> member.
+            In the <code>EBicycle</code> toString() method, the <code>super</code> keyword is used to call the
+            superclass <code>toString()</code> method, which returns the superclass members <code>gear</code> and
+            <code>speed</code>, whilst the subclass also returns the subclass member <code>batteryCapacity</code>.
+            <br><br>
+            <code>PerformanceEBicycle</code>, a subclass of <code>EBicycle</code>, has an uninherited private instance
+            member called <code>travelModes</code>, which is initialized via the constructor.
+            It is critical to mind that the <code>super</code> keyword accesses the superclass of the subclass, which
+            (for <code>PerformanceEBicycle</code>) is <code>EBicycle</code> and <em>not</em> <code>Bicycle</code>.
+            Thus, the <code>PerformanceEBicycle</code> constructor initializes the fields of the <code>EBicycle</code>
+            constructor (returning the <code>batteryCapacity</code> member), which in turn initializes the fields the
+            <code>Bicycle</code> constructor (returning the <code>gear</code> and <code>speed</code> members).
+            The subclass also has a unique accessor and mutator method for the <code>travelModes</code> member.
+            And, similarly to the <code>EBicycle</code> class, the <code>PerformanceEBicycle</code> toString() method
+            uses the <code>super</code> keyword to sequentially access the <code>EBicycle</code>, then the
+            <code>Bicycle</code> toString() methods to return every member.
+            <br><br>
+            In <code>Main</code>, a <code>Bicycle</code>, a <code>EBicycle</code> and a <code>PerformanceEBicycle</code>
+            object is created. The <code>toString()</code> method is called for each object, which returns the
+            members pertinent to the object type.
+            <br><br>
+            <strong>Critically, note:</strong>, as the <code>applyBrakes()</code> and <code>speedUp()</code> methods are
+            overridden in the subclasses, the superclass (non-overridden) methods are sequentially invoked (first the
+            superclass method, then any subclass methods, in descending order of inheritance) as each subclass method
+            explicitly invokes the superclass method using the <code>super</code> keyword.
+            When either <code>applyBrakes()</code> or <code>speedUp()</code> in <code>PerformanceEBicycle </code>uses
+            the <code>super</code> keyword to invoke the superclass method, the method in <code>EBicycle</code> does the
+            same and invokes the method in <code>Bicycle</code>.
+            As <code>Bicycle</code> is supreme, its method executes first, which is printing to console.
+            After the <code>Bicycle</code> method executes, the <code>EBicycle</code> method executes and prints to
+            console.
+            Then, the <code>PerformanceEBicycle</code> method executes and prints to console.
+            Thus, the output is sequentially printed to console in the order of the superclass method, then subclass
+            methods.
+            If the program must not execute any or all other superclasses beforehand, then the <code>super</code>
+            keyword should be avoided (and accessors and mutators used instead) as Java does not permit the invocation
+            of a subclass method without first invoking all superclass methods first.
+        </p>
+        <!-- === inheritance.bicycle overview === -->
+
+        <!-- === inheritance.bicycle code === -->
         <pre class="language-java"><code>
-            package inheritance;
+            package inheritance.bicycle;
 
             /* Superclass */
             class Bicycle {
@@ -65,10 +130,12 @@
                 /* Superclass methods */
                 public void applyBrakes(int decrement) {
                     speed -= decrement;
+                    System.out.println("Brakes applied to bicycle.");
                 }
 
                 public void speedUp(int increment) {
                     speed += increment;
+                    System.out.println("Speeding up bicycle.");
                 }
 
                 /* Accessor and mutator methods */
@@ -114,13 +181,13 @@
                 @Override 
                 public void applyBrakes(int decrement) {
                     super.applyBrakes(decrement); // Call the superclass method
-                    System.out.println("Brakes applied to E-Bicycle.");
+                    System.out.println("Brakes applied to e-bicycle.");
                 }
 
                 @Override
                 public void speedUp(int increment) {
                     super.speedUp(increment);
-                    System.out.println("Speeding up E-Bicycle.");
+                    System.out.println("Speeding up e-bicycle.");
                 }
 
                 /* Accessor method for battery capacity             */
@@ -128,6 +195,10 @@
                 /* It is specific to the EBicycle subclass          */
                 public int getBatteryCapacity() {
                     return batteryCapacity;
+                }
+
+                public void setBatteryCapacity(int batteryCapacity) {
+                    this.batteryCapacity = batteryCapacity;
                 }
 
                 /* Overrides the superclass toString() method to include battery capacity */
@@ -154,18 +225,21 @@
                 @Override
                 public void applyBrakes(int decrement) {
                     super.applyBrakes(decrement); 
-                    System.out.println("Brakes applied to Performance E-Bicycle.");
+                    System.out.println("Brakes applied to performance e-bicycle.");
                 }
 
                 @Override
                 public void speedUp(int increment) {
                     super.speedUp(increment); 
-                    System.out.println("Speeding up Performance E-Bicycle.");
+                    System.out.println("Speeding up performance e-bicycle.");
                 }
 
-                @Override
                 public String getTravelModes() {
                     return travelModes;
+                }
+
+                public void setTravelModes(String travelModes) {
+                    this.travelModes = travelModes;
                 }
 
                 /* Overrides the EBicycle toString() method to include travel modes */
@@ -210,17 +284,75 @@
             Travel Modes: Eco, Sport, Turbo
             */
         </code></pre>
-        <!-- === Bicycle Example End === -->
+        <!-- === inheritance.bicycle code === -->
 
+        <!-- === inheritance.staticmembers preamble === -->
         <p>
             Instance members of a superclass may be overriden by subclasses, yet static members cannot be overridden.
             Instead, static members are <i>hidden</i> by subclasses. As static members pertain to the class itself, and
             not to instances of the class, they are not inherited by subclasses and are not polymorphic. To avoid
             confusion, static methods and fields are accessed using the class name, not the name of the instance.
         </p>
+        <!-- === inheritance.staticmembers preamble === -->
 
-        <!-- === Static Members Start === -->
+        <!-- === inheritance.staticmembers overview === -->
+        <p>
+            In package <code>inheritance.staticmembers</code>, there exists:
+        <ul>
+            <li><code>Superclass</code> (superclass)</li>
+            <li><code>Subclass</code> (subclass of <code>Superclass</code>)</li>
+        </ul>
+        <code>Superclass</code> has a static field called <code>staticField</code>, which is initialized to
+        <code>10</code>>, and two methods: A static methods named <code>staticMethod()</code> and an instance method
+        named <code>instanceMethod()</code>, both of which print to console.
+        <br><br>
+        <code>Subclass</code>, a subclass of <code>Superclass</code>, has an uninherited static field called
+        <code>staticField</code> which is initialized to <code>20</code>.
+        <strong>Critically, note: </strong> <code>staticMethod()</code> in Subclass doesn't override the superclass
+        method, yet hides it (which is also why using <code>@Override</code> will throw a compile-time error), resulting
+        in the superclass method being invoked when the static method is called using the superclass reference.
+        The instance method <code>instanceMethod()</code> is overridden, as expected, and prints to console.
+        <br><br>
+        In <code>Main</code>:
+        <ol>
+            <li>
+                A <code>Subclass</code> object, named <code>obj</code>, is created and upcasted to a
+                <code>Superclass</code> reference. Another <code>Subclass</code> object, named <code>obj2</code> is
+                created and assigned as a <code>Subclass</code> reference.
+            </li>
+            <li>
+                The static field <code>staticField</code> is printed using both the superclass and subclass class names,
+                which prints the static field of the respective class, <code>10</code> and <code>20</code>.
+            </li>
+            <li>
+                <code>staticMethod()</code> is invoked using both <code>Subclass</code> and <code>Superclass</code>
+                class, which causes both to print their respective strings to console.
+            </li>
+            <li>
+                Then, for demonstration purposes, the static field is printed using the superclass and subclass object
+                references, which prints the static field of the respective class, <code>10</code> and <code>20</code>.
+                As stated in the relevant comments, while this does not throw a compile-time error, the class name
+                should be used instead, as static methods belong to the class and not the instance (making the usage of
+                an object reference confusing and potentially misleading).
+            </li>
+            <li>
+                Again, for demonstration purposes, the instance method is called using both the superclass and subclass
+                object references. <code>obj</code>, belonging to the superclass, invokes <code>staticMethod()</code> in
+                the superclass (<code>Superclass.staticMethod()</code>) and <code>obj2</code>, belonging to the
+                subclass, invokes <code>staticMethod()</code> in the subclass (<code>Subclass.staticMethod()</code>).
+            </li>
+            <li>
+                Lastly, the instance methods are invoked, which are both the overriden instance method in the subclass.
+                Thus, the two instance methods print the same output.
+            </li>
+        </ol>
+        </p>
+        <!-- === inheritance.staticmembers overview -->
+
+        <!-- === inheritance.staticmembers code === -->
         <pre class="language-java"><code>
+            package inheritance.staticmembers;
+            
             /* Superclass */
             class Superclass {
                 static int staticField = 10; // Static field
@@ -255,20 +387,29 @@
                 public static void main(String[] args) {
                     Superclass obj = new Subclass();
                     Subclass obj2 = new Subclass();
+                    System.out.println();
 
-                    System.out.println("Static field in Superclass: " + Superclass.staticField); // 10
-                    System.out.println("Static field in Subclass: " + Subclass.staticField);     // 20
+                    System.out.println("Static field in Superclass: " + Superclass.staticField);
+                    // Superclass.staticField resolves to Superclass.staticField: 10
+                    System.out.println("Static field in Subclass: " + Subclass.staticField);
+                    // Subclass.staticField resolves to Subclass.staticField: 20
+                    System.out.println();
 
                     Superclass.staticMethod(); // Static method in Superclass
                     Subclass.staticMethod();   // Static method in Subclass
+                    System.out.println();
 
                     /* While accessing or invoking a static member using an instance's name does not throw a compile-time error,
                     static methods should be invoked using the class name to avoid confusion. */
-                    System.out.println("Static method in Superclass: " + obj.staticField);  // 10
-                    System.out.println("Static method in Subclass: " + obj2.staticField);   // 20
+                    System.out.println("Static method in Superclass: " + obj.staticField);  
+                    // obj.staticField resolves to Superclass.staticField: 10
+                    System.out.println("Static method in Subclass: " + obj2.staticField);
+                    // obj2.staticField resolves to Subclass.staticField: 20
+                    System.out.println();
                     
                     obj.staticMethod();    // Static method in Superclass (not overridden)
                     obj2.staticMethod();   // Static method in Subclass (not overridden)
+                    System.out.println();
 
                     obj.instanceMethod();  // Instance method in Subclass
                     obj2.instanceMethod(); // Instance method in Subclass
@@ -279,21 +420,144 @@
             /*
             Static field in Superclass: 10
             Static field in Subclass: 20
+
             Static method in Superclass
             Static method in Subclass
+
+            Static method in Superclass: 10
+            Static method in Subclass: 20
+
             Static method in Superclass
             Static method in Subclass
+
             Instance method in Subclass
             Instance method in Subclass
             */
         </code></pre>
-        <!-- === Static Members End === -->
+        <!-- === inheritance.staticmembers code === -->
+
+        <!-- === inheritance.casting preamble === -->
+        <p>
+            Downcasting and upcasting are two types of casting in inheritance. The former assigns a subclass object to a
+            superclass reference, while the latter typecasts a superclass object to a subclass object.
+            Upcasting is safe and does not require explicit casting, as the superclass reference can point to any
+            subclass object. It is a common practice in polymorphism, allowing the use of superclass references to call
+            subclass methods.
+            Downcasting is occasionally necessary when a superclass reference is used to call a subclass method. The
+            object must be an instance of the relevant subclass before downcasting. Otherwise, a
+            <code>ClassCastException</code> or a runtime error may be thrown.
+        </p>
+        <!-- === inheritance.casting preamble === -->
+
+        <!-- === inheritance.casting overview === -->
+        <table>
+            <tr>
+                <th>Type</th>
+                <th>Code</th>
+                <th>Notes</th>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Upcasting</td>
+                <td><code>Superclass obj = new Subclass();</code></td>
+                <td>Implicit casting; safe and does not require explicit casting.</td>
+            </tr>
+            <tr>
+                <td>Downcasting</td>
+                <td><code>
+                    Superclass obj = new Superclass();<br>
+                    Subclass obj2 = (Subclass) obj;
+                </code></td>
+                <td>Explicit casting; requires the object to be an instance of the relevant subclass.</td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Downcasting with instanceof</td>
+                <td><code>
+                    Superclass obj = new Subclass();<br>
+                    if (obj instanceof Subclass) {<br>
+                        Subclass obj2 = (Subclass) obj;<br>
+                    } else {<br>
+                        System.out.println("Cannot downcast");<br>
+                    }
+                </code></td>
+                <td>Checks if the object is an instance of the subclass before downcasting.</td>
+            </tr>
+        </table>
+
+        <p>
+            In package <code>inheritance.casting</code>, there exists:
+        <ul>
+            <li><code>Superclass</code> (superclass)</li>
+            <li><code>Subclass</code> (subclass of <code>Superclass</code>)</li>
+        </ul>
+        <code>Superclass</code> has a static method called <code>display()</code>, which prints to console and
+        <code>Subclass</code> has a static method called <code>display()</code>, which also prints to console.
+        Another method called <code>createSuperclass()</code> is defined, which has a return type of
+        <code>Superclass</code> but implicitly upcasts as the method actually creates a <code>Subclass</code> object.
+        <br><br>
+        In <code>Main</code>, a <code>Superclass</code> object, named <code>obj</code>, is created and implicitly
+        upcasted to a superclass reference. Then, the <code>display()</code> method is invoked, which prints to console.
+        <br><br>
+        In the <code>if</code> statement, <code>instanceof</code> checks if <code>obj</code> is an instance of
+        <code>Subclass</code>. If true, the object is explicitly downcasted to a 
+        </p>
+        <!-- === inheritance.casting overview === -->
+
+        <!-- === inheritance.casting code === -->
+        <pre class="language-java"><code>
+            /* Superclass */
+            class Superclass {
+                void display() {
+                    System.out.println("Superclass method");
+                }
+            }
+
+            /* Subclass */
+            class Subclass extends Superclass {
+                void display() {
+                    System.out.println("Subclass method");
+                }
+            }
+
+            /* createSuperclass(), which actually creates a Subclass object */
+            public static Superclass createSuperclass() {
+                return new Subclass(); // Implicit upcasting
+            }
+
+            /* Main */
+            public class Main {
+                public static void main(String[] args) {
+                    Superclass obj = createSuperclass(); // Upcasting
+                    obj.display(); // Subclass method
+
+                    /* Downcasting */
+                    if (obj instanceof Subclass) { // Check if obj is an instance of Subclass
+                        Subclass obj2 = (Subclass) obj; // Explicit downcasting
+                        obj2.display();
+                    } else {
+                        System.out.println("Cannot downcast");
+                    }
+                }
+            }
+
+            /* Output */
+            /*
+            Subclass method
+            Subclass method
+            */
+        </code></pre>
+        <!-- === Upcasting/Downcasting Example End === -->
 
         <p>
             <code>instanceof</code> is a keyword that checks if an object is an instance of a specific class. Within
             inheritance, it is used to determine if an object is an instance of a superclass or subclass and prevents
             runtime exceptions and errors when invoking methods or accessing members of a class, such as
-            <code>ClassCastException</code>. 
+            <code>ClassCastException</code>.
             The capability to check the type of an object at runtime is a useful
             feature within polymorphism. Additionally, whilst static members are not polymorphic and are bound to
             compile-time, <code>instanceof</code> regardless checks the runtime type of an object before invoking a
@@ -302,8 +566,30 @@
             instance of the specified class. It returns <code>false</code> otherwise.
         </p>
 
+        <p>
+            In package <code>inheritance.instanceof</code>, there exists:
+        <ul>
+            <li><code>Superclass</code> (superclass)</li>
+            <li><code>Subclass</code> (subclass of <code>Superclass</code>)</li>
+        </ul>
+        <code>Superclass</code> has a static method called <code>display()</code>, which prints to console and
+        <code>Subclass</code> has a static method called <code>display()</code>, which also prints to console.
+        <br><br>
+        In <code>Main</code>, a <code>Superclass</code> object, named <code>obj</code>, is created and upcasted to a
+        <code>Subclass</code> reference. Another <code>Superclass</code> object, named <code>obj2</code> is created And
+        and assigned as a <code>Superclass</code> reference.
+        <br><br>
+        The first <code>if</code> statement checks if <code>obj</code> is an instance of <code>Subclass</code>, which
+        returns <code>true</code> and invokes the subclass method <code>display()</code>, which prints to console.
+        The second <code>if</code> statement checks if <code>obj2</code> is an instance of <code>Subclass</code>, which
+        returns <code>false</code> and invokes the superclass method <code>display()</code>, which also prints to
+        console.
+        </p>
+
         <!-- === instanceof Example Start === -->
         <pre class="language-java"><code>
+            package inheritance.instanceof;
+            
             /* Superclass */
             class Superclass {
                 static void display() {
@@ -342,7 +628,217 @@
             Superclass method
             */
         </code></pre>
-        <!-- === Inhertiance End === -->
+        <!-- === instanceof Example End === -->
+
+        <p>
+            Until Java 14, the <code>instanceof</code> operator required a cast to access the subclass members.
+            Yet, previewed in Java 15 and finalized in Java 16, the <code>instanceof</code> operator permits pattern
+            matching, which eliminated the need for explicit casting.
+            Additionally, in Java 17, flow-sensitive pattern scoping introduced a fail-fast mechnanism.
+            By negating the <code>instanceof</code> condition and returning early, the relevant object is guaranteed to
+            be of the correct type for the subsequent code block.
+        </p>
+
+        <p>
+            In package <code>inheritance.instanceof.javaversions</code>, there exists three classes:
+            <code>Java14Demo</code>,
+            <code>Java16Demo</code> and <code>Java17Demo</code>. Each class demonstrates the usage of
+            <code>instanceof</code>.
+            <br><br>
+            <code>Java14Demo</code> uses the legacy method of downcasting, which requires explicit casting to access the
+            subclass object (with a superclass reference) and verify that the object is indeed an instance of the
+            subclass.
+        <ol>
+            <li>Superclass object is created and upcasted to a subclass reference.</li>
+            <li><code>instanceof</code> checks if the object is an instance of the subclass.</li>
+            <li>If true, explicit downcasting is performed to access the subclass method.</li>
+            <li>If false, a message is printed to console.</li>
+        </ol>
+        <br><br>
+        <code>Java16Demo</code> uses pattern matching for <code>instanceof</code>, which eliminates the need for
+        explicit
+        downcasting and allows the subclass object to be accessed directly within the <code>if</code> statement.
+        <ol>
+            <li>Superclass object is created and upcasted to a subclass reference.</li>
+            <li><code>instanceof</code> checks if the object is an instance of the subclass.</li>
+            <li>If true, the subclass object is directly accessed within the <code>if</code> statement.</li>
+            <li>If false, a message is printed to console.</li>
+        </ol>
+        <br><br>
+        <code>Java17Demo</code> uses pattern matching for <code>instanceof</code> with flow-sensitive pattern scoping,
+        which introduces a fail-fast mechanism.
+        <ol>
+            <li>Superclass object is created and upcasted to a subclass reference.</li>
+            <li><code>instanceof</code> checks if the object is an instance of the subclass.</li>
+            <li>If false, a message is printed to console and the method returns early.</li>
+            <li>If true, the subclass object is directly accessed within the <code>if</code> statement.</li>
+        </ol>
+        </p>
+
+        <!-- === Java 14, 16 and 17 Example Start === -->
+        <pre class="language-java"><code>
+            package inheritance.instanceof.javaversions;
+
+            /* Java 14 and earlier */
+            public class Java14Demo {
+                public static void main(String[] args) {
+                    Superclass obj = new Subclass(); // Upcasting
+
+                    /* Explicit Downcasting for instanceof */
+                    if (obj instanceof Subclass) { // true
+                        Subclass subclassObj = (Subclass) obj; // Explicit downcasting
+                        subclassObj.display(); // Subclass method
+                    } else {
+                        System.out.println("Cannot downcast");
+                    }
+                }
+            }
+
+            /* Output */
+            /*
+            Subclass method
+            */
+        </code></pre>
+
+        <pre class="language-java"><code>
+            /* Java 16 and later */
+            public class Java16Demo {
+                public static void main(String[] args) {
+                    Superclass obj = new Subclass(); // Upcasting
+
+                    /* Pattern Matching for instanceof */
+                    if (obj instanceof Subclass subclassObj) { // true
+                        subclassObj.display(); // Subclass method
+                    } else {
+                        System.out.println("Cannot downcast");
+                    }
+                }
+            }
+
+            /* Output */
+            /*
+            Subclass method
+            */
+        </code></pre>
+
+        <pre class="language-java"><code>
+            /* Java 17 and later */
+            public class Jeva17Demo {
+                public static void main(String[] args) {
+                    Superclass obj = new Subclass(); // Upcasting
+
+                    /* Pattern Matching for instanceof with flow-sensitive pattern scoping */
+                    if (!(obj instanceof Subclass subclassObj)) { // true
+                        System.out.println("Cannot downcast");
+                        return; // Early return to ensure subclassObj is of the correct type
+                    }
+                    subclassObj.display(); // Subclass method
+                }
+            }
+
+            /* Output */
+            /*
+            Subclass method
+            */
+        </code></pre>
+        <!-- === Java 14, 16 and 17 Example End === -->
+        <!-- === Inhertiance (Classes) End === -->
+    </section>
+    <section id="inheritance-interfaces">
+        <!-- === Inheritance (Interfaces) Start === -->
+        <h1>Inheritance (Interfaces)</h1>
+        <p>
+            Interfaces, which specify class behaviour via implementation, are closely related to inheritance and
+            polymoprhism.
+            For a more in-depth discussion on interfaces, refer to the interfaces section found in the navigation bar
+            ("Interfaces").
+        </p>
+
+        <p>
+            Classes may <code>implement</code> (and not <code>extend</code>) multiple interfaces, which is a form of
+            inheritance (between classes and interfaces). Additionally, subclasses that implement interfaces may
+            also extend a superclass; superclasses may also implement interfaces whilst exntending to other
+            subclasses.
+        </p>
+
+        <p>
+            In package <code>inheritance.interfaces</code>, there exists:
+        <ul>
+            <li><code>Vehicle</code> (interface)</li>
+            <li><code>Bicycle</code> (interface)</li>
+            <li><code>Bicycle</code> (superclass)</li>
+            <li><code>EBicycle</code> (subclass of <code>Bicycle</code>)</li>
+        </ul>
+        <code>Vehicle</code> is an interface that defines two abstract methods: <code>start()</code> and
+        <code>stop()</code>. <code>Bicycle</code> is an interface that defines one abstract method:
+        <code>pedal()</code>.
+        <br><br>
+        <code>Bicycle</code> is a superclass that implements the <code>Bicycle</code> interface and defines the
+        <code>pedal()</code> method. It defines the <code>pedal()</code> method.
+        <br><br>
+        <code>EBicycle</code> is a subclass of <code>Bicycle</code> that implements the <code>Vehicle</code> and
+        <code>Bicycle</code> interfaces whilst extending the <code>Bicycle</code> superclass. It simultaneously defines
+        the <code>start()</code> and <code>stop()</code> methods from the <code>Vehicle</code> interface and inherits
+        the
+        <code>pedal()</code> method from the <code>Bicycle</code> superclass.
+        <br><br>
+        In <code>Main</code>, an <code>EBicycle</code> object, named <code>eBike</code>, is created.
+        <code>start()</code>, <code>pedal()</code> and <code>stop()</code> methods are invoked, which print to console.
+        </p>
+
+        <!-- === Inheritance/Interfaces Start === -->
+        <pre class="language-java"><code>
+            /* Interface Vehicle */
+            interface Vehicle {
+                void start(); // Abstract method
+                void stop(); // Abstract method
+            }
+
+            /* Interface Bicycle */
+            interface Bicycle {
+                void pedal(); // Abstract method
+            }
+
+            /* Superclass */
+            class Bicycle implements Bicycle {
+                @Override
+                void pedal() {
+                    System.out.println("Pedaling the bicycle");
+                }
+            }
+
+            /* Subclass: E-Bicycle */
+            class EBicycle extends Bicycle implements Vehicle, Bicycle {
+                @Override
+                public void start() {
+                    System.out.println("E-Bicycle started");
+                }
+
+                @Override
+                public void stop() {
+                    System.out.println("E-Bicycle stopped");
+                }
+            }
+
+            /* Main */
+            public class Main {
+                public static void main(String[] args) {
+                    EBicycle eBike = new EBicycle();
+                    eBike.start(); // E-Bicycle started
+                    eBike.pedal(); // Pedaling the bicycle
+                    eBike.stop();  // E-Bicycle stopped
+                }
+            }
+
+            /* Output */
+            /*
+            E-Bicycle started
+            Pedaling the bicycle
+            E-Bicycle stopped
+            */
+        </code></pre>
+        <!-- === Inheritance/Interfaces End === -->
+        <!-- === Inheritance (Interfaces) End === -->
     </section>
 </body>
 
