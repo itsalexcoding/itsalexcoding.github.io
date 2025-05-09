@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../css/styles.css" />
   <title>Control Flow</title>
+  <link rel="stylesheet" href="../highlight/styles/default.css">
+  <script src="../highlight/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
 </head>
 
 <body>
-  <!-- Load Navigations -->
   <div id="header">
     <script src="../js/loadHeader.js"></script>
   </div>
@@ -17,158 +19,424 @@
     <script src="../js/loadSubHeaderJava.js"></script>
   </div>
 
-  <!-- Main -->
   <main>
-
-    <!-- h1 -->
     <h1>Control Flow</h1>
+    <section id="conditional-general">
+      <!-- ========================== -->
+      <!-- === Conditionals Start === -->
+      <!-- ========================== -->
 
-    <!-- h2: Conditionals -->
-    <h2>Conditionals</h2>
-    <p>
-      A <b>conditional</b> evalutes some expression (the <i>condition</i>) and executes a particular block
-      of code depending on the result of the evaluation.
-      Conditionals are the foundation of control flow; they allow a program to make decisions based on the current state
-      of the program.<br>
-      Conditional statements (<code>if</code>, <code>if else</code>, <code>else</code>), switch statements
-      (<code>switch</code>) and iteration statements (<code>for</code>, <code>while</code>, <code>do while</code>) all
-      rely on conditionals.
-    </p>
+      <section id="conditional-expressions">
+        <!-- === section="conditional-expressions" === -->
 
-    <!-- if (true) -->
-    <pre class="line-numbers">
-      <code class="language-java">if (true) {
-        System.out.println("This code block will always execute.");
-      }
-      /* This is the most elementary example of a conditional.                   */
-      /* The conditional statement (if) evalutes the literal expression (true).  */
-      /* As the condition is true (perpetually), the code block always executes. */</code>
-    </pre>
+        <!-- === conditionals.iftrue preamble === -->
+        <h2>Conditionals</h2>
+        <p>
+          A <b>conditional</b> evalutes some expression (the <i>condition</i>) and executes a particular block
+          of code depending on the result of the evaluation.
+          Conditionals are the foundation of control flow; they allow a program to make decisions based on the current
+          state of the program.
+          <br><br>
+          Conditional statements (<code>if</code>, <code>if else</code>, <code>else</code>), switch statements
+          (<code>switch</code>) and iteration statements (<code>for</code>, <code>while</code>, <code>do while</code>)
+          all rely on conditionals.
+        </p>
+        <!-- === conditionals.iftrue preamble === -->
 
-    <!-- h2: Conditional Statements -->
-    <h2>Conditional Statements</h2>
-    <p>
-      A <b>conditional statement</b> is a statement that evaluates a boolean expression and executes a block
-      of code if the expression is true.
-    </p>
+        <!-- === conditionals.iftrue overview === -->
+        <p>
+          In package <code>conditionals.if3true</code>, there exists a class called <code>alwaysTrue</code>, and within
+          it exists a method called <code>alwaysTrue()</code>, which executes an <code>if</code> statement with the
+          condition <code>true</code>. Since the statement is always true, the code block always executes.
+        </p>
+        <!-- === conditionals.iftrue overview -->
 
-    <!-- if-then -->
-    <p>
-      The most basic conditional statement is the <i><code>if</code> statement</i>.
-    </p>
-    <pre class="line-numbers">
-      <code class="language-java">int num = 5;
-      if (num > 0) {
-        System.out.println("The number is positive.");
-      }
-      /* As num is an integer values greater than 0, the code block executes.                                            */
-      /* If num was lesser than 0, then the code block would not execute, effectively skipping the statement altogether. */</code>
-    </pre>
+        <!-- === conditionals.iftrue code -->
+        <pre class="language-java"><code>
+          package conditionals.iftrue;
+          
+          /* This is the most elementary example of a conditional.                   */
+          /* The conditional statement (if) evalutes the literal expression (true).  */
+          /* As the condition is true (perpetually), the code block always executes. */
+          class AlwaysTrue {
+            void alwaysTrue() {
+              if (true) {
+                System.out.println("This code block will always execute.");
+              }
+            }
+          }
 
-    <!-- if-else -->
-    <p>
-      The <code>else</code> statement provides a default code block to execute if the boolean expression is false.
-      It only executes if all prior conditional statements are false, terminating all further evalutations.
-    </p>
-    <pre class="line-numbers">
-      <code class="language-java">int num = -5;
-      if (num > 0){
-        System.out.println("The number is positive.");
-      } else {
-        System.out.println("The number is negative.");
-      }
-      /* As num is an integer value lesser than 0, the second code block executes.                     */
-      /* If num was greater than 0, then the first code block would execute, and the second would not. */</code>
-    </pre>
+          public class Main {
+            public static void main(String[] args) {
+              AlwaysTrue at = new AlwaysTrue();
+              at.alwaysTrue();
+            }
+          }
 
-    <!-- if-else-if -->
-    <p>
-      The <code>else if</code> statement provides an alternative (not default) code block to execute if prior
-      conditional statements are false.
-      Yet, it allows for further evaluation past itself (if its boolean expression is false) until the else statement.
-      It functions identically to another conditional statement placed within an else statement (of the initial
-      conditional statement), acting as a systanic construct that chains multiple conditions under a single conditional
-      statement.
-    </p>
-    <pre class="line-numbers">
-      <code class="language-java">int num = -5;
-      if (num > 0){
-        System.out.println("The number is positive.");
-      } else if (num < 0) {
-        System.out.println("The number is negative.");
-      } else {
-        System.out.println("The number is zero.");
-      } 
-      /* As num was less than 0, the second code block executes.        */
-      /* If num was greater than 0, the first code block would execute. */
-      /* Likewise, if num was 0, the third code block would executes.   */
+          /* Output: */
+          /*
+          This code block will always execute.
+          */
+        </code></pre>
+        <!-- === conditionals.iftrue code -->
 
-      if (num > 0){
-        System.out.println("The number is positive.");
-      } else {
-        if (num < 0) {
-          System.out.println("The number is negative.");
-        } else {
-          System.out.println("The number is zero.");
+        <!-- === section="conditional-expressions" === -->
+      </section>
+
+      <section id="conditional-statements">
+        <!-- === section="conditional-expressions" === -->
+
+        <!-- === conditional.ifthen preamble === -->
+        <h2>Conditional Statements</h2>
+        <p>
+          A <b>conditional statement</b> is a statement that evaluates a boolean expression and executes a block
+          of code if the expression is true.
+          <br><br>
+          The most basic conditional statement is the <i><code>if</code> statement</i>.
+        </p>
+        <!-- === conditional.ifthen preamble === -->
+
+        <!-- === conditional.ifthen overview === -->
+        <p>
+          In package <code>conditional.ifthen</code>, the class <code>PositiveNum</code> has a method
+          <code>ifPositive()</code> with an <code>int</code> parameter <code>num</code>, which executes an
+          <code>if</code> statement that evaluates if <code>num</code> is larger than <code>0</code>. If
+          <code>true</code>, <code>ifPositive()</code> prints to console. If <code>false</code>, the method does
+          nothing.
+        </p>
+        <!-- === conditional.ifthen overview === -->
+
+        <!-- === conditional.ifthen code === -->
+        <pre class="line-numbers"><code>
+        package conditional.ifthen;
+        
+        /* As num is an integer values greater than 0, the code block executes.                                            */
+        /* If num was lesser than 0, then the code block would not execute, effectively skipping the statement altogether. */
+        class PositiveNum {
+          void ifPositive (int num) {
+            if (num > 0) {
+              System.out.println("The number is positive.");
+            }
+          }
         }
-      }
-      /* This code block is functionally identical to the previous code block. */</code>
-    </pre>
-    <p>
-      The <code>else if</code> statement is not required to have an <code>else</code> statement, though it is
-      reccommended, as it provides a default code block to execute if all prior conditional statements are false.
-    </p>
 
-    <!-- h2: Switch Statements/Expressions -->
-    <h2>Switch Statements (case n:) and Expressions (case n ->)</h2>
+        public class main {
+          public static void main(String[] args) {
+            PositiveNum pn = new PositiveNum();
+            pn.ifPositive(5);
+            pn.ifPositive(-5); // The statement does nothing, thus only one line is printed.
+          }
+        }
+        
+        /* Output */
+        /*
+        The number is positive.
+        */
+        </code></pre>
+        <!-- === conditional.ifthen code === -->
 
-    <!-- case n: -->
-    <p>
-      A <b>switch statement</b> is a statement that equates cases to a single conditional.
-      The <code>switch</code> keyword evaluates only one conditional before attempting to equate the evaluation to a
-      matching <code>case</code>.
-      If a matching case exists, then there exist three methods in executing the code block:
-    </p>
-    <ul>
-      <li><code>break</code>: This jump statement terminates the case, preventing fall-through.</li>
-      <li><code>return</code>: Another jump statement, this also terminates the case (eliminating the need for a break
-        statement).</li>
-    </ul>
-    <p>
-      If no matching case exists, then <code>default</code> is executed as a terminating case.
-    </p>
-    <pre class="line-numbers">
-      <code class="language-java">String week = "WEEKEND";
-      switch (week) {
-        case "WEEKEND":
-          return "Yay! It's the weekend!";
-          break;
-        case "WEEKDAY":
-          return "Ugh... it's a weekday.";
-          break;
-        default:
-          return "Uh oh. We've broken the space-time continuum.";
-          break;
-      }
-      /* The condition week (assigned a String value of "WEEKEND") is equated to the case "WEEKEND" and the first code block executes. */
-      /* If week was assigned a value of "WEEKDAY", the second code block would execute.                                               */
-      /* If week was assigned any other String value, then the third code block would execute.                                         */</code>
-    </pre>
+        <!-- === conditional.ifelse preamble === -->
+        <p>
+          The <code>else</code> statement provides a default code block to execute if the boolean expression is false.
+          It only executes if all prior conditional statements are false, terminating all further evalutations.
+        </p>
+        <!-- === conditional.ifelse preamble === -->
 
-    <!-- case n -> -->
-    <p>
-      A <b>switch expression</b> (made available since Java 14) may appear syntactically comparable to a
-      switch statement.
-      Only, instead of serving an explicit function, a switch expression computes and returns a value (as it is an
-      expression, not a statement).
-      It must be assigned to a type and variable (e.g. <code>String label = switch (x) {...}</code>) or immediately used
-      (<code>return switch (x) {...}</code>).
-      Additionally, a switch expression uses <code>-></code>, called <i>switch rule arrow</i> (uses the arrow token;
-      unrelated to the lambda: <code>-></code>).
-      A <i>switch rule</i> (<code>case n -></code>) directly associates a case with the corresponding value, including
-      <code>case null -></code> since Java 21 (assuming that the condition is is a type that accepts <code>null</code>).
-    </p>
-    <pre class="line-numbers">
+        <!-- === conditional.ifelse overview === -->
+        <p>
+          In package <code>conditional.ifelse</code>, the class <code>PositiveOrNegative</code> has a method called
+          <code>posOrNeg()</code> with an <code>int</code> argumenet <code>num</code>. Within <code>posOrNeg()</code>,
+          which executes an <code>if</code>-<code>else</code> statement. If <code>num</code> is greater than
+          <code>0</code> (<code>true</code>), then the method prints a message to console. If not
+          (<code>false</code>),
+          the method prints a different message to console.
+        </p>
+        <!-- === conditional.ifelse overview === -->
+
+        <!-- === conditional.ifelse code -->
+        <pre class="language-java"><code>
+        package conditional.ifelse;
+        
+        class PositiveOrNegative {
+          void posOrNeg(int num) {
+            if (num > 0) {
+              System.out.println("The number is positive.");
+            } else {
+              System.out.println("The number is negative.");
+            }
+          }
+        }
+
+        public class main {
+          public static void main(String[] args) {
+            PositiveOrNegative pn = new PositiveOrNegative();
+            pn.posOrNeg(5);
+            pn.posOrNeg(-5);
+          }
+        }
+
+        /* Output */
+        /*
+        The number is positive
+        The number is negative
+        */
+        </code></pre>
+        <!-- === conditional.ifelse code === -->
+
+        <!-- === conditional.ifelseif preamble -->
+        <p>
+          The <code>else if</code> statement provides an alternative (not default) code block to execute if prior
+          conditional statements are false.
+          Yet, it allows for further evaluation past itself (if its boolean expression is false) until the else
+          statement.
+          It functions identically to another conditional statement placed within an else statement (of the initial
+          conditional statement), acting as a systanic construct that chains multiple conditions under a single
+          conditional statement.
+          The <code>else if</code> statement is not required to have an <code>else</code> statement, though it is
+          reccommended, as it provides a default code block to execute if all prior conditional statements are false.
+        </p>
+        <!-- === conditional.ifelseif preamble === -->
+
+        <!-- === conditional.ifelseif overview === -->
+        <p>
+          In package <code>conditional.ifelseif</code>, the class <code>PositiveNegativeZero</code> has method
+          <code>posNegZero()</code> with an <code>int</code> parameter <code>num</code>, which executes a
+          <code>if</code>-<code>else if</code> statement. The logic of the three statements is executed as such:
+        <ol>
+          <li>
+            If <code>num</code> was lesser than <code>0</code>, then the condition evalutes to <code>true</code>
+            and the code block executes.
+            <br>
+            If <code>num</code> was equal to or greater than <code>0</code>, then the condition evalutes to
+            <code>false</code> and the next condition (after checking one exists) is evaluated.
+          </li>
+          <li>
+            If <code>num</code> was greater than <code>0</code>, then the condition evaluates to <code>true</code>
+            and the code block executes.
+            <br>
+            Given that the previous condition logically guarantees that <code>num</code> cannot be lesser than
+            <code>0</code>, if the condition of the current (<code>else if</code>) condition evaluates to
+            <code>false</code>, then <code>num</code> must be not lesser than nor greater than <code>0</code>. The
+            code then defaults on the <code>else</code> statement.
+          </li>
+          <li>
+            Regardless of the state of <code>num</code>, the <code>else</code> statement executes the code block. As
+            <code>num</code> is an <code>int</code>, then reasonably, <code>num</code> is most likely <code>0</code>.
+          </li>
+        </ol>
+        </p>
+        <!-- === conditional.ifelseif overview === -->
+
+        <!-- === conditional.ifelseif code === -->
+        <pre class="language-java"><code>
+            package condition.ifelseif;
+            
+            /* If num was less than 0, the first code block would execute.      */
+            /* If num was greater than 0, the second code block would execute.  */
+            /* If num was 0, the third code block would execute.                */
+            class PositiveNegativeZero {
+              void posNegZero(int num) {
+                if (num < 0){
+                  System.out.println("The number is negative.");
+                } else if (num ></0> 0) {
+                  System.out.println("The number is positive.");
+                } else {
+                  System.out.println("The number is zero.");
+                }
+              }
+            }
+
+            public class Main {
+              public static void main(String[] args) {
+                PositiveNegativeZero pnz = new PositiveNegativeZero();
+                pnz.posNegZero(-5);
+                pnz.posNegZero(5);
+                pnz.posNegZero(0);
+              }
+            }
+
+            /* Output */
+            /*
+            The number is negative
+            The number is positive
+            The number is zero
+            */
+          </code></pre>
+        <!-- === conditional.ifelseif code === -->
+
+        <!-- === conditional.ifelseif.equivalent preamble === -->
+        <p>
+          In fact, the functionality of the <code>else if</code> is easily representable using <code>if</code>
+          and <code>else</code> statements.
+        </p>
+        <!-- === conditional.ifelseif.equivalent preamble === -->
+
+        <!-- === conditional.ifelseif.equivalent overview === -->
+        <p>
+          In package <code>condition.ifelseif.equivalent</code>, within the class
+          <code>PositiveNegativeZeroEquivilent</code>, the <code>posNegZeroEquivilent()</code> method with
+          <code>int</code> parameter <code>num</code> follows a similar logical path to <code>posNegZero()</code>, only
+          after either <code>if</code> statement evalutes to <code>false</code>, instead of a separate condition being
+          evaluated (as within <code>else if</code>), the path merely defaults on the following <code>else</code>
+          statement.
+        </p>
+        <!-- === conditional.ifelseif.equivalent overview === -->
+
+        <!-- === conditional.ifelseif.equivalent code === -->
+        <pre class="language-java"><code>
+          package conditional.ifelseif.equivalent;
+
+          class PositiveNegativeZeroEquivalent {
+            void posNegZeroEquivalent(int num) {
+              /* This method is functionally identical to the previous code block. */
+              if (num < 0){
+                System.out.println("The number is negative.");
+              } else {
+                if (num > 0) {
+                  System.out.println("The number is positive.");
+                } else {
+                  System.out.println("The number is zero.");
+                }
+              }
+            }
+          }
+
+          public class Main {
+            public static void main(String[] args) {
+              PositiveNegativeZeroEquivalent pnze = new PositiveNegativeZeroEquivalent();
+              pnze.posNegZeroEquivalent(-5);
+              pnze.posNegZeroEquivalent(5);
+              pnze.posNegZeroEquivalent(0);
+            }
+          }
+
+          /* Output */
+          /*
+          The number is negative
+          The number is positive
+          The number is zero
+          */
+        </code></pre>
+        <!-- === conditional.ifelseif.equivalent code === -->
+
+        <!-- === section="conditional-expressions" === -->
+      </section>
+
+      <!-- ======================== -->
+      <!-- === Conditionals End === -->
+      <!-- ======================== -->
+    </section>
+
+    <section id="switches">
+      <!-- ====================== -->
+      <!-- === Switches Start === -->
+      <!-- ====================== -->
+
+      <section id="switch-statenents">
+        <!-- === section switch-statements === -->
+        <h2>Switch Statements</h2>
+
+        <!-- === switches.statement preamble === -->
+        <p>
+          A <b>switch statement</b> is a statement that equates cases to a single conditional.
+          The <code>switch</code> keyword evaluates only a contral expression before attempting to equate the evaluation
+          to a matching case label.
+        <ul>
+          <li>If a matching label exists, the switch block executes.</li>
+          <li>
+            If a matching label does not exist, then the code block relies on a terminating switch block with a
+            <code>default</code> label, which executes regardless of the control expression.
+          </li>
+          <li>
+            If a <code>default</code> switch block doesn't exist, then the switch statement <i>falls through</i>,
+            resulting the program failing to execute any switch block, bypassing the switch statement.
+          </li>
+          A conventional switch block requires the <code>break</code> jump statement to successfully terminate both the
+          execution of the switch block and to exist the code block. Without the statement, the program falls through to
+          the next condition, likely causing runtime exceptions or errors. The only exception is if the switch block
+          utilizes the <code>return</code> statement. Since <code>return</code> immediately terminates the code block,
+          the <code>break</code> keyword is not needed.
+        </ul>
+        </p>
+        <!-- === switches.statement preamble === -->
+
+        <!-- === switches.statement overview === -->
+        <p>
+          Within package <code>switches.statement</code>, the class <code>TypeOfDay</code> has the method
+          <code>typeOfDay()</code> with the <code>String</code> parameter <code>dayType</code> and a switch
+          statement with three labels:
+        <ul>
+          <li><code>case "weekend":</code></li>
+          <li><code>case "weekday":</code></li>
+          <li><code>default:</code></li>
+        </ul>
+        All three print a <code>String</code> value (all equally witty). The first two switch blocks execute if the
+        value of <code>dayType</code> matches the case label, whilst the third, or <code>default:</code>, switch block
+        executes regardless of the value of <code>week</code> (though logically guarantees the value of
+        <code>dayType</code> is not <code>"weekend"</code> or <code>"weekday"</code>).
+        </p>
+        <!-- === switches.statement overview === -->
+
+        <!-- === switches.statement code === -->
+        <pre class="language-java"><code>
+          package switches.statement;
+
+          /* If dayType was assigned a String value of "weekend", the first code block would execute. */
+          /* If dayType was assigned a value of "weekday", the second code block would execute.       */
+          /* If dayType was assigned any other String value, then the third code block would execute. */
+          class TypeOfDay {
+            void typeOfDay(String dayType) {
+              switch (dayType) {
+                case "weekend":
+                  System.out.println("Yay! It's the weekend!");
+                  break;
+                case "weekday":
+                  System.out.println("Ugh... it's a weekday.");
+                  break;
+                default:
+                  System.out.println("Uh oh. We've broken the space-time continuum!\nOr someone typed in a specific day.");
+                  break;
+              }
+            }
+          }
+
+          public class Main {
+            public static void main(String[] args) {
+                TypeOfDay tod = new TypeOfDay();
+                tod.typeOfDay("weekend");
+                tod.typeOfDay("weekday");
+                tod.typeOfDay("Monday");
+            }
+          }
+
+          /* Output */
+          /*
+          Yay! It's the weekend!
+          Ugh... it's a weekday.
+          Uh oh. We've broken the space-time continuum!
+          Or someone typed in a specific day.
+          */
+        </code></pre>
+        <!-- === section switch-statements === -->
+      </section>
+
+      <!-- case n -> -->
+      <p>
+        A <b>switch expression</b> (made available since Java 14) may appear syntactically comparable to a
+        switch statement.
+        Only, instead of serving an explicit function, a switch expression computes and returns a value (as it is an
+        expression, not a statement).
+        It must be assigned to a type and variable (e.g. <code>String label = switch (x) {...}</code>) or immediately
+        used
+        (<code>return switch (x) {...}</code>).
+        Additionally, a switch expression uses <code>-></code>, called <i>switch rule arrow</i> (uses the arrow token;
+        unrelated to the lambda: <code>-></code>).
+        A <i>switch rule</i> (<code>case n -></code>) directly associates a case with the corresponding value,
+        including
+        <code>case null -></code> since Java 21 (assuming that the condition is is a type that accepts
+        <code>null</code>).
+      </p>
+      <pre class="line-numbers">
       <code class="language-java">String week = "WEEKEND";
       return switch (week) {
         case "WEEKEND" -> "Yay! It's the weekend!";
@@ -178,119 +446,243 @@
       }
       /* The condition week is immediately matched with the first case, which returns the String value "Yay! It's the weekend!" */
       /* This is different than a switch statement, which would print the value instead as part of its function.                */</code>
-    </pre>
+      </pre>
 
-    <!-- h2: Iteration Statements -->
-    <h2>Iteration Statements</h2>
-    <p>
-      An <b>iteration statement</b> (commonly referred to as a <b>loop</b>) is a statement that
-      repeatedly evaluates an expression and executes code depending on the evaluation.
-      If the condition is <code>true</code> (or <code>false</code>), then code is sequentially executed until the
-      condition evalutes to a different logic value or encounters a jump statement (<code>break</code>,
-      <code>continue</code> and <code>return</code>).
-      Having a loop control variable is critical, as it formally verifies that the statement is properly behaved and
-      inevitably terminates.
-    </p>
+      <!-- ==================== -->
+      <!-- === Switches End === -->
+      <!-- ==================== -->
+    </section>
 
-    <!-- while -->
-    <h3>While statement</h3>
-    <p>
-      A <b>while statement</b> or loop iterates until the condition evalutes to a dissatisfactory value,
-      terminating and exiting the statement.
-      Especially within a while loop, there must exist a jump statement or the loop control variable eventually
-      dissatisfies the condition, terminating the statement.
-    </p>
-    <pre class="line-numbers">
-      <code class="language-java">int num = 0;
-      while (num <= 10) {
-        num++;
-        return num;
-      }
-      /* The while statement iterates so long as num is lesser than or equal to 10.                                                        */
-      /* The loop control variable num increases by increments of 1 per iteration until num is increases to 11, terminating the statement. */
+    <section id="iteration-statements">
+      <!-- ======================= -->
+      <!-- === Iteration Start === -->
+      <!-- ======================= -->
 
-      while (num >= 10) {
-        num--;
-      } // This while statement never executes, as num (equal to 0) immediately dissatisfies the condition.
+      <!-- === Iteration preamble === -->
+      <h2>Iteration Statements</h2>
+      <p>
+        An <b>iteration statement</b> (commonly referred to as a <b>loop</b>) is a statement that
+        repeatedly evaluates an expression and executes code depending on the evaluation.
+        If the condition is <code>true</code> (or <code>false</code>), then code is sequentially executed until the
+        condition evalutes to a different logic value or encounters a jump statement (<code>break</code>,
+        <code>continue</code> and <code>return</code>).
+        Having a loop control variable is critical, as it formally verifies that the statement is properly behaved and
+        inevitably terminates.
+      </p>
+      <!-- === Iteration preamble === -->
 
-      while (num <= 10) {
-        num--;
-      } // This while statement iterates indefinitely, as the condition is never dissatisfied.</code>
-    </pre>
+      <!-- === iteration.while preamble === -->
+      <h3>While statement</h3>
+      <p>
+        A <b>while statement</b> or loop iterates until the condition evalutes to a dissatisfactory value,
+        terminating and exiting the statement.
+        Especially within a while loop, there must exist a jump statement or the loop control variable eventually
+        dissatisfies the condition, terminating the statement.
+      </p>
+      <!-- === iteration.while preamble === -->
 
-    <!-- do-while -->
-    <h3>Do-while Statement</h3>
-    <p>
-      A <b>do-while statement</b> is a variation of the while statement.
-      The statement iterates once (initially) without evaluating the condition; then, the statement behaves identically
-      to a while statement.
-    </p>
-    <pre class="line-numbers">
-      <code class="language-java">int num = 0;
-      do {
-        System.out.println("This code block always executes, regardless of the condition of the do-while statement.");
-      } 
-      while (num < 0) {
-        System.out.println("The number remains negative.");
-        num++;
-      }
-      /* The do keyword ensures that the first code block always executes, regardless of the value of num. */
-      /* As num is greater than 0, the while loop does not iterate.                                        */</code>
-    </pre>
+      <!-- === iteration.while overview === -->
+      <p>
+        In package <code>interation.while</code> and in class <code>WhileCounter</code>, the method
+        <code>whileCounter</code> with the <code>int</code> condition <code>upToHere</code> uses a <code>while</code>
+        statement to count up from <code>0</code> to <code>upToHere</code>.
+        A <code>int</code> variable <code>count</code> (commonly referred to as a <i>counter variable</i> or a
+        <i>counter</i>, as its value records the number of iterations occuring since its initialization) is assigned to
+        a value of <code>0</code>. The code block increments <code>count</code> by <code>1</code> and prints the
+        value of thecountvariable per the current iteration.
+        <br><br>
+        <b>Critically, note:</b> As thecountvariable is assigned to <code>0</code> and the while statement
+        increments by <code>1</code>, the first value printed will be <code>1</code> and <em>not</em> <code>0</code>,
+        since the condition is printed <em>after</em> it's incremented by <code>1</code>.
+        <br><br>
+        The condition of the while loop (<code>count &lt;= upToHere</code>) ensures the statement iterates the same
+        number of times as <code>count</code> due to the <code>&lt;=</code> (lesser than or equal to) comparison
+        operator: As the <code>&lt;</code> comparison ensures the statement continually iterates as long as
+        <code>count</code> is lesser than the value of <code>upToHere</code>, and the <code>=</code> ensures the
+        statement iterates once when <code>count</code> equals the value of <code>upToHere</code>.
+        However, the next iteration causes thecountvariable to exceed the value of the operand, causing the
+        conditional to evalute to <code>false</code> and terminate the statement. This iteration never reaches the code
+        block, so nothing is executed.
+        <br><br>
+        As a note, if <code>upToHere</code> is a negative number, the absolute of its value will be used instead
+        (<code>Math.abs(upToHere)</code>).
+      </p>
+      <!-- === iteration.while overview === -->
 
-    <!-- for -->
-    <h3>For Statements</h3>
-    <p>
-      A <b>for statement</b> iterates a specified number of times.
-    </p>
-    <ol>
-      <li>Statement (initialization): <b>int i = n1;</b> determines a value or index that the for statement
-        starts iterating from.</li>
-      <li>Condition: <b>i ∘ n2;</b> is some condition (comparison) that evalutes to some boolean value, either
-        satisfying or disatisfying the for statement.</li>
-      <li>Increment: <b>i∘∘</b> is some increment that alters the loop control variable (i) to eventually
-        disatisfy the for statement.</li>
-    </ol>
-    <pre class="line-numbers">
-      <code class="language-java">for (int i = 0; i <= 10; i++) {
-        return i;
-      }
-      /* The for statement starts at 0 and increases i by 1 per iteration while i lesser than or equal to 10. */
+      <!-- === iteration.while code === -->
+      <pre class="language-java"><code>
+        package iteration.while;
 
-      int i = 0;
-      while (i <= 10) {
-        return i;
-        i++;
-      }
-      /* This while statement is functionally identical to the for statement. */</code>
-    </pre>
+        /* The while statement iterates so long as num is lesser than or equal to 10.                                        */
+        /* The loop control variable increments by 1 per iteration until it increases to 11, which terminates the statement. */
+        class WhileCounter {
+          void whileCounter(int upToHere) {
+            intcount= 0;
+            while (count <= Math.abs(upToHere)) {
+              count++;
+              System.out.println(count);
+            }
+          }
+        }
 
-    <!-- for-each -->
-    <h3>For-each Statement</h3>
-    <p>
-      A <b>for-each statement</b> is a variation of the for statement exclusively used for arrays and lists
-      (any object dependent on the <code>Iterable</code> interface).
-    </p>
-    <pre class="line-numbers">
-      <code class="language-java">for (int i : arr) {
-        return i;
-      } 
-      /* Do note that no condition is explictly written, as the equivilent code: */
+        public class Main {
+          public static void main(String[] args) {
+            WhileCounter wc = new WhileCounter();
+            wc.whileCounter(-3);
+            System.out.println();
+            wc.whileCounter(0); // Prints nothing
+            System.out.println();
+            wc.whileCounter(5);
+          }
+        }
 
-      Iterator<String> it = someList.iterator();
-      while (it.hasNext()) {
-        String item = it.next();
-        // ...
-      }
-      /* has the condition it.hasNext(); summarized, the for-each statement checks if there is another element to retrieve. */</code>
-    </pre>
+        /* Output */
+        /*
+        1
+        2
+        3
+
+
+        1
+        2
+        3
+        4
+        5
+        */
+      </code></pre>
+      <!-- === iteration.while code === -->
+
+      <!-- === iteration.dowhile preamble === -->
+      <h3>Do-while Statement</h3>
+      <p>
+        A <b>do-while statement</b> is a variation of the while statement.
+        The statement iterates once (initially) without evaluating the condition; then, the statement behaves
+        identically to a while statement.
+      </p>
+      <!-- === iteration.dowhile preamble === -->
+
+      <!-- === iteration.dowhile overview === -->
+      <p>
+        The program determines whether or not a given integer is not positive (negative or zero).
+        If not, then nothing happens to the the integer; it is printed and the program terminates early.
+        If so, however, then the integer is repeatedly incremented by 1 to a specified target.
+        Once the incremented integer is equivalent to the target, then the program prints the value and terminates.
+        Additionally, if the target is negative, the absolute of it is used instead.
+        If the target is zero, then the target is turned into 1 instead.
+      </p>
+      <!-- === iteration.dowhile overview === -->
+
+      <!-- === iteration.dowhile walkthrough === -->
+      <p>
+        Inside of package <code>interation.dowhile</code>, there exist two Java files:
+        <code>ConvertToPositiveTarget.java</code> and <code>Main.java</code>.
+        <br><br>
+        Within the former file exists its sole classL <code>ConvertToPositiveTarget</code>, which contains
+        method <code>converter()</code>. The method has two <code>int</code> parameters, <code>num</code> and
+        <code>target</code>. The former is the integer that the program determines the signage of (and potentially
+        increments) and the latter is the integer the program must make <code>num</code> equivalent to.
+        <br>
+        Within the <code>do</code> code block, which runs regardless of <code>num</code> or <code>target</code>,
+        are four conditional statements that execute if:
+      <ul>
+        <li><code>count</code> is greater than 0 (positive);</li>
+        <li><code>target</code> is less than 0 (negative);</li>
+        <li><code>target</code> is equivilent to 0 (meaning that <code>target</code> <i>is</i> zero);</li>
+        <li>and if <code>count</code> is negative (and implicitly, that <code>target</code> is positive).</li>
+      </ul>
+        The first conditional statement uses the <code>break</code> statement to prematurely exit the program, as
+        executing it regardless would be redundant if <code>num</code> was positive.
+        Otherwise, the second conditional statement evalutes the absolute of <code>target</code> to make it positive and
+        the third reassigns <code>target</code> to a value of <code>1</code>.
+      <br><br>
+        The code block of the <code>while</code> statement
+      </p>
+      <!-- === iteration.dowhile walkthrough === -->
+      <pre class="line-numbers">
+        <code class="language-java">
+        int count = 0;
+        do {
+          System.out.println("This may or may not be negative. It is, however, an integer.");
+          if (count > 0) {
+            System.out.println("The number is positive; no need to increase it.");
+            break;
+          } else if (target < 0) {
+            System.out.println("The target is negative; the absolute of it will be used instead.");
+            target = Math.abs(target);
+          } else if (target = 0) {
+            System.out.println("The target is zero; it'll be one instead.");
+            target = 1;
+          } else {
+            System.out.println("The number is negative (or zero); it must be made positive.");
+          }
+        } 
+        while (num < 0) {
+          System.out.println("The number remains negative.");
+          num++;
+        }
+        /* The do keyword ensures that the first code block always executes, regardless of the value of num. */
+        /* As num is greater than 0, the while loop does not iterate.                                        */</code>
+      </pre>
+
+      <!-- for -->
+      <h3>For Statements</h3>
+      <p>
+        A <b>for statement</b> iterates a specified number of times.
+      </p>
+      <ol>
+        <li>Statement (initialization): <b>int i = n1;</b> determines a value or index that the for statement
+          starts iterating from.</li>
+        <li>Condition: <b>i ∘ n2;</b> is some condition (comparison) that evalutes to some boolean value, either
+          satisfying or disatisfying the for statement.</li>
+        <li>Increment: <b>i∘∘</b> is some increment that alters the loop control variable (i) to eventually
+          disatisfy the for statement.</li>
+      </ol>
+      <pre class="line-numbers">
+        <code class="language-java">for (int i = 0; i <= 10; i++) {
+          return i;
+        }
+        /* The for statement starts at 0 and increases i by 1 per iteration while i lesser than or equal to 10. */
+
+        int i = 0;
+        while (i <= 10) {
+          return i;
+          i++;
+        }
+        /* This while statement is functionally identical to the for statement. */</code>
+      </pre>
+
+      <!-- for-each -->
+      <h3>For-each Statement</h3>
+      <p>
+        A <b>for-each statement</b> is a variation of the for statement exclusively used for arrays and lists
+        (any object dependent on the <code>Iterable</code> interface).
+      </p>
+      <pre class="line-numbers">
+        <code class="language-java">for (int i : arr) {
+          return i;
+        } 
+        /* Do note that no condition is explictly written, as the equivalent code: */
+
+        Iterator<String> it = someList.iterator();
+        while (it.hasNext()) {
+          String item = it.next();
+          // ...
+        }
+        /* has the condition it.hasNext(); summarized, the for-each statement checks if there is another element to retrieve. */</code>
+      </pre>
+
+      <!-- ======================= -->
+      <!-- === Iteration Start === -->
+      <!-- ======================= -->
+    </section>
 
     <!-- h2: Nested Statements -->
     <h3>Nested Statements</h3>
     <p>
       <b>Nested statements</b> are iteration statements where the iteration and execution of a statement
       (outer statement) explicitly encompasses another (inner statement).
-      Each statement must utilize a unique statement control variable; errors concerning scope are thrown when a common
+      Each statement must utilize a unique statement control variable; errors concerning scope are thrown when a
+      common
       loop control variable is shared between nested statements.
       Loop control variables are communicable by encompassment; the variable of the outer statement is accessible by
       inner statements, yet the inverse cannot occur.
@@ -315,7 +707,8 @@
       control flow.
     </p>
     <ul>
-      <li><code>break</code>: Immediately terminates the current execution and jumps from the current code block to the
+      <li><code>break</code>: Immediately terminates the current execution and jumps from the current code block to
+        the
         nearest sequential executable or code block.</li>
       <li><code>continue</code>: Used with iteration statements, it immediately terminates the current execution and
         jumps back to the evaluation of the condition.</li>
@@ -346,7 +739,8 @@
       There are three code blocks in Java concerned with catching and handling exceptions and errors.
     </p>
     <ul>
-      <li><code>try</code>: Encloses executable code that may throw an exception (or error, though doing so will likely
+      <li><code>try</code>: Encloses executable code that may throw an exception (or error, though doing so will
+        likely
         illicit damaging ramifications with proper precautions).</li>
       <li><code>catch</code>: A code block that handles a matching exception. Since Java 7, one code block may handle
         more than one exception, barring restrictions and with precautions.</li>

@@ -1,29 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="../css/styles.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AP CSA: Java</title>
+  <title>AP CSA: Objects and Classes</title>
+  <link rel="stylesheet" href="../highlight/styles/default.css">
+  <script src="../highlight/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
 </head>
+
 <body>
-  <!-- Common header loaded dynamically -->
-  <div id="header"></div>
+  <div id="header">
+    <script src="../js/loadHeader.js"></script>
+  </div>
+  <div id="subheader">
+    <script src="../js/loadSubHeaderJava.js"></script>
+  </div>
 
-  <!-- AP CSA Sub-Navigation for Java Topics -->
-  <div id="subheader"></div>
-
-  <!-- Main Content Area -->
   <main>
-    <h1>Objects and Classes</h1>
-    <p>
-      Welcome to the AP Computer Science A Java page. Here you'll find an overview of key Java topics covered in the AP CSA course. Use the menu above to navigate to detailed subpages that explore each subject in depth.
-    </p>
-    <!-- Additional content can go here -->
+    <h1>Classes and Object</h1>
+    <section id="classes-overview">
+      <!-- ===================== -->
+      <!-- === Classes Start === -->
+      <!-- ===================== -->
+
+      <!-- === classes preamble === -->
+      <h2>Classes</h2>
+      <p>
+        A <b>class</b> is a user-defined template that encapsulates the <i>members</i> (<i>fields</i> and
+        <i>behaviours</i>) of <b>objects</b>, <i>constructors</i> (an routine that initializes the fields of objects)
+        and supplemental functions (<i>accessors</i>, <i>mutators</i>, <code>toString()</code>, etc.) to access and
+        modify object members. Classes are the most <em>elemental</em> and <em>fundamental</em> unit of code
+        organization. In fact, the name of a <code>.java</code> files must be exactly that of the file's sole <i>public
+          class</i> or <i>interface</i>, as class are specific units of <i>compilation</i> and that the
+        <code>ClassLoader</code> must be entirely aware of what bytecode to produce for the correlating
+        <code>.class</code> file.
+      </p>
+      <p>
+        A <b>top-level class</b> refers to the class that shares its name with the <code>.java</code> file, of which
+        there may only be one in any file. Additionally, the top-level class may only be <code>public</code> or
+        <code>default</code> and <i>non-static</i> for reasons later discussed (in short, the class becomes
+        contradictory and impossible to compile). Its non-accessibility may be freely modified, however; the class may
+        be <code>abstract</code>, <code>final</code>, <code>sealed</code>, a <code>record</code> or adhere to IEEE-754
+        1985 (<code>strictfp</code>).
+        <br>
+        Though, it is also owed to such reasons that <b>nested class</b> exclusively refer to <code>static</code>
+        classes and <b>inner classes</b> to non-static classes.
+        <br>
+        Additionally, an <code>enum</code> is a specialized class that relates to enumeration, and is similarly subject
+        to modification. And a <code>subclass</code> is any class that is hierarchically inferior to a
+        <code>superclass</code>, as it relates to inheritance and polymorphism.
+      </p>
+      <!-- === classes preamble === -->
+
+      <!-- === classes overview === -->
+      <p>
+        The following program summarily demonstrates the: Differences between <code>static</code> and non-static
+        classes, accessibility modifications and non-accessibility modifications.
+      </p>
+      <!-- === classes overview === -->
+
+      <!-- === classes walkthrough === -->
+      <p>
+        The following classes are presented (in a loose order) across several files. It is given that they are not
+        modified apart from accessibility modifiers.
+      </p>
+      <dl>
+        <dt>1. Top-Level Classes</dt>
+        <dd>a&#41; <code>public class PublicClass</code></dd>
+        <dd>b&#41; <code>class DefaultClass</code></dd>
+        <dt>2. Inner Classes </dt>
+        <dd>a&#41; <code>public class PublicInner</code></dd>
+        <dd>b&#41; <code>class DefaultInner</code></dd>
+        <dd>c&#41; <code>protected class ProtectedInner</code></dd>
+        <dd>d&#41; <code>private class PrivateInner</code></dd>
+        <dt>3. Nested Classes</dt>
+        <dd>a&#41; <code>public static class PublicNested</code></dd>
+        <dd>b&#41; <code>static class DefaultNested</code></dd>
+        <dd>c&#41; <code>protected class ProtectedNested</code></dd>
+        <dd>d&#41; <code>private class PrivateNested</code></dd>
+        <dt>4. Local Classes </dt>
+        <dd>a&#41; <code>class LocalClass</code></dd>
+        <dt>5. Anonymous Classes</dt>
+        <dd>a&#41; Implementing an <code>interface</code>
+          <pre><code>... = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Running anonymously!");
+            }
+        };</code></pre>
+        </dd>
+        <dd>b&#41; Extending a concrete class
+          <pre><code>... new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Button clicked!");
+            }
+        }</code></pre>
+        </dd>
+      </dl>
+      <p>
+        Here, it is only given that the classes are modified non-accessibly, and in a loose order.
+      </p>
+      <dl>
+        <dt>6. Abstract Classes</dt>
+        <dt>7. Final Classes</dt>
+        <dt>8. Sealed Classes</dt>
+        <dt>9. Record Classes</dt>
+        <dt>10. Strictly floating-point Classes</dt>
+      </dl>
+      <p>
+        Lastly, here, the <code>enum</code>, <code>subclasses</code> and <code>superclasses</code> are discussed
+        briefly.
+      </p>
+      <dl>
+        <dt>11. Enums</dt>
+        <dt>12. Subclasses and Superclasses</dt>
+      </dl>
+      <!-- === classes walkthrough === -->
+
+      <!-- === classes pseudocode === -->
+      <pre><code>
+        In this file, PublicClass.java, examples 1.a&#41; to 5.a&#41; are covered, excluding 1.b&#41;
+        PublicClass contains all other classes within the previously specified range and one method: main() {...}.
+        main() contains class LocalClass and two anonymous classes, created in different ways.
+        main() may not execute meaningfully, though it successfully compiles.
+        Assume thay any object instantiated in the program was properly initialized in another class.
+
+        public class PublicClass {
+          public class PublicInner {...}
+          class DefaultInner {...}
+          protected class ProtectedInner {...}
+          private class PrivateInner {...}
+
+          public static class PublicNested {...}
+          static class DefaultNested {...}
+          protected static class ProtectedNested {...}
+          private static class PrivateNested {...}
+
+          public static void main(String[] args) {
+            class LocalClass {...}
+
+            - Runnable Anonymous Class (Implements Interface)
+            new Runnable 'r' {
+              Define method 'run'
+            }
+            Run method 'run'
+
+            - Button Anonymous Class (Extends Concrete Class)
+            new Button("Click me") 'b' 
+              new ActionListener {
+                Define method 'buttonPressed'(event)
+            }
+          }
+        }
+      </code></pre>
+
+      <pre><code>
+        In this file, DefaultClass.java, examples 6. to 11. will be covered.
+        DefaultClass contains all other classes within the previously specified range and one method: main() {...}.
+        main() does not contain any class nor any methods.
+        main() may not execute meaningfully, though it succesfully compiles.
+
+        class DefaultClass() {
+          abstract class AbstractClass {...}
+          final class FinalClass {...}
+          sealed class SealedClass permits ... {...} 
+          record RecordClass(...) {...} 
+          strictfp class StrictFp {...}
+          enum
+
+          public static void main(String[] args) {...}
+        }
+      </code></pre>
+
+      <pre><code>
+        Across three files example 12. is covered.
+        Subclass extends from Superclass. Members and constructers will be assumed to successfully compile and execute.
+        The main() method exists inside of class Main, and it successfully compiles and executes, if not meaningfully.
+        Assume that each class
+
+        - Superclass.java
+        class Superclass {
+          Define constructor(parameter1, parameter2) {...}
+          Define method 'run'
+        }
+      </code></pre>
+
+      <pre><code>
+        - Superclass.java
+        class Subclass extends Superclass {
+          Define constructor(parameter1, parameter2, parameter3) {
+            super(parameter1, parameter2) {...}
+            ...
+          }
+        }
+
+        Override method 'run'
+        Define method 'run' {
+          super.parameter1
+          super.run()
+          ...
+        }
+      </code></pre>
+
+      <pre><code>
+        class Main {
+          public static void main (String[] args) {...}
+        }
+      </code></pre>
+      <!-- === classes pseudocode === -->
+    </section>
   </main>
 
   <!-- Script to load the common header -->
   <script src="../js/loadHeader.js"></script>
   <script src="../js/loadSubHeaderJava.js"></script>
 </body>
+
 </html>

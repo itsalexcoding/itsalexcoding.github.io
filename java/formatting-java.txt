@@ -1,0 +1,29 @@
+Sections (in order):
+1. Preamble
+  (a) Introduce and generally describe the functionality of the revelvant/showcased functionality, keyword, etc.
+    (i) Don't provide information specific to the program(s).
+2. Overview
+  (a) Describe the general purpose of the program(s) presented.
+  (b) Summarize the functionality of methods; starting from the largest, broadest components.
+    (i) Focus on cause rather than function.
+3. Walkthrough
+  (a) Go step-by-step through the program.
+    (i) Focus on function rather than cause.
+4. Pseudocode
+  (a) Technically describes the program(s).
+5. Code
+  (a) Don't hide implementations if practical.
+  (b) Use comments.
+  (c) Outline the output using comments.
+
+
+
+  objects.html
+
+  Classes: 
+  - 1st section: Access modifiers
+  - 2nd section: Non-access modifiers
+  - 3rd section: Non-static/static classes
+  - 4th section: Specialty classes (enum)
+
+  Objects:

@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../css/styles.css" />
   <title>Variables</title>
+  <link rel="stylesheet" href="../highlight/styles/default.css">
+  <script src="../highlight/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
 </head>
 
 <body>
-  <!-- Load Navigation -->
   <div id="header">
     <script src="../js/loadHeader.js"></script>
   </div>
@@ -17,28 +19,75 @@
     <script src="../js/loadSubHeaderJava.js"></script>
   </div>
 
-  <!-- Main -->
   <main>
-
-    <!-- h1 -->
     <h1>Variables and Data Types</h1>
+    <section id="variables">
+      <!-- ======================= -->
+      <!-- === Variables Start === -->
+      <!-- ======================= -->
 
-    <!-- h2: Variables -->
-    <h2>Variables</h2>
-    <p>
-      A <b>variable</b> is an identifier (name) binded to a location in memory that stores a typed value,
-      governed by scope, lifetime and contextually exhibits mutability or immutability. <i>Declaration</i> specifies
-      the type of data a variable may store, at which point, the variable may be <i>assigned</i> data (that complies
-      with the type of the variable).
-    </p>
-    <pre class="line-numbers" data-start="1">
-      <code class="language-java">int integer;
-      integer = 1;
-      char character = 'a';
-      /* The variable 'integer' was at first declared with an identifier and the data type 'int', meaning it stores integer values */
-      /* On the following line, 'interger' is assigned the numberic value of '1'                                                   */
-      /* The variable 'character' is declared and assigned a char value of 'a' on the same line                                    */</code></pre>
+      <!-- === variables preamble === -->
+      <h2>Variables</h2>
+      <p>
+        A <b>variable</b> is an identifier (name) binded to a location in memory that stores a typed value,
+        governed by scope, lifetime and contextually exhibits mutability or immutability. <i>Declaration</i> specifies
+        the type of data a variable may store, at which point, the variable may be <i>assigned</i> data (that complies
+        with the type of the variable). Variables may have their contents and behavioural characteristics explicitly and
+        contextually modified and altered, permitting safe (or unsafe), efficacious and liberal (within the limitations
+        of static typing) usage.
+      </p>
+      <!-- === variables preamble === -->
 
+      <!-- === variables overview === -->
+      <p>
+        The program is a demonstration of the capabilities of variables in Java, from storing data to modern
+        implementations in Java.
+      </p>
+      <!-- === variables overview === -->
+
+      <!-- === variables walkthrough === -->
+      <p>
+        In package <code>variables</code>, there's
+      </p>
+      <!-- === variables walkthrough === -->
+
+      <!-- === variables pseudocode === -->
+
+      <!-- === variables pseudocode === -->
+
+      <!-- === variables code === -->
+      <pre class="language-java"><code>
+        /* simpleImplementations.java */
+        package variables;
+
+        class SimpleImplementations {
+          void primitiveTypes(); {
+            /* Primitive Data (Default Literals) */
+            /* Integers */
+            byte byteValue = 0;
+            short shortValue = 0;
+            int intValue = 0;
+            long longValue = 0L;
+            
+            /* Floating-points */
+            float floatValue = 0.0f;
+            double doubleValue = 0.0d;
+
+            /* Characters */
+            char charValue = 'u/0000';
+            
+            /* Booleans */
+            boolean booleanValue = false;
+          }
+        }
+      </code></pre>
+      <!-- === variables code === -->
+
+
+      <!-- ======================= -->
+      <!-- === Variables Start === -->
+      <!-- ======================= -->
+    </section>
 
     <!-- h2: Data Type -->
     <h2>Data Type</h2>
@@ -132,7 +181,7 @@
       Signed integers: -2<sup>n-1</sup> to 2<sup>n-1</sup>-1
       Unsigned integers: 0 to 2<sup>n</sup>-1
 
-      For example, if n = 8:   
+      For example, if n = 8:
     </p>
 
 
