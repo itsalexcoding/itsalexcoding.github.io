@@ -31,3 +31,7 @@ nav ul li a {
 body {
   padding: 50px;
 }
+
+.gap-below {
+  margin-bottom: 2rem;
+}

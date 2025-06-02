@@ -46,9 +46,6 @@
         be <code>abstract</code>, <code>final</code>, <code>sealed</code>, a <code>record</code> or adhere to IEEE-754
         1985 (<code>strictfp</code>).
         <br>
-        Though, it is also owed to such reasons that <b>nested class</b> exclusively refer to <code>static</code>
-        classes and <b>inner classes</b> to non-static classes.
-        <br>
         Additionally, an <code>enum</code> is a specialized class that relates to enumeration, and is similarly subject
         to modification. And a <code>subclass</code> is any class that is hierarchically inferior to a
         <code>superclass</code>, as it relates to inheritance and polymorphism.
@@ -76,11 +73,11 @@
         <dd>b&#41; <code>class DefaultInner</code></dd>
         <dd>c&#41; <code>protected class ProtectedInner</code></dd>
         <dd>d&#41; <code>private class PrivateInner</code></dd>
-        <dt>3. Nested Classes</dt>
-        <dd>a&#41; <code>public static class PublicNested</code></dd>
-        <dd>b&#41; <code>static class DefaultNested</code></dd>
-        <dd>c&#41; <code>protected class ProtectedNested</code></dd>
-        <dd>d&#41; <code>private class PrivateNested</code></dd>
+        <dt>3. Static Nested Classes</dt>
+        <dd>a&#41; <code>public static class PublicStaticNested</code></dd>
+        <dd>b&#41; <code>static class DefaultStaticNested</code></dd>
+        <dd>c&#41; <code>protected class PrivateInner</code></dd>
+        <dd>d&#41; <code>private class PrivateStaticNested</code></dd>
         <dt>4. Local Classes </dt>
         <dd>a&#41; <code>class LocalClass</code></dd>
         <dt>5. Anonymous Classes</dt>
@@ -132,13 +129,13 @@
         public class PublicClass {
           public class PublicInner {...}
           class DefaultInner {...}
-          protected class ProtectedInner {...}
+          protected ProtectedInner {...}
           private class PrivateInner {...}
 
-          public static class PublicNested {...}
-          static class DefaultNested {...}
-          protected static class ProtectedNested {...}
-          private static class PrivateNested {...}
+          public static class PublicStaticNested {...}
+          static class DefaultStaticNested {...}
+          protected static class ProtectedStaticNested
+          private static class PrivateStaticNested {...}
 
           public static void main(String[] args) {
             class LocalClass {...}
@@ -170,7 +167,7 @@
           sealed class SealedClass permits ... {...} 
           record RecordClass(...) {...} 
           strictfp class StrictFp {...}
-          enum
+          enum class EnumClass {...}
 
           public static void main(String[] args) {...}
         }
@@ -178,7 +175,7 @@
 
       <pre><code>
         Across three files example 12. is covered.
-        Subclass extends from Superclass. Members and constructers will be assumed to successfully compile and execute.
+        Subclass extends from Superclass. Members and constructers will be assumed to  successfully compile and execute.
         The main() method exists inside of class Main, and it successfully compiles and executes, if not meaningfully.
         Assume that each class
 
@@ -212,6 +209,42 @@
         }
       </code></pre>
       <!-- === classes pseudocode === -->
+
+      <!-- class access modifiers preamble -->
+      <h3>Done</h3>
+      <p>
+        <b>Access modifiers</b> are critical for compartmentalizing and controlling access to code. Summarily:
+      <ul>
+        <li>
+          <code>public</code>: So long as the JVM classpath and package (or module) are recognizable, then any class,
+          object or member may access a <code>public</code> top-level class. A <code>.java</code> file may only have one
+          public top-level class, which also must have an identical name. Otherwise, if not a top-level class, then
+          <i>effective</i> visibility of a class is dependent on the accessibility of the enclosing class
+        </li>
+        <li>
+          default: Also known as <code>package-private</code>, it describes the lack of an accessibility
+          modifier. If not <code>public</code>, the top-level class must have default accessibility, which
+          restricts access to only within the package. Additionally, default classes are inaccessible via
+          extension (concerning inheritance) if the superclass is outside of the package.
+        </li>
+        <li>
+          <code>protected</code>: A <code>protected</code> class may only be a nested class, as while the modifier
+          restricts access to within a package, which is similar to default accessibility, as its usage inherently
+          requires that the enclosing class provide access to subclasses, which is contradictory in regard to a
+          top-level class. Yet, the <code>protected</code> modifier provides accessibility between superclass and
+          subclasses, regardless of the package, unlike default accessibility.
+        </li>
+        <li>
+          <code>private</code>: Only applicable to nested classes, as the modifier restricts access to
+          <em>within</em> a class, as it would be contradictory for a top-level class to restrict access to an
+          encapsulating class, where there is none. Private classes are inaccessible anywhere outside of their enclosing
+          class.
+        </li>
+      </ul>
+      </p>
+      <!-- class access modifiers preamble -->
+
+      
     </section>
   </main>
 

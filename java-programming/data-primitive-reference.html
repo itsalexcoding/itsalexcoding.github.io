@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Programming</title>
+
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="stylesheet" href="../highlightjs/styles/default.min.css">
+
+<script src="../highlightjs/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<body>
+  <main>
+    <h1>Data types</h1>
+    <p>
+      A <b>data type</b> is a technical categorization of <i>data</i> (to clarify, <i>data</i> concerns any and all
+      information stored on a computer represented as symbols, such as a 'bit' or a 'b', which represent binary
+      digits) that affects its interpretation by a computer. Thus, the data type of a variable dictates the type of
+      storable data.
+    </p>
+
+    <h2>A brief overview of data types</h2>
+    <p>
+      The JVM recognizes two broad categories of data types: <b>primitive</b> types and <b>reference</b> types.
+      Primitive data types represent numerical, logical or character data, which are fundamental classifications of data
+      which critical protocols within the JVM inherently recognizes.
+    </p>
+    <p>
+      If a field is assigned to a value that is primitive data, the JVM allocates enough memory to directly store the
+      size of the value in <i>stack memory</i>, which is unordered memory that prioritizes speed in recalling values
+      over the ability to reliably store and keep data in a particular location: Not a concern for data that
+      is as non-idiosyncratic as an integer number or a particular letter of the English alphabet.
+    </p>
+    <p>
+      In contrast, if a field is assigned to reference data, the JVM merely allocates enough memory for the variable to
+      store the address of the data in memory, largely because reference types are often significantly larger than
+      primitive types and it would be impractical to store directly in stack memory. Thus, reference data is stored in
+      <i>heap memory</i> instead, which can reliably retain data in an unchanging location.
+    </p>
+    <p>
+      Once a field, method or another structure is imbued with a particular type, whether a primitive or reference type,
+      it cannot be explicitly altered. This particular <i>type system</i> is called <i>static typing</i>, where the data
+      type of a field must be stated during declaration in source code and must be clear to the JVM during compilation
+      (and before runtime).
+    </p>
+
+    <h2>Primitive data types</h2>
+    <p>
+      The JVM reserves eight keywords for primitive data, whereby each represents a differing interpretation of binary
+      data. In fact, there can be established four informal classifications of primitive data: four keywords define
+      integers (their formatting and arithmetic abiding by the <i>two's complement</i> standard), two keywords
+      define real numbers (and other numbers, per the scientific standard <i>IEEE 754</i>), one defines characters
+      (encoded in <i>UTF-16</i>) and the remaining keyword defines basic logic (true and false).
+    </p>
+
+    <h3>Primitive data types that represent integers</h3>
+
+    <p>
+      <i>Two's complement</i> is a common representation of integers using binary data (represented using 0s and 1s).
+      If the bits of an integer were correctly laid out in a line, the leftmost bit would be the <i>most-significant
+        bit</i> (MSB), which is the bit that has the greatest affect on the decimal value of the integer. In contrast,
+      the rightmost bit would be the <i>least-significant bit</i> (LSB).
+    </p>
+    <p>
+      In two's complement, the MSB is used to determine the <i>signage</i> (whether a number is positive, negative or
+      neither) of an integer. If the MSB has a value of 0, then the integer is positive. Likewise, the integer is
+      negative if the MSB has a value of 1.
+    </p>
+    <img src="java-diagrams/1010-example.svg" width="400" height="300">
+    <p>
+      The <i>range</i> (the least or greatest, negative or positive value that a number may be equal to, starting from
+      0, which is neither negative nor positive) of a two's complement integer is calculable using the following
+      formulas: min = -2<sup><i>n</i>-1</sup> and max = 2<sup><i>n</i>-1</sup>-1, where <i>n</i> is the size of the
+      integer measured in bits. The base of both formulas is <b>2</b>, as binary is a <i>base-2</i> (two possible
+      values) representation of decimal numbers, which are base-10 (hence, why scientific notation uses a base of 10).
+    </p>
+    <p>
+      However, as demonstrated by the two formulas above, the maximum value of an integer is 1 less than the absolute of
+      the minimum value. This disparity is a result of the MSB being used for signage. As a value of 0 represents a
+      positive number, the MSB cannot contribute to the decimal value for all positive numbers.
+    </p>
+    <table border="1" cellspacing="0" cellpadding="5">
+      <tr>
+        <th>Bit (Value):</th>
+        <td>1</td>
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <th>Binary Calculation:</th>
+        <td>-(1*2<sup>3</sup>)</td>
+        <td>0*2<sup>2</sup></td>
+        <td>1*2<sup>1</sup></td>
+        <td>0*2<sup>0</sup></td>
+      </tr>
+      <tr>
+        <th>Decimal Value:</th>
+        <td>-8</td>
+        <td>0</td>
+        <td>2</td>
+        <td>0</td>
+      </tr>
+    </table>
+    <p>
+      -(1*2<sup>3</sup>) + (0*2<sup>2</sup>) + (1*2<sup>1</sup>) + (0*2<sup>0</sup>) = <br>
+      <b>1</b>*-8 + <b>0</b> + <b>1</b>*2 + <b>0</b> = <br>
+      <b>-6</b>.
+    </p>
+
+    <table border="1" cellspacing="0" cellpadding="5">
+      <tr>
+        <th>Keyword</th>
+        <th>Size (bits)</th>
+        <th>Minimum value (binary)</th>
+        <th>Minimum value (decimal)</th>
+        <th>Maximum value (binary)</th>
+        <th>Maximum value (decimal)</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>
+          <pre><code class="language-java">byte</code></pre>
+        </td>
+        <td>8</td>
+        <td>-2<sup>7</sup></td>
+        <td>-128</td>
+        <td>2<sup>7</sup>-1</td>
+        <td>127</td>
+        <td>Used to conserve memory</td>
+      </tr>
+      <tr>
+        <td>
+          <pre><code class="language-java">short</code></pre>
+        </td>
+        <td>16</td>
+        <td>-2<sup>15</sup></td>
+        <td>-37,768</td>
+        <td>2<sup>15</sup>-1</td>
+        <td>37,767</td>
+        <td>Larger range than byte; still conserves memory</td>
+      </tr>
+      <tr>
+        <td>
+          <pre><code class="language-java">int</code></pre>
+        </td>
+        <td>32</td>
+        <td>-2<sup>31</sup></td>
+        <td>-2,147,483,648</td>
+        <td>2<sup>31</sup>-1</td>
+        <td>2,147,483,647</td>
+        <td>Commonly used; balance between range and memory usage</td>
+      </tr>
+      <tr>
+        <td>
+          <pre><code class="language-java">long</code></pre>
+        </td>
+        <td>64</td>
+        <td>-2<sup>63</sup></td>
+        <td>-9,223,372,036,854,775,808</td>
+        <td>2<sup>63</sup>-1</td>
+        <td>9,223,372,036,854,775,807</td>
+        <td>Used for very large integer values</td>
+      </tr>
+    </table>
+
+    <h3>Primitive data types that represent real numbers</h3>
+
+    <p>
+      <i>Floating-point arithmetic</i>, summarily, is arithmetic performed to determine the scientific notation of a
+      real number, which from left to right includes: the <i>significand</i> (an integer or fractional that contains the
+      significant digits of a number), the radix (or base; used to represent a number according to some system) and the
+      exponent that the radix is raised to the power of.
+    </p>
+    <p>
+      number = signficiant * base<sup>exponent</sup>
+    </p>
+    <p>
+      <i>IEEE 754</i> is a technical norm that standardizes the formatting, rounding rules, operations and the handling
+      of exceptions and errors of floating-point numbers&mdash; and is a widespread choice of implementation across
+      hardware and software, including Java. The standard explicitly defines how 32-bit and 64-bit large FP numbers are
+      formatted, which are commonly called <i>single-precision</i> and <i>double-precision</i> formats, respectively.
+    </p>
+    <img src="java-diagrams/fp32-example.svg" width="1200">
+    <img src="java-diagrams/fp64-example.svg" width="1200">
+    <p>
+      These FP formats correspond directly to the two reserved keywords that represent real numbers: <code>float</code>
+      and <code>double</code>.
+    </p>
+    <p>
+      Approximating the minimum and maximum ranges of a floating-point value is more complicated a process than that of
+      integers, as special values (such as <i>subnormal numbers</i>, which provide additional precision for extremely
+      small or large numbers) and <i>bias</i> (an integer added to the exponent to permit representation of positive and
+      negative numbers).
+    </p>
+    <p>
+      The bias is subtracted from the original exponent to determine the exponent that performs the calculation. The
+      bias of <code>float</code> is 127 and the bias of <code>double</code> is 1023. Thus, accounting for bias, the
+      minimum and maximum values of either data type are provided below:
+    </p>
+    <p>
+      Let: <br>
+      - <i>f</i> = number of fraction bits<br>
+      - <i>n</i> = number of exponent bits<br>
+      - <b>bias</b> = 2<sup><i>n</i> - 1</sup> - 1<br>
+      - <b>e<sub>min</sub></b> = 1 - bias<br>
+      - <b>e<sub>max</sub></b> = (2<sup><i>n</i></sup> - 2) - bias<br><br>
+
+      Then:<br>
+      <b>min</b> = 1.0 * 2<sup>e<sub>min</sub></sup><br>
+      <b>max</b> = (2 - 2<sup>-<i>f</i></sup>) * 2<sup>e<sub>max</sub></sup>
+    </p>
+
+    <p>
+      <b>float (32-bit):</b><br>
+      - <i>f</i> = 23, <i>n</i> = 8, bias = 127<br>
+      - <b>e<sub>min_float</sub></b> = 1 - 127 = <b>-126</b><br>
+      - <b>e<sub>max_float</sub></b> = (2<sup>8</sup> - 2) - 127 = 254 - 127 = <b>127</b><br>
+      - <b>min<sub>float</sub></b> = 1.0 * 2<sup>-126</sup> ≈ 1.17549435 * 10<sup>-38</sup><br>
+      - <b>max<sub>float</sub></b> = (2 - 2<sup>-23</sup>) * 2<sup>127</sup> ≈ 3.4028235 * 10<sup>38</sup>
+    </p>
+
+    <p>
+      <b>double (64-bit):</b><br>
+      - <i>f</i> = 52, <i>n</i> = 11, bias = 1023<br>
+      - <b>e<sub>min_double</sub></b> = 1 - 1023 = <b>-1022</b><br>
+      - <b>e<sub>max_double</sub></b> = (2<sup>11</sup> - 2) - 1023 = 2046 - 1023 = <b>1023</b><br>
+      - <b>min<sub>double</sub></b> = 1.0 * 2<sup>-1022</sup> ≈ 2.2250738585072014 * 10<sup>-308</sup><br>
+      - <b>max<sub>double</sub></b> = (2 - 2<sup>-52</sup>) * 2<sup>1023</sup> ≈ 1.7976931348623157 * 10<sup>308</sup>
+    </p>
+
+    <p>
+      The same as above, only now accounting for denormalized (subnormal) numbers, which provide greater precision for
+      extremely small (close to 0) and extremely large numbers (approaching infinity).
+    </p>
+    <p>
+      Let: <br>
+      - <i>f</i> = number of fraction bits <br>
+      - <i>bias</i> = exponent bias <br>
+      - Subnormal numbers have an exponent of <b>1 - bias</b>, and the leading significand bit is <b>0</b> (not
+      1)<br><br>
+
+      Then:<br>
+      <b>min<sub>sub</sub></b> = 2<sup>1 - bias - f</sup><br>
+      <b>max<sub>sub</sub></b> = (1 - 2<sup>-f</sup>) * 2<sup>1 - bias</sup>
+    </p>
+
+    <p>
+      <b>float (32-bit):</b><br>
+      - <i>f</i> = 23, bias = 127<br>
+      - <b>min<sub>sub_float</sub></b> = 2<sup>-126 - 23</sup> = 2<sup>-149</sup> &approx; 1.4 * 10<sup>-45</sup><br>
+      - <b>max<sub>sub_float</sub></b> = (1 - 2<sup>-23</sup>) * 2<sup>-126</sup> &approx; 1.17549421 * 10<sup>-38</sup>
+    </p>
+
+    <p>
+      <b>double (64-bit):</b><br>
+      - <i>f</i> = 52, bias = 1023<br>
+      - <b>min<sub>sub_double</sub></b> = 2<sup>-1022 - 52</sup> = 2<sup>-1074</sup> &approx; 4.9 *
+      10<sup>-324</sup><br>
+      - <b>max<sub>sub_double</sub></b> = (1 - 2<sup>-52</sup>) * 2<sup>-1022</sup> &approx; 2.2250738585072010 *
+      10<sup>-308</sup>
+    </p>
+    <p>
+      Still, whilst being familiar with the limits of what a <code>float</code> or <code>double</code> value can store,
+      it is perhaps more useful to understand to what <em>decimal precision</em> each type can represent a value. Each
+      binary digit of a significand contributes log<sub>10</sub>(2), or approximately 0.30103 decimal digits to decimal
+      precision. Thus, a <code>float</code> value is precise to 24 bits * 0.30103, or <b>7.22 decimal digits</b> and a
+      <code>double</code> value is precise to 53 bits * 0.30103, or <b>15.95 decimal digits</b>.
+    </p>
+
+    <table border="1" cellspacing="0" cellpadding="5">
+      <tr>
+        <th>Keyword</th>
+        <th>Size (bits)</th>
+        <th>Min (denormal, decimal)</th>
+        <th>Min (normal, decimal)</th>
+        <th>Max (decimal)</th>
+        <th>Decimal Precision (places)</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>
+          <pre><code class="language-java">float</code></pre>
+        </td>
+        <td>32</td>
+        <td>~1.4 * 10<sup>-45</sup></td>
+        <td>~1.17549435 * 10<sup>-38</sup></td>
+        <td>~3.4028235 * 10<sup>38</sup></td>
+        <td>~7 digits</td>
+        <td>Single-precision floating point</td>
+      </tr>
+      <tr>
+        <td>
+          <pre><code class="language-java">double</code></pre>
+        </td>
+        <td>64</td>
+        <td>~4.9 * 10<sup>-324</sup></td>
+        <td>~2.2250738585072014 * 10<sup>-308</sup></td>
+        <td>~1.7976931348623157 * 10<sup>308</sup></td>
+        <td>~15-16 digits</td>
+        <td>Double-precision floating point; more accurate</td>
+      </tr>
+    </table>
+
+    <h3>Character data</h3>
+    <p>
+      The data type <code>char</code> can store any single <i>UTF-16 code unit</i>, which entirely accounts for the
+      <i>Basic Multilingual Plane</i> (BMP), which includes 2^16, or 65,536 unique examples. Over 63,000 are assigned
+      characters, such as: alphabetical characters, iconographic characters, mathematical operators, miscellaneous
+      symbols and historic scripts. The rest are dedicated to non-character code points that are used for other encoding
+      standards that Unicode (though, not necessarily <code>char</code> or Java) supports.
+    </p>
+    <p>
+      <code>char</code> also supports <i>escape sequences</i> (such as '\n', which returns a newline, or '\t', which
+      represents a horizontal tab) and <i>Unicode code points</i>, which is a Unicode code point (such as 'U+0041') that
+      is represented using ASCII code (which translates 'U+0041' into '65') and is then stored as a UTF-16 code unit
+      (here, '0x0041').
+    </p>
+
+    <h3>Logic data</h3>
+    <p>
+      The data type <code>boolean</code> represents basic logic and can store one of two volumes: <code>true</code> or
+      <code>false</code>. Technically, the size of a boolena value is 1 bit (as the binary digit '0' represents
+      <code>false</code> and '1' to represent <code>true</code>), though the value is always <i>padded</i>
+      (supplementary memory consumed to increase practicality and functionality) to convenience the JVM in finding the
+      value within stack memory.
+    </p>
+
+    <h2>Literals and default literals</h2>
+    <p>
+      A <i>literal</i> is the technical term for the value assigned to a field and the value that a field stores. In
+      Java, a field that is declared, yet not initialized, cannot remain unassigned a value. Yet, declaring an instance
+      variable may be declared and not initialized immediately thereafter. Instead, the JVM recognizes the uninitialized
+      instance variable and assigns it a <i>default literal</i>, which is performed covertly and requires no input from
+      the programmer.
+    </p>
+    <p>
+      Below are the default literals of each type, assigned to each field&mdash; and fields, not instance variables, as
+      whilst the latter may remain uninitialized, fields declared within methods must be initailized on the same line
+      that they were declared upon:
+    </p>
+    <pre><code class="language-java">
+      /**
+      * All four keywords that represent integers share the same default literal: '0'
+      *
+      * Though 'long' values undercutting or exceeding the range of an 'int' value must be suffixed with the letter 'L'
+      * Otherwise, the JVM assumes that the value assigned to a field of type 'long' is 'int', which will throw an error.
+      */
+
+      byte  varBy = 0;
+      short varSh = 0;
+      int   varIn = 0;
+      long  varLo = 0L;  // The L is technically unnecessary until the value is lesser than -2^31 or greater than 2^31-1
+
+
+      /**
+      * 'float' and 'double' share the same default literal: 0.0
+      *
+      * Though 'float' values must be suffixed with the letter 'F' or 'f', regardless of its value.
+      * Otheriwse, the JVM assumes that the value assigned to a field of type 'float' is 'double', which will throw and error.
+      *
+      * A 'double' value may be suffixed with the letter 'D' or 'd', though this is not mandatory.
+      */
+
+      float  varFl = 0.0f;  // The suffixed letter is always required to assigned a float value
+      double varDo = 0.0d;   // The suffixed letter is not required in any circumstance other than for clarity
+      
+      /**
+      * The default literal of 'char' is '\u0000' (represents Unicode code point 0, which is effectively a 'null' value)
+      */
+
+      char varCh1 = '\u0000';
+      char varCh2 = 0;  // ASCII code does not have to be quoted in single quotation marks
+
+      /**
+      * The default literal of 'boolean' is 'false'
+      */
+
+      boolean varBo = false;
+    </code></pre>
+
+    <h2>Reference data types</h2>
+    <p>
+      The JVM does not necessarily reserve keywords in the same manner as it does for primitive data types. In fact,
+      reference data is more accurately defined as a hierarchy of increasingly specific implementations of broad
+      structures. The Java language, specifically the <i>Java Development Kit</i> (JDK) includes <i>libraries</i> and
+      other collectives that contain large amount of classes are broadly related by purpose and functionality.
+    </p>
+    <p>
+      <i>Built-in</i> classes concern those included in libraries within the JDK, which define universal features that
+      all developers use to program applications: <i>Strings</i>, <i>classes</i>, <i>arrays</i>, <i>interfaces</i>, etc.
+    </p>
+    <p>
+      <i>User-defined</i> data concerns reference data that is defined by the programmer (using the JDK), such as a
+      custom class that defines the attributes and functionality of a spreadsheet in a financial application.
+    </p>
+    <p>
+      Thus, there exists an indefinite number of classes between those defined in the JDK and those by programmers, the
+      list below includes general categorizations of reference data:
+    </p>
+    <ol>
+      <li><b>Classes</b>: Built-in and user-defined classes used to define attributes and behaviour</li>
+      <li><b>Arrays</b>: Homogenous container objects that forms a list of elements</li>
+      <li><b>Interfaces</b>: Abstract types that define a contract that implementing classes must adhere to</li>
+      <li><b>Enumerations</b>: A specialized class representing a fixed set of constants</li>
+      <li><b>Lambdas</b>: Permits <i>functional programming</i> in Java, a predominant <i>OOP</i> language</li>
+    </ol>
+    <p>
+      For the purposes of simplicity, only classes are mentioned here. However, the data structure above (including
+      classes) are more extensively covered in dedicated webpages.
+    </p>
+
+    <h3>Universally used classes</h3>
+    <p>
+      There exists a hierarchy between classes (a concept called <i>inheritance</i>) where aspects of one class are
+      provided to another. In Java, there are over 4500 classes and interfaces defined by and contained within the JDK.
+      The <code>Object</code> class is the progenitor of all other built-in and user-defined classes, which are
+      descendents of the class; some of which are used across nearly every Java application.
+    </p>
+    <p>
+      Examples include:
+    </p>
+    <p>
+      A <code>String</code> object is a sequence of <code>char</code> values that is <i>immutable</i>, whereby a field
+      assigned a String object cannot be modified, only reassigned an entirely new String value.
+    </p>
+    <p>
+      The <code>Math</code> class defines mathematical operations that utilize mathematical semantics (which, to note,
+      the class does not define) to perform formulaic procedures in a concise, repeatable manner.
+    </p>
+    <p>
+      <b>Wrapper classes</b> (such as <code>Integer</code> or <code>Double</code>) permit object representations of
+      their respective primitive data type, which subsequently permits the utilization of methods previously incomptable
+      with primitive data.
+    </p>
+    <p>
+      An <code>Array</code> object is a type-homogenous list of elements that is a fixed size. Comparably, an <b>ArrayList</b>
+      is a (largely) type-homogenous list of objects with a size that is variable at runtime.
+    </p>
+
+    <pre><code class="language-java">
+      /**
+      * Objects are often created using the 'new' keyword, though not always.
+      */
+
+      String varSt = new String;
+      varSt = "Hello, World!";
+      /** 
+      * String varSt = "Hello, World!" is valid, legitimate syntax even if the syntax does not use the 'new' keyword.
+      */
+      System.out.println(varSt); // Prints out Hello, World!
+
+      int x = 16;
+      int y = Math.sqrt(x);
+      System.out.print(y); // Prints out '4'
+
+      Integer varIntObj = new Integer(10);
+      /**
+      * A feature called 'autoboxing' can automatically convert a primitive value into an object.
+      * If one programs the following: Integer varIntObj = 10; 
+      * The JVM recognizes that varIntObj is an Integer object assigned to an int value and automatically converts '10' into an Integer object.
+      */
+
+      int[] emptyArrayFiveElementsLarge = new int[5];      // An array without elements that can store up to five elements.
+      int[] filledArrayFiveElementLarge = {0, 1, 2, 3, 4}; // An array with elements that can also store up to five elements.
+    </code></pre>
+  </main>
+</body>
+
+</html>

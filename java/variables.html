@@ -26,68 +26,136 @@
       <!-- === Variables Start === -->
       <!-- ======================= -->
 
-      <!-- === variables preamble === -->
       <h2>Variables</h2>
       <p>
         A <b>variable</b> is an identifier (name) binded to a location in memory that stores a typed value,
         governed by scope, lifetime and contextually exhibits mutability or immutability. <i>Declaration</i> specifies
         the type of data a variable may store, at which point, the variable may be <i>assigned</i> data (that complies
         with the type of the variable). Variables may have their contents and behavioural characteristics explicitly and
-        contextually modified and altered, permitting safe (or unsafe), efficacious and liberal (within the limitations
-        of static typing) usage.
+        contextually modified and altered, permitting safe (or unsafe), efficacious and free usage (without compromising
+        static typing).
       </p>
-      <!-- === variables preamble === -->
-
-      <!-- === variables overview === -->
       <p>
-        The program is a demonstration of the capabilities of variables in Java, from storing data to modern
-        implementations in Java.
+        To utilize a variable in Java, it must be <b>declared</b>, then <b>initialized</b> (or <b>instantiated</b>).
+
+        In variable declaration, the <b>data type</b>, then the <b>identifier</b> (or <b>name</b>) of the variable is
+        specified. The name of the variable allows it to be called elsewhere within a program, whilst the type of the
+        variable (a facet of <i>strong typing</i>) determines the type of data it can store. Then, in variable
+        initialization, the identified (named) variable is assigned some value compatiable with the type of the
+        variable. Similarly, in variable instantiation, the named variable creates a new object.
+
+        Note, however, that an <i>instance</i> (<i>field</i>) or <i>static</i> variable that is declared yet not
+        initialized is automatically assigned its <i>default value</i> by the JVM. However, <i>local</i> variables are
+        not useable without initialization or instantiation.
+
+        Additionally, depending on the mutability of the variable or of its type, it may be reassigned a value else
+        within a program at runtime.
       </p>
-      <!-- === variables overview === -->
 
-      <!-- === variables walkthrough === -->
-      <p>
-        In package <code>variables</code>, there's
-      </p>
-      <!-- === variables walkthrough === -->
-
-      <!-- === variables pseudocode === -->
-
-      <!-- === variables pseudocode === -->
-
-      <!-- === variables code === -->
       <pre class="language-java"><code>
-        /* simpleImplementations.java */
-        package variables;
+        /* Main.java */
+        class Main {
+          public static void main(String[] args) {
+            int var1; // Declared as an int variable named 'var1'
+            Object var2; // Declared as an object variable named 'var2' 
+            /* 
+            Both 'var1' and 'var2' are automatically assigned '0' and 'null', respectively.
+            Uninitialized instance or static variables compile without error.               
+            However, as 'var1' and 'var2' are, in practice, identical to:
+              
+                int var1 = 0;
+                Object var2 = null;            
 
-        class SimpleImplementations {
-          void primitiveTypes(); {
-            /* Primitive Data (Default Literals) */
-            /* Integers */
-            byte byteValue = 0;
-            short shortValue = 0;
-            int intValue = 0;
-            long longValue = 0L;
+            Certain methods may cause compilation or runtime errors. 
+            For example, 'var2.toString()' will throw a 'NullPointerException' at runtime.   */
+            var1 = 10; // 'var1' is initialized; its name used to assign 'var1' an int value of '10'
+            var2 = new Object(); // 'var2' instantiates an generic Object object.
             
-            /* Floating-points */
-            float floatValue = 0.0f;
-            double doubleValue = 0.0d;
+            System.out.println(var1); // Prints '10' to console.
+            System.out.println(var2.toString()); // Prints a String representation of an object, typically specified in 'toString()'
+          }
 
-            /* Characters */
-            char charValue = 'u/0000';
-            
-            /* Booleans */
-            boolean booleanValue = false;
+          void String toString() {
+            /* Implementation not shown */
+          }
+
+          void method(int parameter) { // Method 'method' requires an integer parameter, a local int variable named 'parameter'.
+            /* Implementation not shown */
+            int var3 = 0; // Local variables must be initialized
           }
         }
       </code></pre>
-      <!-- === variables code === -->
 
-
-      <!-- ======================= -->
-      <!-- === Variables Start === -->
-      <!-- ======================= -->
+      <!-- ===================== -->
+      <!-- === Variables End === -->
+      <!-- ===================== -->
     </section>
+
+    <section id="data-type">
+      <!-- ======================= -->
+      <!-- === Data Type Start === -->
+      <!-- ======================= -->
+
+      <h2>Data Types</h2>
+      <p>
+        A <b>data type</b> is a technical categorization of <i>data</i> (to clarify, <i>data</i> concerns any and all
+        information stored on a computer represented as symbols, such as a 'bit' or a 'b', which represent binary
+        digits) that affects its interpretation by a computer. Thus, the data type of a variable dictates the type of
+        storable data.
+      </p>
+      <p>
+        There exist two broad categories of data types: <b>primitive</b> and <b>reference</b>. Primitive data types
+        represent numerical, logical or lexicographical data, which are fundamental classifications of data which the
+        JVM already recognizes. Reference data types store pointers and memory addresses that refer to data, which may
+        be user-defined.
+      </p>
+      <p>
+        Variables <i>store</i> data by allocating enough <i>stack</i> or <i>heap</i> memory to allocate the size of the
+        data. Primitive data may be allocated in either stack (if declared within a <i>method</i>) or heap (if declared
+        within an <i>object</i>) and have no inherent <i>overhead</i> (that is additional memory required to accomodate
+        data). Reference data is always allocated in heap memory (to perserve memory allocated for a particular object)
+        and require overhead.
+      </p>
+
+      <section id="primitive-data-type">
+        <h3>Primitive Data Types: Integers, Floating-Point Values and <code>strictfp</code></h3>
+        <p>
+          In Java, there are four informal subclassifications of primitive data types: integers, floating-point numbers
+          (FP numbers), characters and boolean algebra. All integers and FP numbers are inherently <i>signed</i>. In
+          fact, both the maximum and minimum (inclusive) ranges of an integer in Java and an FP number (according to
+          IEEE 754-2019) are calculatable given the size of a particular type in <i>bits</i>. Also calculable, Java
+          supports <b>subnormal</b> (or <i>denormal</i> according to various standards documents) which more smoothly
+          graduates <i>underflow</i> (a resultant more precise than the computer architecture is capable of supporting).
+        </p>
+        <p>
+          Like many other languages, Java utilizes <i>two's complement</i> to represent signed integers, including the
+          signed range of integer data types and is responsible for integer arithemtic. Currently, Java utilizes
+          floating-point arithmetic (as specified in IEEE 754-2019) to handle floating-point values.
+        </p>
+        <p>
+          In relation to FP values, the <code>strictfp</code> keyword enforces compliance of <i>IEEE 754-1985</i>.
+          Historically, CPUs utilized varying precisions for registers, with some CPUs (particuarly x86, Intel x87,
+          etc.) utilizing extended precision registers (80 bits). Before Java SE 1.2, floating-point semantics were
+          enforced by default. However, this standard was relaxed until Java SE 15, requiring the use of the keyword.
+          Otherwise, the JVM was permitted to use extended precision for intermediate calculations, causing minor
+          variations between platforms. Java SE 16 (JEP 306) reimplemented strict floating-point semantics by default.
+          Thus, <code>strictfp</code> keyword is currently retained solely for legacy code and backward compatibility.
+          Still, since its usage for 22 years, the keyword remains a point of intrigue when discussing FP values.
+        </p>
+
+        <h4>Primitive Data Types: Signage, Range and Basic Arithmetic</h4>
+        <p>
+          
+        </p>
+      </section>
+
+      <!-- ===================== -->
+      <!-- === Data Type End === -->
+      <!-- ===================== -->
+    </section>
+
+
+
 
     <!-- h2: Data Type -->
     <h2>Data Type</h2>

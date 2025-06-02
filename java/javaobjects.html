@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Java: OOP</title>
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../highlight/styles/default.css">
+  <link rel="icon" href="data:,">
+
+  <script defer src="../highlight/highlight.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      hljs.highlightAll();
+    });
+  </script>
+</head>
+
+<body>
+  <main>
+    <h1>Object Oriented Programming</h1>
+
+    <div>
+      <p>
+        The phrase <em>object oriented programming</em>, commonly abbreviated as <i>OOP</i>, refers to a general
+        conceptualization of programming (a <em>programming paradigm</em>) founded on the concept of <em>objects</em>.
+      </p>
+      <img src="java-images/gun-object-example.png">
+      <p>
+        As per the example demonstrated above, an &ldquo;object&rdquo; commonly correlates to a tangible
+        &ldquo;thing&rdquo; in reality.
+
+        Likewise, just a tangible firearm may fire catridges, reload its magazine or be coloured gold (for some
+        razzle-dazzle), an object in Java typically possesses <em>fields</em> and <em>methods</em>, which are
+        collectively called <em>members</em>.
+      </p>
+      <p>
+        A <i>field</i> is <i>data</i>, or information interpretable by a computer, stored within a <i>variable</i>,
+        which is a name that correlates storage location in computer memory.
+
+        A <i>method</i> is a named <i>code block</i>, or lines of code grouped together, that <i>executes</i> when
+        <i>called</i> to perform a particular function.
+
+        In practice, a field describes the <i>state</i> (or plainly, <i>attribute</i>) of an object and a method
+        determines the <i>behaviour</i> (or <i>capability</i>) of an object. An object intented to represent an
+        LED may be (or literally, exist as) the colour red and have the capability to become illuminated depending on
+        current, polarity and voltage.
+      </p>
+      <img src="java-images/led-object-example.png">
+      <p>
+        Yet, early in programming history, there arose the issue of how members are organized and used within a program,
+        of which two predominant paradigms within OOP became solidified: <i>Prototype-based</i> and <i>class-based</i>
+        programming.
+
+        The former determines that states and behaviours are stored within an object called a <i>prototype</i>. If
+        another object should use certain members found witin a prototype, then the object <i>inherits</i>, or
+        reuses certain members, from the prototype.
+
+        The latter <i>declares</i>, or defines, fields and methods (or functions) within a template called a
+        <em>class</em>. An object is an <em>instance</em> of a class, whereby the object is then provided states and
+        behaviours correlating to each field and method or function.
+
+        <br><br>
+
+        <i>Java</i> is strictly a class-based OOP language.
+
+        In fact, any <code>.java</code> file may only contain <em>one</em> <code>public</code> or <em>default</em> (a
+        topic delved into farther below, though here: <code>public</code> means the class is accessible from anywhere
+        within the program and <em>default</em> means the class is accessible from within a particular section within
+        the program, called a <code>package</code>) <code>class</code>.
+
+        This <code>public class</code> is often named <code>Main</code> or a specific name followed by
+        <code>Driver</code>, and contains a method named <code>main</code> that allows the program to work, or
+        <em>run</em> when executed. As a note, the latter name is preferred when the program is a specific component of
+        a larger application: Since the class &ldquo;drives&rdquo; any other classes tethered to the file's execution.
+      </p>
+    </div>
+
+    <div>
+      <h2>Classes</h2>
+      <p>
+        In Java, there exist various methods for declaring a <code>class</code>.
+
+        However, the generalized syntax for a conventional declaration is as follows:
+      </p>
+      <code>
+        [access modifier, if any] [non-access modifiers, if any] [name of the class] { 
+          [code goes between the parentheses] 
+        }
+      </code>
+      <p>
+        The technical specifics of an <em>access modifier</em> and <em>non-access modifier</em> are outside the
+        immediately scope of this webpage. However, both types of modifiers are conceptually simple.
+
+        A <em>modifier</em> is a <em>keyword</em>, or a word reversed for a particular function by the JVM, that affects
+        the functionality of a class or a member.
+
+        An <em>access modifier</em> is a modifier that concerns how a class or member is <em>accessed</em> across a
+        program. A top-level class is either: <code>public</code> or <em>default</em>. An <em>nested</em> class, or a
+        class that is declared inside another class may also be <code>private</code>.
+      </p>
+      <ol>
+        <li><code>public</code>: Class accessible throughout a program.</li>
+        <li>default: Indicated by the lack of a keyword; class only accessible within a <code>package</code>.</li>
+        <li><code>private</code>: Class only accessible within another class.</li>
+      </ol>
+      <p>
+        A <em>non-access modifier</em> is a modifier that concerns all other aspects of a class or members other than
+        accessibility. There exist seven, yet only <code>abstract</code>, <code>final</code> and <code>strictfp</code>
+        are applicable to top-level classes; with the aforementioned non-access modifiers, as well as
+        <code>static</code>, are accessible to nested classes.
+      </p>
+      <ol>
+        <li><code>static</code>: The nested class does not <em>require</em> an object to instantiate.</li>
+        <li><code>abstract</code>: Class cannot be instantiated.</li>
+        <li><code>final: Class may not be inherited from.</code></li>
+        <li><code>stricfp</code>: Relevant to legacy systems; class must use IEEE 754-1985 floating-point semantics for
+          consistency across different computers.</li>
+      </ol>
+      <p>
+        The name of the class must conform to convention and be relevant to its purpose.
+
+        Java convention specifies that all class names be written in PascalCase, where the first letter of each word is
+        capitalized and that there be no space or symbolic divider between words. A class name must not use a symbol (if
+        written in English) or numeral as its first character; otherwise, compilation fails.
+
+        Additionally, a class name should refrain from using symbols or numerals (though spelt words are acceptable) at
+        all, and from being non-descriptive or confusingly similar to the name of other classes.
+
+        A top-level class responsible for the execution of all code within a file is often named <code>Main</code> or
+        <code>SomeDriver</code>, where &ldquo;Some&rdquo; is some functionality or purpose.
+      </p>
+      <p>
+        For example, a <code>.java</code> file titled <code>Main</code> would have a <code>public</code> top-level class
+        declared as such:
+      </p>
+      <pre><code>
+        /* Main.java */
+        public class Main {
+          public static void main(String[] args) {
+            // The 'main' method should be found in a top-level class named 'Main'
+            // The method allows for the file to execute; the class allows for the proper containment of the method.
+          }
+        }
+      </code></pre>
+      <p>
+        Other examples are detailed below, with comments describing the function of the particular class:
+      </p>
+      <pre><code>
+        /* TopLevelStaticNestedExample.java */
+        // The 'TopLevel' class may be public or default, though it may never be static.
+        // Otherwise, it would be contradictory: A top-level class cannot except itself of requiring an instance.
+        public class TopLevel {
+          private static Nested {
+            // However, a nested class may be both private and static.
+            // A nested class could be only accessible within the 'TopLevel' class.
+            // The same private nested class may also not require an instance of itself.
+          }
+        }
+      </code></pre>
+      <pre><code>
+        /* AbstractAndConcrete.java */
+        // The top-level class 'AbstractAndConcrete' is declared with the 'abstract' keyword.
+        // For 'AbstractAndConcrete' is abstract, the class may contain both abstract and 'concrete' (non-abstract) members.
+        public abstract class AbstractAndConcrete {
+          // An abstract method has no implementation and must be implemented by 'subclasses'.
+          // Summarily, 'subclasses' are classes that inherit members from another class, which is called a 'superclass'.
+          public abstract void abstractMethod();
+
+          public void concreteMethod() {
+            // A concrete method has an implementation specified in the class that it is delcared within.
+          }
+        }
+      </code></pre>
+      <pre><code>
+        /* Uninheritable.java */
+        // The top-level class 'Uninheritable' is declared with the 'final' keyword.
+        // Yet, whilst 'Uninheritable' is final, class members need not necessarily be final themselves;
+        // and a non-final class may contain final members.
+        // Only, 'Uninheritable' may not be inherited from by subclasses (and itself be a superclass).
+        public final class Uninheritable {
+          public final void finalMethod() {
+            // A final member cannot be altered after its delcaration
+          }
+          
+          public void nonFinalMethod() {
+            // However, non-final members are acceptable within a final class.
+          }
+        }
+      </code></pre>
+      <pre><code>
+        /* LegacyCalculator.java */
+        // The top-level class 'LegacyCalculator' is declared with the 'strictfp' keyword.
+        // All calculations that involve rational and irrational numbers are strictly done according to the IEEE 754-1985 standard.
+        // Historically, the keyword was introduced because Java did not enforce strict floating-point semantics for most of its existance.
+        // Summarily, different CPUs have varying sizes of 'registries', which are often 32 bits, 64 bits or 80 bits large.
+        // As such, calculations performed between computers could provide slightly varying calculations.
+        // However, strict floating-point semantics were recently reintroduced to Java, which deprecated the keyword.
+        // 'strictfp' is now retained solely for legacy systems.
+        public strictfp class 'LegacyCalculator' {
+          // All real number calculations were now consistent between all computers.
+        }
+      </code></pre>
+    </div>
+    <div>
+      <h2>Fields</h2>
+      <p>
+        To reiterate, fields are data stored within variables that are declared within a class.
+
+        The generalized syntax for declaring a field is as such:
+      </p>
+      <code>
+        class Example {
+          [data type] [name of variable];
+        }
+      </code>
+      <p>
+        <em>Data type</em> dictates the nature of the data a variable may store.
+
+        Java is both a <em>strongly-typed</em> and <em>statically-typed</em> language, meaning that variables must be
+        provided a data type during its declaration and that the data type of a variable will never change.
+      </p>
+      <p>
+        After declaration, a field then may be assigned a value, the type of which must strictly pertain to the data
+        type of the variable; in other words, a field is <em>initialized</em> by <em>assigning</em> its variable a legal
+        value. Declaration and initialization may occur on separate lines or within a single line.
+
+        The generalized syntax for initializing a field is as such:
+      </p>
+      <code>
+        class Example {
+          [data type] [name of variable] = [some value of type 'data type'];
+        }
+      </code>
+    </div>
+    <div>
+      <h2>Data Types</h2>
+      <p>
+        In Java, data types are separated between two broad definitions: <em>primitive</em> and <em>reference</em> data
+        types.
+
+        The former concerns elementary representations of data, which include numbers, characters and logic. Such data
+        is directly stored within memory without a <em>memory address</em>, which is an identifier unique to some
+        position within computer memory. The size of a primitive data type is represented in bits (binary digits: 0 and
+        1). The latter concerns objects, where variables assigned to an object only store its memory address. The size
+        of reference data is dependent on the size of the object, how the object is implemented within the program and
+        any overhead the JVM accounts for.
+      </p>
+      <h3>Primitive Data</h3>
+      <p>
+        Primitive data may be further divided into the following categories; those that represent: integers, real
+        numbers, characters and logic.
+      </p>
+      <p>
+        Integers in Java are <em>signed</em> (capable of being negative, positive or neither) which is, in conjunction
+        with arithmetic, handled by <em>two's complement</em>; a collective of mathematical operations performed on
+        binary digits to allow for signage and integer arithemtic (which is separate from traditional forms of
+        arithmetic). In order of size, the keywords are: <code>byte</code> (8 bits), <code>short</code> (16 bits),
+        <code>int</code> (32 bits) and <code>long</code> (64 bits). The range of an integer scales with its size in
+        bits, formally: -2<sup>n-1</sup> to 2<sup>n-1</sup>-1, where <i>n</i> is the size of the integer in bits.
+        The bits of an integer may be ordered as a line. The rightmost bit is the <em>Least Significant Bit</em> (LSB)
+        and has the least impact on the value of the number whether the bit is 0 or 1. Inversely, the leftmost bit is
+        the <em>Most Significant Bit</em> (MSB) and has the most impact on the value of the number. Notably, the MSB is
+        also the <em>sign bit</em>, the bit that directly controls the signage of the number.
+      </p>
+      <p>
+        Real numbers (integers, as well as rational and irrational numbers) are determined and calculated by
+        <em>floating-point arithmetic</em>. In Java, a scientific standard titled IEEE 754 dictates how arithemtic is
+        performed on floating-point numbers and addresses issues concerning precision, rounding and special values (such
+        as positive and negative zeroes, positive and negative infinities, denormalized numbers and &ldquo;Not a
+        Number&rdquo; (NaN)). In order of size, the two reserved keywords are: <code>float</code> (32 bits) and
+        <code>double</code> (64 bits).
+      </p>
+      <p>
+        Characters are represented using UTF-16 encoding, which permits <em>character literals</em> (characters or
+        symbols enclosed in single quotation marks) and <em>escape sequences</em> (characters impossible to directly
+        represent, such as a new line [<code>\n</code>], a tab [<code>\t</code>] or a Unicode escape sequence
+        [<code>\uXXXX</code>]). The <code>char</code> value is 16 bits (as UTF-16 encoding requires 16 bits to store
+        2^16 characters).
+      </p>
+      <p>
+        Boolean algebra is largely represented in Java using boolean values, or <code>true</code> and
+        <code>false</code>, and logical operators: <code>&&</code> (AND), <code>||</code> (OR), <code>!</code> (NOT) and
+        <code>^</code> (XOR). In theory, a <code>boolean</code> value only requires 1 bit (to represent
+        <code>false</code> as 0 or <code>true</code> as 1). However, the size of a <code>boolean</code> value is
+        dependent on the platform used and its implementation within a program, for each JVM may freely determine the
+        size of a <code>boolean</code> value for each implementation of a value within a program; to allow a program to
+        run better.
+      </p>
+
+      <h3>Reference Data</h3>
+      <p>
+        There are a nigh uncountable number of reference types as they are user-defined; for example, a class a user
+        specifically creates for their program is itself a new reference type when a new instance is created. As such,
+        the categorizations below are based on general similarities in structure and function.
+      </p>
+      <h4>Instances of a Class</h4>
+      <p>
+        The most common reference type is one derived of a class. The <em>Java Development Kit</em> (JDK) 
+      </p>
+    </div>
+    <div>
+      <h2>Methods</h2>
+      <p>
+        
+      </p>
+    </div>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Programming</title>
+
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="stylesheet" href="../highlightjs/styles/default.min.css">
+
+<script src="../highlightjs/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<body>
+  <main>
+    <h1>Introduction to programming</h1>
+
+    <h2>Code</h2>
+    <p>
+      <b>Programming</b> is the process of providing a computer or a software application instructions written in
+      <i>code</i> the computer or software application is capable of interpreting and executing to the intention of the
+      programmer.
+    </p>
+    <p>
+      In computer science, <b>code</b> refers to any organized system of providing a computer instructions to interpret
+      and execute. <b>Source code</b> concerns typed instructions that are <i>human-readable</i>, whereby a human
+      programmer can be reasonably expected to learn and independently implement the <i>syntax</i> of, though the
+      computer cannot. The earliest examples of source code were programmed using a <i>terminals</i>, an electrical
+      device used to enter and extract data from a computer. Subsequent computers incorporated the functionality of a
+      separate terminal, giving rise to the <i>terminal emulator</i>, which is a digital replication of the original
+      device. And since the commercialization of graphical operating systems, many contemporary computers support the
+      use of specialized software applications, called <i>Integrated Development Environments</i> (IDE), which are
+      fully capable of supporting professional programming for general-use or for a particular purpose.
+    </p>
+    <p>
+      Still, regardless of how source code is implemented, the organizational system that defines the usage of source
+      code is responsible for the conversion of human-readable source code into <b>machine code</b>, which is code that
+      the internal components that the computer comprises of (namely, the central processing unit, or CPU) can execute
+      as instructions. All conventional computers utilize <b>binary</b> instructions, which are then converted to a form
+      that is compatible with the <i>architecture</i> of a particular CPU, the two most common being <i>x86</i> and
+      <i>ARM</i>. Binary is not readable, at least at a practical scale for computing, by humans. Thus, source code is
+      commonly: <i>assembled</i>, <i>interpreted</i>, <i>compiled</i> or <i>transpiled</i>; methods employed to convert
+      source code into machine code.
+    </p>
+    <p>
+      Yet, if one reviews the passage above, the fact that machine code is <i>encoded</i> to a form compatible with a
+      particular CPU architecture raises an issue of <i>platform-dependency</i>. Even if the organizational system for
+      source code could compile or be interpreted across computers with different CPU architectures, the resultant
+      machine code and any modification of the machine code thereafter is only understandable to the architecture it
+      was encoded for. For example, if one developed an application, then components executable on Windows could not
+      execute on macOS or on Android. The issue was only exacerbated in early computers, which could not spare the
+      computation to support <i>platform-neutral</i> systems. Thus, the concept of source code that executed
+      independently of a computer's architecture required decades of research, technological advancement and
+      experimentation: Ultimately culminating into the commercialization of <i>bytecode</i> by <i>Java</i>, a
+      <i>programming language</i>. The bytecode is executed by a <i>virtual machine</i>, a software application that
+      <i>virtualizes</i> a computer, segregating executed code and the <em>original</em> computer.
+    </p>
+
+    <h3>Abstraction</h3>
+    <p>
+      As an aside, <i>abstraction</i> is the amount of separation that exists between the source code and the resultant
+      machine code or bytecode, which can be expressed by the <i>level</i> of a programming language.
+    </p>
+    <p>
+      A <i>high-level</i> programming language is a very abstracted language, which often emphasizes readability and
+      descriptiveness, whereby instructions are written using common, easily understood words.
+    </p>
+    <pre><code class="language-python">
+      # A Hello, World! program written using Python
+      # Compile, Execute: python hello_world.py
+
+      print("Hello, World!")   # The message 'Hello, World!' is sent to the user with a single instruction: print()
+    </code></pre>
+    <p>
+      A <i>low-level</i> programming language is a minimally abstacted language, whereby instructions are near-direct
+      representations of machine code or bytecode, with the language's syntaxt strongly corresponding to the code it
+      accesses.
+    </p>
+    <pre><code class="language-c">
+      ; A Hello, World! program for x86-64 Linux, NASM syntax
+      ; Assemble:  nasm -f elf64 helloworld.asm
+      ; Link:      ld -o helloworld helloword.o
+      ; Execute:   ./helloworld
+
+      BITS 64
+      default rel
+
+      section .rodata                         ; read-only data
+        msg:    db      "Hello, World!", 10   ; message plus newline
+        msglen: equ     $ - msg               ; length computed at assembly time
+
+      section .text
+      global  _start                          ; the ELF entry point
+
+      _start:
+        ; write( STDOUT_FILENO, msg, msglen )
+        mov     eax, 1                        ; syscall number for write
+        mov     edi, eax                      ; file descriptor 1 = STDOUT
+        lea     rsi, [rel msg]                ; pointer to message
+        mov     edx, msglen                   ; number of bytes
+        syscall                               
+
+        ; exit( 0 )
+        xor     edi, edi                      ; status 0
+        mov     eax, 60                       ; syscall number for exit
+        syscall
+    </code></pre>
+    <p>
+      A bit more involved.
+    </p>
+    <p>
+      A programming language that exhibits charactersitics of both high-level and low-level programming languages by
+      design can be called "medium-level" programming languages.
+    </p>
+    <pre><code class="language-c">
+      // A Hello, World! program written in C
+      // As the language is platform-dependent, the following commands are for Windows:
+      //
+      // Compile: gcc helloworld.c -o helloworld.exe
+      // Execute: ./helloworld.exe
+
+      #include &lt;stdio.h&gt;
+      
+      int main() {
+        printf("Hello, World!");
+        return 0;
+      }
+    </code></pre>
+
+    <h2>Programming languages</h2>
+    <p>
+      The organizational system that defines how source code is implemented, encoded into machine code or bytecode and
+      executed is called a <b>programming language</b>.
+    </p>
+    <p>
+      The earliest programming languages were <i>assembly languages</i>, which includes any low-level programming
+      language that corresponds its source code exceptionally strongly to machine code, such as x86 assembly, which was
+      demonstrated in the section above. Computers such as the IBM 650 were among the first commercially successful
+      computers that were general-purpose, meaning computers in the 1950s were now computationally competent enough to
+      use
+      high-level languages, such as <i>FORTRAN</i> for the IBM 704.
+    </p>
+    <pre><code class="language-fortran">
+            PROGRAM QUAD    C—Compute roots of A x² + B x + C = 0
+            REAL A, B, C, D, X1, X2
+      C     Initialize coefficients
+            A = 1.0
+            B = -3.0
+            C = 2.0
+      C     Compute discriminant D = B*B - 4*A*C
+            D = B*B - 4.0*A*C
+      C     Compute the two roots
+            X1 = (-B + SQRT(D)) / (2.0*A)
+            X2 = (-B - SQRT(D)) / (2.0*A)
+      C     Print results in two F10.5 fields
+            PRINT  10, X1, X2
+      10    FORMAT (2F10.5)
+            END
+    </code></pre>
+    <p>
+      As evident by the program above, and comparing it to the Hello, World! program written in x86 assembly in the
+      previous section, early high-level programming languages greatly improved human-readability and simplicity of code
+      without sacrificing computing-efficiency.
+    </p>
+    <p>
+      High-level languages quickly became the mainstay for both programmers and users of computers, not only for their
+      ease of use, yet also due to the exponential growth in the architectural scale of subsequent computers. By the
+      1960s, operating systems were massive in comparison to earlier computers that lacked one entirely and software
+      rapidly escalated to millions of lines of high-level code. The increasing demand for high-level languages suited
+      for a particular purpose resulted in an explosion of high-level programming languages for commercial or scientific
+      use, such as <i>COBOL</i>, <i>ALGOL</i> and <i>C</i>.
+    </p>
+    <p>
+      Until the 1980s, computers used <i>command-line interfaces</i> (CLI), which were text-based operating systems that
+      required the user to write command lines to operate. Yet, the <i>graphical user interface</i> (GUI) was
+      popularized with the advent of the <i>personal computer</i> (PC), a computer intended for use by a single
+      individual, who may or may not be able to easily understand or willing to learn command lines to use a computer.
+      The <i>Lisa OS</i> (Apple Computer, Inc.), <i>Workbench</i> (Commodore International) and <i>Windows 95</i>
+      (Microsoft Corporation) were among the first commercially successful examples of a PC that used a GUI.
+    </p>
+    <p>
+      As such, existing programming languages maintained their purpose as an industrial or scientific tool (such as
+      <i>Fortran 2023</i>, the 2023 revision of <i>FORTRAN</i>, which was released in 1957), continually expanded their
+      capabilities for more general use (such as <i>C23</i>, the 2024 revision of <i>C</i>, released in 1972) or
+      new languages were developed, either based on previous languages (such as <i>C++</i>, which was based on <i>C</i>)
+      or introduced concepts that were previously commmercially unviable (such as <i>Java</i>, which used bytecode,
+      virtual machines and <i>just-in-time compilation</i>).
+    </p>
+    <p>
+      Subsequent evolutions in computing and the increasing digitalization of many industries have solidified the
+      usage of particular programming languages in particular sectors (Java is largely used for enterprise, COBOL
+      dominates business and R is commonly used for statistics), the prevelance of general-purpose languages (Python is
+      famous for its compatibility with other, higher-performance languages, such as C++) and even leading businesses
+      developing their own programming language (<i>Go</i> was developed by Google for its codebases).
+    </p>
+
+    <h2>Programming paradigm</h2>
+    <p>
+      The general methodology of organizing and executing code that a collective of programming languages utilize is
+      called a <b>programming paradigm</b>.
+    </p>
+    <p>
+      Historically, the concept of a paradigm was not established until well after the popularization of early
+      high-level programming languages: all assembly languages were solely <i>imperitive</i>. Instructions were written
+      and executed in descending order, whereby all code on each subsequent line was executed at once.
+    </p>
+    <pre><code class="language-fortran">
+        PROGRAM SUMSQ
+    C   Fortran 77 fixed-form: code starts in column 7
+        INTEGER X, Y, SX, SY, SUM
+
+        X   = 3
+        Y   = 4
+        SX  = X * X        C square of X
+        SY  = Y * Y        C square of Y
+        SUM = SX + SY      C sum of the two squares
+
+        PRINT *, 'Sum of squares =', SUM
+        END
+    </code></pre>
+    <p>
+      <b>Procedural</b> programming organizes code in an imperitive programming language into <i>procedures</i>, or
+      <i>functions</i>, which are groups of code that are written to execute in a particular manner and are reusable
+      throughout a program. Assembly languages often became procedural after continued development, though often as a
+      consequence rather than by intention.
+    </p>
+    <pre><code class="language-c">
+      // SumOfSquares.c
+
+      #include <stdio.h>
+
+      // Compute the square of a number.
+      int square(int x) {
+        return x * x;
+      }
+      
+      // Sum the squares of two numbers.
+      sumOfSquares(int x, int y) {
+        return square(x) + square(y);
+      }
+
+      // Print the sum.
+      int main(void) {
+        int result = sumOfSquares(3, 4);
+        printf("Sum of squares: %d\n", result); 
+        return 0;
+      }
+    </code></pre>
+    <p>
+      <b>Functional</b> programming mandates that functions are deterministic and do not cause any <i>side-effects</i>,
+      which concerns any observable effect other than the predominant effect of a function returning some resultant
+      value. Programming languages that are solely functional are few in comparison to those of other paradigms, though
+      various <i>multi-paradigm</i> programming languages are capable of implementing the paradigm.
+    </p>
+    <pre><code class="language-haskell">
+      -- SumOfSquares.hs
+
+      -- Compute the square of a number.
+      square :: Num a => a -> a
+      square n = n * n
+
+      -- Sum the squares of two numbers.
+      sumOfSquares :: Num a => a -> a -> a
+      sumOfSquares a b = square a + square b
+
+      -- Print the sum.
+      main :: IO ()
+      main = print (sumOfSquares 3 4)
+    </code></pre>
+    <p>
+      <b>Structural</b> programming is a broad category of programming languages that introduces structures that can
+      manipulate <i>control flow</i> beyond fundamental imperitive or procedural programming. The execution of these
+      structures are dependent on some <i>condition</i>, whereby code can be repeatedly executed or not executed
+      (skipped over). Nearly all programming languages are structural.
+    </p>
+    <pre><code class="language-python">
+      # sum_of_squares.py
+      
+      x = 3
+      y = 4
+
+      # Computes the sum of the square of two numbers only if both x and y are greater than 0
+      if x > 0 and y > 0:
+        sum_squares = x * x + y * y
+        print(sum_squares)
+    </code></pre>
+    <p>
+      <b>Modular</b> programming is another broad category of programming languages that introduces <i>modules</i> or
+      <i>packages</i>, which are general-purpose programs that may be <i>imported</i> into and used across any program
+      written in the same language. Since the structure <em>within</em> a program begot the structuring of passed
+      information <em>between</em> programs, all programming languages that are structural are also modular.
+    </p>
+    <pre><code class="language-python">
+      # square.py
+      # A module that computes the square of a number
+      
+      def square(x);
+        return x*x
+    </code></pre>
+    <pre><code class="language-python">
+      # sum_of_squares.py
+      # Using the module to compute the sum of the squares of two numbers
+
+      import square.py
+      
+      x = 3
+      y = 4
+
+      sum_squares = square.square(x) + square.square(y)
+      print(sum_squares)
+    </code></pre>
+    <p>
+      The most contemporary programming paradigm is <i>object-orientation programming</i> (OOP), whereby <i>objects</i>
+      are created by the program. An object is defined by its <i>state</i> (attributes) and <i>behaviours</i> (what the
+      object can do while a program executes). The first programming language to implement OOP was <i>Simula 67</i>. A
+      template (which consumed no computer memory) called a <i>class</i> would have <i>instance variables</i> and
+      <i>procedures</i> declared within it. Particular procedures were exceptional, as they were necessary for the
+      creation and utilization of an object. A <i>constructor</i> assigned an inputted value to each instance variable,
+      allowed for each attribute of the object to be defined and to allow any method that might use an instance variable
+      to execute. An <i>accessor</i> permitted programs outside of the one that held the class to <em>recieve</em>
+      information about the object and a <i>mutator</i> permitted said programs to <em>modify</em> said information.
+    </p>
+    <pre><code class="language-java">
+      // SumOfSquares.java
+
+      class SumOfSquares {
+        int x;
+        int y;
+
+        SumOfSquares(int x, int y) {  // Regular constructor; inputted values assigned to instance variables
+          this.x = x;
+          this.y = y;
+        }
+
+        SumOfSquares() {              // Default constructor; when inputted values are not provided.
+          this.x = 0;
+          this.y = 0;
+        }
+
+        int getX() {                  
+          return x;
+        }
+
+        int getY() {          // Both accessors
+          return y;
+        }
+
+        void setX(int x) {
+          this.x = x;
+        }
+
+        void setY(int y) {   // Both mutators
+          this.y = y;
+        }
+
+        int SumOfSquares() {  // A method that calculates and outputs the sum of two squares
+          int sum = 0;
+          xSquare = Math.pow(x, 2);
+          ySquare = Math.pow(y, 2);
+          sum = xSquare + ySquare;
+          return sum;
+        }
+      }
+    </code></pre>
+    <pre><code class="language-java">
+      // SumOfSquaresDriver.java
+
+      class SumOfSquaresDriver {
+        public static void main(String[] args) {
+          SumOfSquares sumOfSquares = new SumOfSquares(3, 4); // SumOfSquares object is created; given two values per the constructor
+          System.out.println(SumOfSquares);                   // Outputs: 25
+          System.out.println(SumOfSquare.getX());             // Outputs: 3
+          SumOfSquare.setX(5);                                // Sets value of x to 5
+          System.out.println(SumOfSquares);                   // Outputs: 41
+        }
+      }
+    </code></pre>
+    <p>
+      In particular, Simula 67 was a <i>class-based</i> OOP language, where <em>classes</em> store information that an
+      instance can possess. Various programming languages that released thereafter, such as <i>SmallTalk</i>, were
+      also class-based. It was not until research of more flexible OOP culminating towards the 1985 release of
+      <i>Self</i> that OOP gave rise to two distinct "sub-paradigms": <i>class-based OOP</i> and <i>prototype-based
+        OOP</i>. The former is what Java uses, where classes define their instances. The latter is what languages such
+      as <i>Javascript</i> use, where an initial object called a <i>prototype</i> defines what information clones can
+      possess.
+    </p>
+    <pre><code class="language-javascript">
+      // SumOfSquares.js
+      
+      // Prototype (object)
+      const sumProto = {
+        init(x = 0, y = 0) {
+          this.x = x;
+          this.y = y;
+          return this;            
+        },
+
+        getX() {
+          return this.x;
+        },
+
+        getY() {
+          return this.y;
+        },
+
+        sumOfSquares() {
+          return this.x ** 2 + this.y ** 2;
+        }
+      };
+
+      const calculator = Object.create(sumProto).init(3, 4);
+
+      console.log(calculator.sumOfSquares());             // Outputs: 25
+      console.log(calculator.getX(), calculator.getY());  // Outputs: 3 4
+    </code></pre>
+
+    <h2>History of and an introduction to Java</h2>
+    <p>
+      This website is predominately focused on <i>Java</i>, a high-level, general-use programming language historically
+      made outstanding by its <i>Write Once, Run Anywhere</i>, or WORA, protocol. When Java was introduced in 1995, the
+      performance of general-purpose programming languages (such as <i>C</i> and <i>C++</i>) was entirely dependent on
+      the computer and its internals, as languages converted source code into machine code, which was unique to each
+      computer. Java solved the issue by compiling into <i>bytecode</i> which was then executed using the <i>Java
+        Virtual Machine</i>, or JVM. The former ensured that code computers interpret remain consistent and the JVM
+      allowed for any computer to execute bytecode, isolating execution to within that of the software program.
+    </p>
+    <p>
+      Noteworthily, Java was the first commercially-viable programming language to introduce <i>Just-in-time
+        compilation</i>, or JIT. <i>Interpretation</i> means an interpreter executes lines in sequential order without
+      compilation, which is often slower than compiled code and is more resource-intensive. <i>Ahead-of-time
+        compilation</i>, or AOT, compiles the source code once and creates an executable file. Initial and continued
+      execution is efficient and swift, although is <i>platform-dependent</i> and future alterations are often
+      restrictive. JIT compilation occurs while a computer executes, known as <i>at runtime</i>. As more compilations
+      occur, the compiler becomes "familiarized" with the code, leading to swifter, more optimized compilations and
+      executions. Additionally, future alterations are more readily accepted, as the JIT compiler adapts to changes
+      within programs.
+    </p>
+    <p>
+      As an brief introduction to the language: Java is a <i>class-based</i>, <i>object-oriented programming</i> (or
+      OOP) language. <i>Objects</i> represent physical things (such as a laptop) or conceptual (such as a spreadsheet on
+      that laptop object) that have <i>states</i> (such as the laptop being coloured blue) and <i>behaviours</i> (such
+      as the laptop being able to be powered on or off). <i>Classes</i> are templates that store <i>fields</i> and
+      <i>methods</i>. An object is an <i>instance</i> of a class: each field and method is <i>assigned</i> a state and a
+      behaviour, respectively, that is unique to each object (though a particular state and method need not be unique
+      <em>between</em> objects). Fields and methods, when referred to as a collective, are called <i>class members</i>
+      (or <i>members</i>).
+      <img src="java-diagrams/laptop-example.svg">
+    </p>
+
+    <h3>An overview of Java classes, class members and constructors.</h3>
+    <h4>Classes</h4>
+    <p>
+      A class in Java may be thought of as a template that contains fields and methods (summarily called <i>class
+        methods</i>) from which instances use to define their states and behaviours.
+    </p>
+    <p>
+      The syntax of a class declaration closely resembles the following pseudocode:
+    </p>
+    <pre><code class="language-plaintext">
+      [access modifier, optional] [non-access modifier, optional] [class keyword, mandatory] [name, mandatory] {
+        [code goes in between the braces]
+      }
+    </code></pre>
+    <p>
+      The word "class" is a <i>reserved keyword</i> in Java, whereby the written word is recognized by the JVM and
+      cannot be used in other contexts. The use of the keyword is mandatory when declaring a class, which is followed by
+      the <i>name</i> of the class, a identifier that is unique among other classes within a single <code>.java</code>
+      file, and used when a class must be referenced to in another context within a program.
+    </p>
+    <p>
+      What is not necessarily mandatory (though highly recommended for usage when outside of immediate necessaity) are
+      <i>modifiers</i>, keywords used to alter the functionality of a component within the program, specifically
+      <i>access modifiers</i> and <i>non-access modifiers</i>. The former concerns how, here, a class is percieved and
+      accessed by methods within or outside of a program, called <i>scope</i>; the latter concerns any other modifier
+      that does not intentionally affect scope.
+    </p>
+    <pre><code class="language-java">
+      /**
+      * "public" : Accessible everywhere, so long as a reliable path to the class exists.
+      * "final"  : The class cannot be extended from (otherwise known as inheritance, covered in detail in later webpages).
+      * "class"  : The keyword necessary to declare a class.
+      * "Driver" : The name of the class, written in PascalCase (every word capitalized; spaces eliminated).
+      */
+      public final class Driver {
+        // Code goes here
+      } 
+    </code></pre>
+
+    <h4>Fields and instance variables</h4>
+    <p>
+      A field is some <i>variable</i> that is declared and assigned a value (called <i>initialization</i>), whilst an
+      <i>instance variable</i> is a field declared within a class yet also not in any method defined within the same
+      class.
+    </p>
+    <p>
+      The declaration and initialization of a field is as such (whereas an instance variable is identical, only not
+      declared within a method):
+    </p>
+    <pre><code class="language-plaintext">
+      DECLARATION
+      [access and non-access modifiers, optional] [type of variable, mandatory] [name of variable, mandatory];
+
+      INITIALIZATION 
+      [name of variable] = [value compatible with type of variable];
+    </code></pre>
+    <p>
+      The type of a variable is its corresponding <i>data type</i>, a reserved keyword that specifies how a computer
+      should interpret the data of a value once the field is initialized.
+    </p>
+    <pre><code class="language-java">
+      /**
+      * "private" : Only accessible to methods within a classg
+      * "int"     : An integer value
+      * "numCars" : The name of a class, written in camelCase (first word uncapitalized; following words are; spaces eliminated)
+      */
+      public class Dealership {
+        private int numCars;
+      }
+    </code></pre>
+    <p>
+      As an aside, the particular field represented above is called a <i>private instance variable</i> (PIV), which are
+      common as the <code>private</code> access modifier restricts access to and disallow the modification of instance
+      variables critical to the functioning of a program.
+    </p>
+
+    <h4>Methods</h4>
+    <p>
+      Simply put, a <i>method</i> is code that fulfills some intended purpose upon execution. A <i>concrete method</i>
+      is defined by executable code upon declaration, while an <i>abstract method</i> does not and relies on being
+      defined in classes outside of the class it was declared within.
+    </p>
+    <p>
+      The declaration of a concrete method is divided between its <i>method signature</i> and its <i>parameter list</i>.
+      The former includes potential modifiers, <i>return type</i> (the data type a method can pass to a program,
+      including <code class="language-java">void</code>, which specifies the method does not pass any data), followed by
+      the name of the method. The latter is a comma-separated list that defines the type of variable (called
+      <i>parameters</i>) with a placeholder name. The value of a variable passed into the method is called an
+      <i>argument</i>.
+    </p>
+    <pre><code class="language-plaintext">
+      METHOD SIGNATURE
+      [access and non-access modifiers, optional] [return type, mandatory] [name of method, mandatory]
+
+      PARAMETER LIST 
+      ([type of parameter, mandatory] [name of parameter, mandatory], ...)
+    </code></pre>
+    <p>
+      Put together:
+    </p>
+    <pre><code class="language-java">
+      public void readOutItem(double[] list, int i) {
+        System.out.println(list.get(i));
+      }
+    </code></pre>
+
+    <h4>Constructor</h4>
+    <p>
+      A <i>constructor</i> is a specialized method that allows the class to create instances. Constructors typically
+      take in parameters, whereby each instance variable is then assigned to a corresponding parameter. A constructor
+      has a particular declaration that is recognized by the JVM: the name of the constructor must exactly match that of
+      the class and each parameter in the constructor's parameter list must correspond exactly to each instance
+      variable.
+    </p>
+    <pre><code class="language-java">
+      class Driver {
+        String word;
+        int num;
+
+        Driver(String word, int num) {
+          this.word = word;   // The 'this' keyword can be used if the names of the parameter and instance variable are identical
+          this.num = num;
+        }
+      }
+    </code></pre>
+
+    <h3>An aside on Oak</h3>
+    <p>
+      The direct progenitor of Java was a programming language called <i>Oak</i>. In fact, the major objectives of Oak
+      were eventually transferred to the development of Java, notably: platform-neutrality (which eventually evolved in
+      WORA), full OOP, memory safety, <i>multitheading</i> (permitting concurrent operations) and readability (a simpler
+      syntax than <i>C++</i>). Notably, features that were not retained in the development of Java were more similar to
+      the syntax of C++, which was multi-paradigm.
+    </p>
+    <p>
+      Whilst Oak is a discontinued, experimental language, the <a
+        href="https://javaalmanac.io/jdk/pre1.0/oakspec1993.pdf" target="blank" rel="noopener noreferrer">1933 Oak
+        Specification (PDF)</a> and <a href="https://javaalmanac.io/jdk/pre1.0/oakspec1994.pdf" target="blank"
+        rel="noopener noreferrer"> 1994 Oak Language Specification (PDF)</a> are two major canonical sources of Oak that
+      still exist in their entirety. Both documentations are historically important, as they reveal critical decisions
+      that lead to the development and release of Java in 1995.
+    </p>
+  </main>
+</body>
+
+</html>
