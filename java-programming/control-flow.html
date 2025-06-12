@@ -483,6 +483,47 @@
       }
     </code></pre>
 
+    <h2>Nested statements</h2>
+    <p>
+      <b>Nested statements</b> may concern conditional, iterative and recursive statements that may encompass other
+      statements or be encompassed within the code block of another statement. An <b>outer statement</b> concerns a
+      statement that contains another statement within its code block, the latter being an <b>inner statement</b>.
+      Control dictates that an inner statement may only execute after the execution of an outer statement. When
+      concerning nested iterative statements, the outer statement may only iterate again after the inner statement has
+      exhausted all of its iterations.
+    </p>
+    <p>
+      Due to their layered structure, nested statements may become increasingly unreadable the more statements are
+      added. Thus, nested statements should be avoided whenever practical.
+    </p>
+    <pre><code class="language-java">
+      /**
+      * Nested conditional statements
+      */
+
+      if (/*conditional*/) {
+        if (/*conditional*/) {
+          if (/*conditional*/) {
+            if (/*conditional*/) {
+              // This can get hard to read, especially if the programmer adds other conditional statements
+              // Still, nested conditionals are good for multi-layer, branching scenarios
+            }
+          }
+        }
+      }
+
+      /**
+      * Nested iterative statements
+      */
+
+      for (int i = 0; i < array.length; i++) {
+        for (int j = 0; j < array.length; j++) {
+          // Two iterative statements arranged such as this are common in Java programs
+          // This properly iterates throughout a 2D array (in other words, an n by n matrix in mathematics)
+        }
+      }
+    </code></pre>
+
     <h2>Jump statements</h2>
     <p>
       A <b>jump statement</b> unconditionally and abruptly repositions control flow from one point to another.
