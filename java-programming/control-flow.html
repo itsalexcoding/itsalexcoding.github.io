@@ -16,13 +16,728 @@
   <main>
     <h1>Control Flow</h1>
     <p>
-      <b>Control flow</b> 
+      <b>Control flow</b> concerns the order in which instructions are executed throughout the running of a program.
+      In the majority of programmigng languages, control flow traverses from the topmost line of code to the bottommost
+      line of code and executes each line completely before traversing to the subsequent line of code&mdash; hence,
+      control <em>flow</em>, such as the water of a waterfall spilling over the ledge and falling due to gravity.
+    </p>
+    <p>
+      A <b>control flow statement</b> is a statement (the smallest unit of executable code) alters control
+      flow. In Java, there exist four categories of control flow statements: <b>conditional</b>, <b>iterative</b>,
+      <b>jump</b> and <b>exception handling</b> statements. Each category dictates control flow in a particular manner
+      and reserves keywords for each statement.
+    </p>
+    <table border="1" cellspacing="0" cellpadding="5">
+      <tr>
+        <th>Cateogry</th>
+        <th>Keywords</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td><b>Conditional</b><br>(branching)</td>
+        <td><code>if</code>,<br><code>else</code>,<br><code>else if</code>,<br><code>switch</code></td>
+        <td>Dictate control flow using a <i>conditional</i></td>
+      </tr>
+      <tr>
+        <td><b>Iterative</b><br>(looping)</td>
+        <td><code>while</code>,<br><code>do-while</code><br><code>for</code></td>
+        <td>Repeat the execution of code</td>
+      </tr>
+      <tr>
+        <td><b>Jump</b></td>
+        <td><code>return</code>,<br><code>break</code>,<br><code>continue</code></td>
+        <td>Abruptly and unconditionally dictate control flow</td>
+      </tr>
+      <tr>
+        <td><b>Exceptional handling</b></td>
+        <td><code>try</code>,<br><code>catch</code>,<br><code>finally</code></td>
+        <td>Handle exceptions and errors</td>
+      </tr>
+    </table>
+
+    <h2>Conditional expression</h2>
+    <p>
+      A <b>conditional expression</b> (or simply a <i>conditional</i>) is a mathematical (<code>c = a + b;</code>),
+      logical (<code>(a > c) && (b < c)</code>) or
+      variable (<code>a;</code>) expression that evaluates to a definite, interperable value. In
+      practice, at least one conditional operand is a mutable variable, permitting the expression to evalute to
+      different resultants depending on the value of the mutable operand.
     </p>
 
-    <h2>Conditionals</h2>
     <p>
-       
+      A <b>conditional expression</b> is a boolean expression evaluated by a conditional statement. If the resultant
+      value is <code>true</code>, the conditional statement executes code within its <i>code block</i> (grouped lines of
+      code, typically contained within braces, executed in sequence). Otherwise, the conditional statement does not
+      execute its code block and control flow skips over the statement.
     </p>
+    <p>
+      If a conditional expression includes a NOT operator (<code>!</code>) such that the resultant values are opposite,
+      then the conditional statement only executes if the conditional does not evalute to <code>true</code>.
+    </p>
+
+    <h2>Conditional statements</h2>
+    <p>
+      A <b>conditional statement</b> uses the resultant value of its conditional to dictate whether or not it executes,
+      thereby affecting control flow. If the conditional causes the statement to execute, it has <i>satisfied</i> the
+      statement. In Java, there are four keywords reserved for conditional statements:
+      <code>if</code, <code>else</code>>, <code>else if</code and <code>switch</code>>.
+    </p>
+
+    <h3>if statement</h3>
+    <p>
+      The <code>if</code> statement executes code if the conditional is satisfied. Otherwise, the statement skips over
+      its code block.
+    </p>
+    <pre><code class="language">
+      /**
+      * Calculates the depreciated value of a car after a given number of years.
+      *
+      * If a car is priced at $50,000 or more, a simple depreciation rate of 22% per year is applied.
+      * Otherwise, the statement does not execute at all.
+      */
+
+      public double depreciation(double price, int numYrs) {
+        double depRate = 0.0d;
+        if (price &gt;= 50000) {
+          depRate = 0.15d;
+        }
+        price = price - (numYrs * (depRate * price));
+        return price;
+      }
+    </code></pre>
+
+    <h3>else statement</h3>
+    <p>
+      The <code>else</code> statement is written immediately after an <code>if</code> statement to execute code if the
+      conditional is disatisfied.
+    </p>
+    <pre><code class="language-java">
+      /**
+      * Calculates the depreciated value of a car after a given number of years.
+      *
+      * If a car is priced at $50,000 or more, a simple depreciation rate of 22% per year is applied.
+      * Otherwise, a simple depreciation rate of 16% per year is applied.
+      */
+
+      public double depreciation(double price, int numYrs) {
+        double depRate = 0.0d;
+        if (price &gt;= 50000) {
+          depRate = 0.22d;
+        } else {
+          depRate = 0.16d;
+        }
+        price = price - (numYrs * (depRate * price));
+        return price;
+      }
+    </code></pre>
+
+    <h3>if else statement</h3>
+    <p>
+      An <code>if else</code> statement is written immediately after an <code>if</code> statement or a prior
+      <code>if else</code> statement, whereby its conditional is evaluted after a previous conditional. If an
+      <code>else</code> statement is unavailable, then the conditional of the last <code>if else</code> statement is
+      evaluated. If the conditional is satisfied, then its code is executed. Otherwise, no code of the current statement
+      or any prior conditional statement is executed.
+    </p>
+    <pre><code class="language-java">
+      /**
+      * Calculates the depreciated value of a car after a given number of years.
+      *
+      * If a car is priced at $50,000 or more, a simple depreciation rate of 22% per year is applied.
+      * If a car is priced at $30,000 or more (and less than $50,000), a rate of 16% is applied.
+      * If a car is priced at $20,000 or more (and less than $30,000), a rate of 12.5% is applied.
+      * If a car is priced less than $20,000, a rate of 10% is applied.
+      */
+      
+      public double depreciation(double price, int numYrs) {
+        double depRate = 0.0d;
+        if (price &gt;= 50000) {
+          depRate = 0.22d;
+        } else if (price &gt;= 30000) {
+          depRate = 0.16d;
+        } else if (price &gt;= 20000) {
+          depRate = 0.125d;
+        } else {
+          depRate = 0.1d;
+        }
+        price = price - (numYrs * (depRate * price));
+        return price;
+      }
+    </code></pre>
+    <p>
+      As a note: Comparison operations via <code>else if</code> statements should be efficiently utilized. For example:
+      Given a car with a price of $15,000, the following list provides a logical guide concerning how conditional
+      sentences operate in relation with one another.
+    </p>
+    <ol>
+      <li>
+        The first conditional evalutes to <code>false</code>; logically, the car cannot be $50,000 (or more); control
+        flow skips the current statement.
+      </li>
+      <li>
+        The second conditional evalutes to <code>false</code>; now, the car cannot be $30,000 (or more); control flow
+        skips the current statement.
+      </li>
+      <li>
+        The third conditional evalutes to <code>false</code>; control flow skips the current statement.
+      </li>
+      <li>
+        As an <code>else</code> statement follows the current statement (which is disatisfied), the <code>else</code>
+        statement executes.
+      </li>
+    </ol>
+    <p>
+      Had the conditionals determined if <code>price</code> was <em>lesser than</em> a value, <em>every</em> conditional
+      would evalutes to <code>true</code> and each statement would execute in order.
+    </p>
+    <p>
+      If each conditional explicitly determined if <code>price</code> was lesser than <em>and</em> greater than a value,
+      the statements would function as intended, though each statement would be <i>less readable</i> (as a programmer
+      would must then account for two comparison operators per conditional) and be <i>less efficient</i> (as the JVM
+      must then evalute two operations per conditional).
+    </p>
+
+    <h2>Switch statements and expressions</h2>
+    <p>
+      A <b>switch</b> is a branched control flow structure that compares a condition to a constant value associated with
+      each branch. The switch is passed a condition called a <i>switch expression</i>, whilst each branch, or <i>case
+        label</i>, is provided with a constant called a <i>case constant expression</i>. When the former evalutes
+      against the latter, the process functionally forms a conditional expression. If the resultant value is
+      <code>true</code>, the code in the code block executes. Otherwise, control flow skips over the switch statement.
+    </p>
+    <p>
+      The switch expression and each case label cannot incorporate comparison operators, as the latter would evalute to
+      a boolean value, of which the former only has two operations available, resulting in an impractical
+      implementation. However, the switch expression and a case constant expression may incorporate arithmetic
+      operators.
+    </p>
+    <p>
+      Each case label must conclude with a <code>break</code> statement to prevent <i>fallthrough</i>. Additionally, the
+      <i>default case label</i> determines that a case label executes if all prior case labels evaluated to
+      <code>false</code>. The default case label is indicated using the keyword <code>default</code> and does not
+      require a break statement;
+    </p>
+
+    <pre><code class="language-java">
+      /**
+      * Provides an emotion given a number
+      *
+      * If the number is 1, the emotion is "happy"
+      * If the number is 2, the emotion is "sad"
+      * If the number is 3, the emotion is "angry"
+      * If no number is provided, the emotion is "blank"
+      */
+
+      int number = (int)(Math.random() * 3) + 1;  // Random number from 1 to 3 (inclusive)
+      switch (number) {
+        case 1:
+          System.out.println("Happy");
+          break;
+        case 2:
+          System.out.println("Sad");
+          break;
+        case 3:
+          System.out.println("Angry");
+          break;
+        default:
+          System.out.println("Blank");
+      }
+    </code></pre>
+
+    <h3>Switch expression</h3>
+    <p>
+      A <b>switch expression</b> is a switch that primarily <em>computes and returns values</em>. Resultant values are
+      indicated by an <i>arrow label</i>. If a case label must execute code prior to returning a value, the resultant
+      value is instead returned by a <i>yield statement</i> (which replaces the break statement).
+    </p>
+
+    <pre><code class="language-java">
+      /**
+      * Returns an emotion.
+      *
+      * If the number is 1, the emotion is "Happy"
+      * If the number is 2, the emotion is "Sad"
+      * If the number is 3, the emotion is "Angry"
+      * If no number is provided, the emotion is "Blank"
+      */
+
+      String emotion = "";
+      int number = (int)(Math.random() * 3) + 1;
+      switch (number) {
+        case 1 -> emotion = "Happy";
+        case 2 -> emotion = "Sad";
+        case 3 -> emotion = "Angry";
+        default -> emotion = "Blank";
+      }
+    </code></pre>
+
+    <pre><code class="language-java">
+      /**
+      * Returns an emotion.
+      *
+      * If the number is 1, the emotion is "Happy"
+      * If the number is 2, the emotion is "Sad"
+      * If the number is 3, the emotion is "Angry"
+      * If no number is provided, the emotion is "Blank"
+      */
+
+      String emotion = "";
+      int number = (int)(Math.random() * 3) + 1;
+      String emotion = switch (number) {
+        case 1:
+          System.out.println(number);
+          yield "Happy";
+        case 2:
+          System.out.println(number);
+          yield "Sad";
+        case 3:
+          System.out.println(number);
+          yield "Angry";
+        default:
+          System.out.println(number);
+          yeild "Blank";
+      }
+    </code></pre>
+
+    <h2>Iterative statements</h2>
+    <p>
+      An <b>iterative statement</b> (commonly called a <b>loop</b>) repeatedly executes code so long as its conditional
+      expression is satisfied. The conditional of an iterative statement must contain a variable, called a <b>control
+        variable</b>, whereby its value is inevitably modified such that the conditional is disatisfied and the process
+      terminates. Otherwise, the iterative statement will iterate indefinitely, continually consuming computer resources
+      until the program or the computer crashes.
+    </p>
+
+    <h3>While statement</h3>
+    <p>
+      A <b>while statement</b> iterates indefinitely until its conditional is disatisfied.
+    </p>
+    <pre><code class="language-java">
+      /**
+      * Counts from 1 to 10
+      *
+      * The control variable 'n' starts at 1
+      * Per iteration, the value of 'n' is printed and increments by 1.
+      * The conditional repeats the process so long as 'n' is lesser than or equal to 10
+      * Once 'n' with a value of 10 is incremented again, the conditional is disatisfied and the statement is terminated.
+      */
+      
+      int n = 1;
+      while (n &lt;= 10) {
+        System.out.println(n);
+        n++;
+      }
+    </code></pre>
+
+    <h3>Do-while statement</h3>
+    <p>
+      A <b>do-while statement</b> iterates once regardless of the satisfaction of its conditional. The code is written
+      in a code block indicated by the <code>do</code> keyword, whilst the conditional of the <code>while</code>
+      statement is separately defined after the code block.
+    </p>
+
+    <pre><code class="language-java">
+      /**
+      * Simulates an option window on an ATM, asking the user if they wish to deposit.
+      *
+      * The window is shown to the user.
+      * If the user declines, the window closes.
+      * Otherwise, the ATM permits the user to withdraw and opens the window again.
+      * This process repeats until the user declines.
+      */
+
+      Deposit desposit = new Deposit();
+      boolean selection = false;
+      do {
+        System.out.println("Do you wish to deposit? If so, specify the amount you wish to despite.");
+        desposit.selection(selection);
+      } while (selection = true);
+    </code></pre>
+
+    <h3>For statement</h3>
+    <p>
+      A properly written <b>for statement</b> executes for a defined number of iterations. Its conditional specifies
+      what value the control variable starts at, defines for what conditions the statements iterates and updates the
+      control variable.
+    </p>
+
+    <pre><code class="language-java">
+      /**
+      * Counts from 1 to 10
+      *
+      * The control variable 'i' is declared and initialized with the value 1.
+      * The for statement iterates for as long as 'i' is lesser than or equal to 10.
+      * 'i' is incremented by 1 per iteration.
+      */
+      
+      for(int i = 1; i &lt;= 10; i++) {
+        System.out.println(i);
+      }
+    </code></pre>
+
+    <h3>For-each statement</h3>
+    <p>
+      A <b>for-each statement</b>, or a <b>enhanced for loop</b>, is a variation of the <code>for</code> statement
+      exclusively compatible with <i>arrays</i> (simply put, a list) and all <i>collections</i> that implement
+      <code>Iterable</code> (simply put, container objects that group things together).
+    </p>
+    <p>
+      The statement always starts at the first item in the object and iterates over each. The statement is reliable and
+      readable, eliminating <i>out-of-bound errors</i> (occurs when an iterative statement iterates over a position that
+      cannot exist, such as the negative second item).
+    </p>
+    <pre><code class="language-java">
+      /**
+      * Counts from 1 to 10
+      *
+      * 'i' starts at the first item, which is '1' and iterates until the last element, which is '10'
+      */
+
+      int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+      for (i : array) {
+        System.out.println(i);
+      }
+    </code></pre>
+
+    <h2>Nested conditional and iterative statements</h2>
+    <p>
+      <b>Nested statements</b> concern one statement (<i>inner statement</i>) contained within an encompassing statement
+      (<i>outer statement</i>), whereby the evalutation of the conditional of the former is dictated by the conditional
+      of the latter.
+    </p>
+
+    <pre><code class="language-java">
+      /**
+      * The conditional of the inner statement is only evaluted if the conditional of the outer statement is satisfied
+      */
+      
+      int a = 1;
+      int b = 2;
+
+      if (a == 1) {   
+        if (b == a) {
+          System.out.println(a + "\t" + b);
+        }
+      }
+    </code></pre>
+    <pre><code class="language-java">
+      /**
+      * Per iteration of the outer statement, the inner statement iterates until its conditional is disatisfied.
+      */
+      
+      for(int i = 1; i &lt;= 10; i++) {  
+        for(int j = 1; j &lt;=10; j++) {
+          System.out.println(i + "\t" + j);
+        }
+      }
+    </code></pre>
+
+    <h2>Recursion</h2>
+    <p>
+      <b>Recursion</b> concerns a method that invokes itself within its code block, either explicitly or indirectly.
+      The <b>base case</b> of a recursive method concerns the circumstances required for further execution to be
+      logically impossible and terminates the method. A <b>recursive case</b> practically concerns any case other than
+      the base case, whereby recursion occurs.
+    </p>
+    <pre><code class="language-java">
+      /**
+      * Calculates the factorial of an integer:
+      * n! = n * (n - 1)
+      * 
+      * Base case:       n &lt;= 1
+      * Recursive case:  multiplies 'n' by factorial(n - 1)
+      */
+      static int factorial(int n) {
+        if (n <= 1) {
+          return 1;
+        }
+        return n * factorial(n - 1);
+      }
+    </code></pre>
+    <pre><code class="language-java">
+      /**
+      * Determines whether an integer is even or odd.
+      *
+      * == isEven(...) ==
+      * Base case:       n = 0
+      * Recursive case:  isOdd(n - 1)
+      *
+      * == isOdd(...) ==
+      * Base case:       n = 0
+      * Recursive case:  isEven(n - 1)
+      */
+
+      static boolean isEven(int n) {
+        if (n == 0) {
+          return true;
+        }
+        return isOdd(n - 1);
+      }
+
+      static boolean isOdd(int n) {
+        if (n == 0) {
+          return false;
+        }
+        return isEven(n - 1);
+      }
+    </code></pre>
+
+    <h2>Jump statements</h2>
+    <p>
+      A <b>jump statement</b> unconditionally and abruptly repositions control flow from one point to another.
+    </p>
+
+    <h3>Return statement</h3>
+    <p>
+      The <b>return statement</b> exits from and returns the resultant value of a method, if one exists.
+    </p>
+    <pre><code class="language-java">
+      /**
+      * Returns the value of three methods:
+      * - Returns an int value
+      * - Is a void method
+      * - Contains an iterative statement
+      *
+      * The first method returns an int value and terminates.
+      * The second method does not return any value and terminates.
+      * The iterative statement returns an int value and exits the loop, also terminating the method.
+      */
+
+      int square(x) {
+        return x * x;
+      }
+
+      void greet(String name) {
+        if (name == null) {
+          System.out.println("No name provided.");
+          return;  // No name found
+        }
+        System.out.println("Hello, " + name + "!");
+      }
+
+      int findFirstPositive(int[] numbers) {
+        for (int n : numbers) {
+          if (n > 0) {
+            return n;  // Entire method stops here with the first positive number
+          }
+        }
+        return -1;  // No positive numbers
+      }
+    </code></pre>
+
+    <h3>Break statement</h3>
+    <p>
+      A <b>break statement</b> exits the current code block and terminates statements before directing control flow to
+      the nearest code block.
+    </p>
+    <pre><code class="language-java">
+      /**
+      * Counts from 0 to 10, though stops at 5.
+      */
+      
+      for (int i = 1; i &lt;= 10; i++) {
+        if (i == 6) {
+          break;
+        }
+        System.out.println(i);  // 'i' is still printed after the break statement
+      }
+    </code></pre>
+
+    <p>
+      The <code>break</code> statement may be labelled, called a <b>break label</b>. Given labelled code blocks, the
+      <code>break label</code> specifies to which control flow is directed.
+    </p>
+    <pre><code class="language-java">
+      /**
+      * Returns value of 'i' and 'j' whose product is greater than 6.
+      *
+      * The outside loop is labelled 'outerLoop'
+      * The inner loop is labelled 'innerLoop'
+      * 'break outerLoop;' directs control flow to the code block labelled 'outerLoop'
+      */
+
+      outerLoop: // A label
+      for (int i = 0; i < 5; i++) {
+        innerLoop:
+        for (int j = 0; j < 5; j++) {
+          if (i * j > 6) {
+            break outerLoop;  // Break out of both loops
+          }
+          System.out.println("i=" + i + ", j=" + j);
+        }
+      }
+      System.out.println("Done.");
+    </code></pre>
+
+    <h3>Continue statement</h3>
+    <p>
+      The <b>continue statement</b> is used exclusively in iterative statements, whereby it terminates the
+      <em>current</em> iteration and returns to the conditional of the statement.
+    </p>
+    <pre><code class="language-java">
+      /**
+      * Counts from 1 to 10, though skips number 6.
+      */
+
+      for (int i = 1; i &lt;= 10; i++) {
+        if (i == 6){
+          System.out.println();
+          continue;
+        }
+        System.out.println(i);
+      }
+    </code></pre>
+
+    <h2>Exception handling statements</h2>
+    <p>
+      An <i>exception handling statement</i> identifies and may respond to potential exceptions that are likely to occur
+      in risky code.
+    </p>
+
+    <h3>Try statement</h3>
+    <p>
+      A <b>try statement</b> often comprises of three code blocks, each indicated by the keywords: <code>try</code>,
+      <code>catch</code> and <code>finally</code> (though may comprise of <code>try</code> and either <code>catch</code>
+      <em>or</em> <code>finally</code>).
+    </p>
+    <ul>
+      <li><code>try</code>: Executes code that may throw an exception.</li>
+      <li><code>catch</code>: Executes code upon detecting a specified exception, with one parameter the type of the
+        specified exception.</li>
+      <li><code>finally</code>: Unconditionally executes cleanup code.</li>
+    </ul>
+    <p>
+      Since Java SE 7, a catch code block may handle more than one type of exception, separated by a vertical bar, given
+      that no exception hierarchically encompasses another. Once thrown an exception, the <code>catch</code> parameter
+      is effectively <code>final</code> and cannot be assigned a new exception. Otherwise, the parameter
+      refers to would be ambigious, breaking type safety.
+    </p>
+    <pre><code class="language-java">
+      /**
+      * - Opens and reads the first line of a file
+      * - Responds if an IOException occurs when opening or reading the file
+      * - Attempts to close the rile and responds if an IOException occurs.
+      */
+
+      BufferedReader reader = null;
+      try {
+        reader = new BufferedReader(new FileReader("data.txt"));
+        String line = reader.readLine();
+        System.out.println("First line: " + line);
+      } catch (IOException e) {
+        System.out.println("Failed to read file.");
+      } finally {
+        if (reader != null) {
+          try {
+            reader.close();
+            System.out.println("File closed.");
+          } catch (IOException e) {
+            System.out.println("Failed to close file.");
+          }
+        }
+      }
+    </code></pre>
+
+    <h3>Throw statement</h3>
+    <p>
+      A <b>throw</b> statement explicitly throws an exception. As it does so, control is immediately directed to the
+      nearest <code>try</code> statement to determine if it has a catch block with a matching exception. If so, the
+      <code>try</code> statement executes. Otherwise, the program halts.
+    </p>
+    <pre><code class="language-java">
+      /**
+      * == example() ==
+      * - try code block throws NullPointerException
+      * - catch code block catches and throws NullPointerException 'e'
+      * - prints message
+      *
+      * == main() ==
+      * - try statement catches NullPointerException 'e'
+      * - prints message
+      */
+
+      public static void example()
+      try {
+        throw NullPointerException("example");
+      } catch (NullPointerException e) {
+        System.out.println("Caught in example()");
+        throw e;
+      }
+
+      public static void main(String[] args) {
+        try {
+          example();
+        } catch (NullPointerException) {
+          System.out.println("Caught in main()");
+        }
+      }
+    </code></pre>
+
+    <h3>Throws statement</h3>
+    <p>
+      The <b>throws</b> statement is written within the method signature to indicate that the method may throw an
+      exception and must be invoked within a <code>try</code> statement with a <code>catch</code> code block correlating
+      to the exception possibly thrown by the invoked method.
+    </p>
+
+    <pre><code class="language-java">
+      /**
+      * == example() throws NullPointerException ==
+      * - prints message;
+      * - throws NullPointerException
+      *
+      * == main() ==
+      * invokes example()
+      * catches NullPointerException 'e'
+      */
+
+      public static void example() {
+        System.out.println("example() throws");
+        throw NullPointerException("example");
+      }
+
+      public static void main(String[] args) {
+        try {
+          example();
+        } catch (NullPointerException e) {
+          System.out.println("example() threw in main()");
+        }
+      }
+    </code></pre>
+
+    <h3>Try-with-resources</h3>
+    <p>
+      The <code>finally</code> code block was prone to <i>resource leaks</i> if a variety of programming semantics were
+      not accounted for and followed. Inadvertently skipping, reassigning, shadowing, overwriting or forgetting to
+      properly close resources and handle caught errors are all issues programmers must account for to prevent resources
+      leaks.
+    </p>
+    <p>
+      Introduced in Java SE 7, the <b>try-with-resources</b> statement eliminates this issue by automatically closing
+      all resources and preventing conflicts (such as assigning a resource variable to null) that would result in
+      resource leaks.
+    </p>
+    <pre><code class="language-java">
+      import java.io.FileInputStream;
+      import java.io.IOException;
+
+      public class TryWithResourcesDemo {
+        public static void main(String[] args) {
+          try (FileInputStream fis = new FileInputStream("input.txt")) {
+            int data = fis.read();
+            while (data != -1) {
+              System.out.print((char) data);
+              data = fis.read();
+            }
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+          // The resource variable "fis" is automatically closed 
+          // Any potentially exceptional cases are automatically handled by the JVM
+        }
+      }
+    </code></pre>
   </main>
 </body>
 
